@@ -10,6 +10,22 @@ uniform vec2 origin_uv = vec2(0.5, 1.0);
 
 uniform float line_width : hint_range(1.0, 8.0, 1.0) = 1.0;
 
+// grid
+uniform bool show_grid = true;
+
+uniform vec4 grid_color : source_color =
+    vec4(0.102, 0.145, 0.188, 1.0); // #1a2530
+
+// Cell width and height, in pixels.
+uniform vec2 grid_cell_size = vec2(8.0, 8.0);
+
+// Offset grid origin in pixels.
+uniform vec2 grid_offset = vec2(0.0, 0.0);
+
+uniform float grid_line_width :
+    hint_range(1.0, 8.0, 1.0) = 1.0;
+
+
 // Radial
 uniform bool show_radial = true;
 uniform int radial_divisions : hint_range(2, 64) = 16;
@@ -54,6 +70,41 @@ void fragment() {
 
     float radius = length(delta);
     float angle = atan(delta.y, delta.x);
+
+    float grid_mask = 0.0;
+
+    if (show_grid) {
+        vec2 cell_size = max(
+            grid_cell_size,
+            vec2(1.0)
+        );
+
+        // Subtract 0.5 to align grid lines with
+        // logical pixel centers at integer offsets.
+        vec2 grid_pos = pixel - grid_offset - vec2(0.5);
+
+        float gx = stripe(
+            grid_pos.x,
+            cell_size.x,
+            grid_line_width
+        );
+
+        float gy = stripe(
+            grid_pos.y,
+            cell_size.y,
+            grid_line_width
+        );
+
+        // Combine horizontal and vertical lines.
+        grid_mask = max(gx, gy);
+    }
+
+    // Start with the background + grid.
+    vec4 base_color = mix(
+        background_color,
+        grid_color,
+        grid_mask
+    );
 
     float mask = 0.0;
 
@@ -131,7 +182,7 @@ void fragment() {
         );
 
         mask = max(mask, verticals);
-}
+    }
 
-    COLOR = mix(background_color, line_color, mask);
+    COLOR = mix(base_color, line_color, mask);
 }

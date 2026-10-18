@@ -6,6 +6,14 @@ var module_name := "Module"
 var input_ports: Dictionary = {}
 var output_ports: Dictionary = {}
 var input_data: Dictionary = {}
+@export var always_powered := false
+
+var visual: ModuleVisual
+
+
+func _ready() -> void:
+    visual = get_parent() as ModuleVisual
+    _refresh_visual_power()
 
 
 func add_input_port(port_name: StringName) -> ModulePort:
@@ -53,6 +61,7 @@ func _on_input_data_received(
     port_name: StringName
 ) -> void:
     input_data[port_name] = data.duplicate(true)
+    _refresh_visual_power()
     process_input(port_name, input_data[port_name])
 
 
@@ -62,3 +71,18 @@ func _on_input_connection_changed(
 ) -> void:
     if other_port == null:
         input_data.erase(port_name)
+        _refresh_visual_power()
+
+
+func _refresh_visual_power() -> void:
+    if visual == null:
+        return
+    
+    var has_power := always_powered
+    
+    for data: Dictionary in input_data.values():
+        if data.get("power", false):
+            has_power = true
+            break
+    
+    visual.set_powered(has_power)

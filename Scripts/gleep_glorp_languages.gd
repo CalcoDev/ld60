@@ -16,8 +16,8 @@ const SYLLABLES = [
     "mi", "sa", "to",
     "an", "ko",
     "en", "gage",
-    "go", "jo",
     "tu", "dy",
+    "go", "jo",
     "cal", "co"
 ]
 

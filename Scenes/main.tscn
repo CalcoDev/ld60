@@ -1,26 +1,26 @@
 [gd_scene format=3 uid="uid://bo107ql3ce1m"]
 
 [ext_resource type="Shader" uid="uid://csbs3q5jbq6rw" path="res://Resources/Shaders/cutting_mat_background.gdshader" id="1_bo1nx"]
-[ext_resource type="Texture2D" uid="uid://c15xobtabem7e" path="res://Assets/sample_box.png" id="2_8gbba"]
 [ext_resource type="Shader" uid="uid://cthaoclnf05c7" path="res://Resources/Shaders/module_dynamic_outline.gdshader" id="2_jjvhh"]
 [ext_resource type="Script" uid="uid://d1vdo6si1mh7s" path="res://Scripts/dynamic_shadow_position_updater.gd" id="4_jjvhh"]
-[ext_resource type="Texture2D" uid="uid://bddimxsg2xpuk" path="res://Assets/Modules/module_manual.png" id="5_ynf5e"]
-[ext_resource type="Texture2D" uid="uid://e080ybc6pt8o" path="res://Assets/Modules/module_decoder.png" id="6_hptm8"]
-[ext_resource type="Texture2D" uid="uid://djrkgsy6qie8q" path="res://Assets/Modules/module_rotator.png" id="7_d1ilt"]
-[ext_resource type="Texture2D" uid="uid://cr2p7u0tqv8gv" path="res://Assets/Modules/module_comms_out.png" id="8_6iyac"]
-[ext_resource type="Texture2D" uid="uid://c2uoc4txwnxn7" path="res://Assets/Modules/module_comms_in.png" id="9_fdnlq"]
-[ext_resource type="Texture2D" uid="uid://c65itqlms88oa" path="res://Assets/Modules/module_translator.png" id="10_d1ilt"]
-[ext_resource type="Texture2D" uid="uid://g2janscogffp" path="res://Assets/Modules/module_tap_tap_tap.png" id="11_6iyac"]
 [ext_resource type="Texture2D" uid="uid://cdh85sst2dc0b" path="res://Assets/Modules/module_thrusters.png" id="11_fdnlq"]
 [ext_resource type="Script" uid="uid://4t27ox05m7c5" path="res://Scripts/Modules/demo_test.gd" id="13_fdnlq"]
+[ext_resource type="Texture2D" uid="uid://b68pbgl5kolic" path="res://Assets/Modules/module_main_screen.png" id="14_screen"]
+[ext_resource type="Script" uid="uid://c3mwfgeqc3a7a" path="res://Scripts/Modules/Inst/main_screen_module.gd" id="15_screen_logic"]
+[ext_resource type="Script" uid="uid://bpk77tluq0s4w" path="res://Scripts/Modules/Inst/thruster_module.gd" id="16_thruster_logic"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rfxvn"]
 shader = ExtResource("1_bo1nx")
-shader_parameter/background_color = Color(0.03529412, 0.039215688, 0.078431375, 1)
-shader_parameter/line_color = Color(0.0627451, 0.078431375, 0.12156863, 1)
+shader_parameter/background_color = Color(0.0627451, 0.078431375, 0.12156863, 1)
+shader_parameter/line_color = Color(0.10320944, 0.12419767, 0.1818873, 1)
 shader_parameter/rect_size = Vector2(488.235, 320)
 shader_parameter/origin_uv = Vector2(0.5, 1)
 shader_parameter/line_width = 1.0
+shader_parameter/show_grid = true
+shader_parameter/grid_color = Color(0.0283448, 0.050120167, 0.07292878, 1)
+shader_parameter/grid_cell_size = Vector2(8, 8)
+shader_parameter/grid_offset = Vector2(0, 0)
+shader_parameter/grid_line_width = 1.0
 shader_parameter/show_radial = true
 shader_parameter/radial_divisions = 11
 shader_parameter/show_parallel = true
@@ -34,8 +34,11 @@ shader_parameter/vertical_spacing = 32.0
 shader_parameter/vertical_speed = 4.000009690000013
 shader_parameter/vertical_outward = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fdnlq"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_344ge"]
 shader = ExtResource("2_jjvhh")
+shader_parameter/drag_grab_uv = Vector2(0.5, 0.5)
+shader_parameter/drag_skew = Vector2(0, 0)
+shader_parameter/drag_perspective = Vector2(0, 0)
 shader_parameter/shadow_near = Color(0.08235, 0.11373, 0.15686, 1)
 shader_parameter/shadow_middle = Color(0.06275, 0.07843, 0.12157, 1)
 shader_parameter/shadow_outer = Color(0, 0, 0, 1)
@@ -48,15 +51,18 @@ shader_parameter/max_shadow_x = 5
 shader_parameter/min_shadow_y = 2
 shader_parameter/max_shadow_y = 5
 shader_parameter/horizontal_outward = true
-shader_parameter/screen_center_uv = Vector2(0.8539063, 0.9578125)
-shader_parameter/object_size_uv = Vector2(0.2671875, 0.253125)
+shader_parameter/screen_center_uv = Vector2(0.796875, 0.24444444)
+shader_parameter/object_size_uv = Vector2(0.378125, 0.43888888)
 shader_parameter/alpha_threshold = 0.1
 shader_parameter/noise_amount = 1.0
 shader_parameter/noise_scale = 0.26100001169898
 shader_parameter/shadow_opacity = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jkdf5"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ynf5e"]
 shader = ExtResource("2_jjvhh")
+shader_parameter/drag_grab_uv = Vector2(0.5, 0.5)
+shader_parameter/drag_skew = Vector2(0, 0)
+shader_parameter/drag_perspective = Vector2(0, 0)
 shader_parameter/shadow_near = Color(0.08235, 0.11373, 0.15686, 1)
 shader_parameter/shadow_middle = Color(0.06275, 0.07843, 0.12157, 1)
 shader_parameter/shadow_outer = Color(0, 0, 0, 1)
@@ -69,155 +75,8 @@ shader_parameter/max_shadow_x = 5
 shader_parameter/min_shadow_y = 2
 shader_parameter/max_shadow_y = 5
 shader_parameter/horizontal_outward = true
-shader_parameter/screen_center_uv = Vector2(0.11171875, 0.846875)
-shader_parameter/object_size_uv = Vector2(0.2203125, 0.525)
-shader_parameter/alpha_threshold = 0.1
-shader_parameter/noise_amount = 1.0
-shader_parameter/noise_scale = 0.26100001169898
-shader_parameter/shadow_opacity = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wsu2k"]
-shader = ExtResource("2_jjvhh")
-shader_parameter/shadow_near = Color(0.08235, 0.11373, 0.15686, 1)
-shader_parameter/shadow_middle = Color(0.06275, 0.07843, 0.12157, 1)
-shader_parameter/shadow_outer = Color(0, 0, 0, 1)
-shader_parameter/outline_color = Color(0, 0, 0, 1)
-shader_parameter/enable_outline = true
-shader_parameter/outline_diagonals = true
-shader_parameter/enable_shadow = true
-shader_parameter/min_shadow_x = 0
-shader_parameter/max_shadow_x = 5
-shader_parameter/min_shadow_y = 2
-shader_parameter/max_shadow_y = 5
-shader_parameter/horizontal_outward = true
-shader_parameter/screen_center_uv = Vector2(0.2796875, 0.9390625)
-shader_parameter/object_size_uv = Vector2(0.184375, 0.365625)
-shader_parameter/alpha_threshold = 0.1
-shader_parameter/noise_amount = 1.0
-shader_parameter/noise_scale = 0.26100001169898
-shader_parameter/shadow_opacity = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_k12tt"]
-shader = ExtResource("2_jjvhh")
-shader_parameter/shadow_near = Color(0.08235, 0.11373, 0.15686, 1)
-shader_parameter/shadow_middle = Color(0.06275, 0.07843, 0.12157, 1)
-shader_parameter/shadow_outer = Color(0, 0, 0, 1)
-shader_parameter/outline_color = Color(0, 0, 0, 1)
-shader_parameter/enable_outline = true
-shader_parameter/outline_diagonals = true
-shader_parameter/enable_shadow = true
-shader_parameter/min_shadow_x = 0
-shader_parameter/max_shadow_x = 5
-shader_parameter/min_shadow_y = 2
-shader_parameter/max_shadow_y = 5
-shader_parameter/horizontal_outward = true
-shader_parameter/screen_center_uv = Vector2(0.43203124, 0.909375)
-shader_parameter/object_size_uv = Vector2(0.1546875, 0.31875)
-shader_parameter/alpha_threshold = 0.1
-shader_parameter/noise_amount = 1.0
-shader_parameter/noise_scale = 0.26100001169898
-shader_parameter/shadow_opacity = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_h1bgf"]
-shader = ExtResource("2_jjvhh")
-shader_parameter/shadow_near = Color(0.08235, 0.11373, 0.15686, 1)
-shader_parameter/shadow_middle = Color(0.06275, 0.07843, 0.12157, 1)
-shader_parameter/shadow_outer = Color(0, 0, 0, 1)
-shader_parameter/outline_color = Color(0, 0, 0, 1)
-shader_parameter/enable_outline = true
-shader_parameter/outline_diagonals = true
-shader_parameter/enable_shadow = true
-shader_parameter/min_shadow_x = 0
-shader_parameter/max_shadow_x = 5
-shader_parameter/min_shadow_y = 2
-shader_parameter/max_shadow_y = 5
-shader_parameter/horizontal_outward = true
-shader_parameter/screen_center_uv = Vector2(0.559375, 0.940625)
-shader_parameter/object_size_uv = Vector2(0.096875, 0.2375)
-shader_parameter/alpha_threshold = 0.1
-shader_parameter/noise_amount = 1.0
-shader_parameter/noise_scale = 0.26100001169898
-shader_parameter/shadow_opacity = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_b3802"]
-shader = ExtResource("2_jjvhh")
-shader_parameter/shadow_near = Color(0.08235, 0.11373, 0.15686, 1)
-shader_parameter/shadow_middle = Color(0.06275, 0.07843, 0.12157, 1)
-shader_parameter/shadow_outer = Color(0, 0, 0, 1)
-shader_parameter/outline_color = Color(0, 0, 0, 1)
-shader_parameter/enable_outline = true
-shader_parameter/outline_diagonals = true
-shader_parameter/enable_shadow = true
-shader_parameter/min_shadow_x = 0
-shader_parameter/max_shadow_x = 5
-shader_parameter/min_shadow_y = 2
-shader_parameter/max_shadow_y = 5
-shader_parameter/horizontal_outward = true
-shader_parameter/screen_center_uv = Vector2(0.16953126, 0.3859375)
-shader_parameter/object_size_uv = Vector2(0.2609375, 0.378125)
-shader_parameter/alpha_threshold = 0.1
-shader_parameter/noise_amount = 1.0
-shader_parameter/noise_scale = 0.26100001169898
-shader_parameter/shadow_opacity = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fevyy"]
-shader = ExtResource("2_jjvhh")
-shader_parameter/shadow_near = Color(0.08235, 0.11373, 0.15686, 1)
-shader_parameter/shadow_middle = Color(0.06275, 0.07843, 0.12157, 1)
-shader_parameter/shadow_outer = Color(0, 0, 0, 1)
-shader_parameter/outline_color = Color(0, 0, 0, 1)
-shader_parameter/enable_outline = true
-shader_parameter/outline_diagonals = true
-shader_parameter/enable_shadow = true
-shader_parameter/min_shadow_x = 0
-shader_parameter/max_shadow_x = 5
-shader_parameter/min_shadow_y = 2
-shader_parameter/max_shadow_y = 5
-shader_parameter/horizontal_outward = true
-shader_parameter/screen_center_uv = Vector2(0.4578125, 0.5171875)
-shader_parameter/object_size_uv = Vector2(0.315625, 0.396875)
-shader_parameter/alpha_threshold = 0.1
-shader_parameter/noise_amount = 1.0
-shader_parameter/noise_scale = 0.26100001169898
-shader_parameter/shadow_opacity = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hibaj"]
-shader = ExtResource("2_jjvhh")
-shader_parameter/shadow_near = Color(0.08235, 0.11373, 0.15686, 1)
-shader_parameter/shadow_middle = Color(0.06275, 0.07843, 0.12157, 1)
-shader_parameter/shadow_outer = Color(0, 0, 0, 1)
-shader_parameter/outline_color = Color(0, 0, 0, 1)
-shader_parameter/enable_outline = true
-shader_parameter/outline_diagonals = true
-shader_parameter/enable_shadow = true
-shader_parameter/min_shadow_x = 0
-shader_parameter/max_shadow_x = 5
-shader_parameter/min_shadow_y = 2
-shader_parameter/max_shadow_y = 5
-shader_parameter/horizontal_outward = true
-shader_parameter/screen_center_uv = Vector2(0.69140625, 0.6203125)
-shader_parameter/object_size_uv = Vector2(0.1703125, 0.371875)
-shader_parameter/alpha_threshold = 0.1
-shader_parameter/noise_amount = 1.0
-shader_parameter/noise_scale = 0.26100001169898
-shader_parameter/shadow_opacity = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pdsj5"]
-shader = ExtResource("2_jjvhh")
-shader_parameter/shadow_near = Color(0.20392157, 0.10980392, 0.15294118, 1)
-shader_parameter/shadow_middle = Color(0.14117648, 0.08235294, 0.15294118, 1)
-shader_parameter/shadow_outer = Color(0.0627451, 0.078431375, 0.12156863, 1)
-shader_parameter/outline_color = Color(0, 0, 0, 1)
-shader_parameter/enable_outline = true
-shader_parameter/outline_diagonals = true
-shader_parameter/enable_shadow = true
-shader_parameter/min_shadow_x = 0
-shader_parameter/max_shadow_x = 5
-shader_parameter/min_shadow_y = 3
-shader_parameter/max_shadow_y = 7
-shader_parameter/horizontal_outward = true
-shader_parameter/screen_center_uv = Vector2(0.871875, 0.603125)
-shader_parameter/object_size_uv = Vector2(0.15, 0.44375)
+shader_parameter/screen_center_uv = Vector2(0.6664063, 0.5763889)
+shader_parameter/object_size_uv = Vector2(0.1703125, 0.33055556)
 shader_parameter/alpha_threshold = 0.1
 shader_parameter/noise_amount = 1.0
 shader_parameter/noise_scale = 0.26100001169898
@@ -238,86 +97,47 @@ color = Color(0.08235294, 0.11372549, 0.15686275, 1)
 
 [node name="Boxes" type="Node" parent="CanvasLayer" unique_id=1074442855]
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Boxes" unique_id=985085648]
-material = SubResource("ShaderMaterial_fdnlq")
-offset_left = 461.0
-offset_top = 266.0
-offset_right = 632.0
-offset_bottom = 347.0
-texture = ExtResource("2_8gbba")
+[node name="MainScreen" type="TextureRect" parent="CanvasLayer/Boxes" unique_id=985085648]
+material = SubResource("ShaderMaterial_344ge")
+offset_left = 389.0
+offset_top = 9.0
+offset_right = 631.0
+offset_bottom = 167.0
+pivot_offset = Vector2(121, 79)
+texture = ExtResource("14_screen")
 script = ExtResource("4_jjvhh")
+powered = true
+max_skew_pixels = 0.0
+max_perspective_pixels = 8.0
 
-[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Boxes" unique_id=928474251]
-material = SubResource("ShaderMaterial_jkdf5")
-offset_left = 1.0
-offset_top = 187.0
-offset_right = 142.0
-offset_bottom = 355.0
-texture = ExtResource("5_ynf5e")
-script = ExtResource("4_jjvhh")
+[node name="MainScreenLogic" type="Node" parent="CanvasLayer/Boxes/MainScreen" unique_id=1163679355]
+unique_name_in_owner = true
+script = ExtResource("15_screen_logic")
+always_powered = true
 
-[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/Boxes" unique_id=1317301848]
-material = SubResource("ShaderMaterial_wsu2k")
-offset_left = 120.0
-offset_top = 242.0
-offset_right = 238.0
-offset_bottom = 359.0
-texture = ExtResource("6_hptm8")
-script = ExtResource("4_jjvhh")
-
-[node name="TextureRect4" type="TextureRect" parent="CanvasLayer/Boxes" unique_id=1475927466]
-material = SubResource("ShaderMaterial_k12tt")
-offset_left = 227.0
-offset_top = 240.0
-offset_right = 326.0
-offset_bottom = 342.0
-texture = ExtResource("7_d1ilt")
-script = ExtResource("4_jjvhh")
-
-[node name="TextureRect5" type="TextureRect" parent="CanvasLayer/Boxes" unique_id=722583464]
-material = SubResource("ShaderMaterial_h1bgf")
-offset_left = 327.0
-offset_top = 263.0
-offset_right = 389.0
-offset_bottom = 339.0
-texture = ExtResource("8_6iyac")
-script = ExtResource("4_jjvhh")
-
-[node name="TextureRect6" type="TextureRect" parent="CanvasLayer/Boxes" unique_id=1879056414]
-material = SubResource("ShaderMaterial_b3802")
-offset_left = 25.0
-offset_top = 63.0
-offset_right = 192.0
-offset_bottom = 184.0
-texture = ExtResource("9_fdnlq")
-script = ExtResource("4_jjvhh")
-
-[node name="TextureRect7" type="TextureRect" parent="CanvasLayer/Boxes" unique_id=1653323940]
-material = SubResource("ShaderMaterial_fevyy")
-offset_left = 192.0
-offset_top = 102.0
-offset_right = 394.0
-offset_bottom = 229.0
-texture = ExtResource("10_d1ilt")
-script = ExtResource("4_jjvhh")
-
-[node name="TextureRect9" type="TextureRect" parent="CanvasLayer/Boxes" unique_id=1966267805]
-material = SubResource("ShaderMaterial_hibaj")
-offset_left = 388.0
-offset_top = 139.0
-offset_right = 497.0
-offset_bottom = 258.0
+[node name="Thruster" type="TextureRect" parent="CanvasLayer/Boxes" unique_id=1966267805]
+material = SubResource("ShaderMaterial_ynf5e")
+offset_left = 372.0
+offset_top = 148.0
+offset_right = 481.0
+offset_bottom = 267.0
+pivot_offset = Vector2(54.5, 59.5)
 texture = ExtResource("11_fdnlq")
 script = ExtResource("4_jjvhh")
+max_tilt_degrees = 4.0
+max_skew_pixels = 0.0
+max_perspective_pixels = 16.0
 
-[node name="TextureRect8" type="TextureRect" parent="CanvasLayer/Boxes" unique_id=1977637291]
-material = SubResource("ShaderMaterial_pdsj5")
-offset_left = 510.0
-offset_top = 122.0
-offset_right = 606.0
-offset_bottom = 264.0
-texture = ExtResource("11_6iyac")
-script = ExtResource("4_jjvhh")
+[node name="ThrusterLogic" type="Node" parent="CanvasLayer/Boxes/Thruster" unique_id=2112329231]
+unique_name_in_owner = true
+script = ExtResource("16_thruster_logic")
 
-[node name="Node" type="Node" parent="." unique_id=1452254446]
+[node name="LeverInput" type="Control" parent="CanvasLayer/Boxes/Thruster" unique_id=2070543118]
+anchors_preset = 0
+offset_left = 10.0
+offset_top = 13.0
+offset_right = 47.0
+offset_bottom = 106.0
+
+[node name="DemoTest" type="Node" parent="." unique_id=1452254446]
 script = ExtResource("13_fdnlq")

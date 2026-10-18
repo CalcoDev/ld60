@@ -1,6 +1,26 @@
 
 shader_type canvas_item;
 
+varying vec4 canvas_modulate;
+
+uniform vec2 drag_grab_uv = vec2(0.5);
+uniform vec2 drag_skew = vec2(0.0);
+uniform vec2 drag_perspective = vec2(0.0);
+
+
+void vertex() {
+    vec2 from_grab = UV - drag_grab_uv;
+    vec2 skew_offset = vec2(
+        from_grab.y * drag_skew.x,
+        from_grab.x * drag_skew.y
+    );
+    vec2 corner_offset =
+        drag_perspective * from_grab.x * from_grab.y;
+
+    VERTEX += skew_offset + corner_offset;
+    canvas_modulate = COLOR;
+}
+
 // colors
 uniform vec4 shadow_near : source_color =
     vec4(0.08235, 0.11373, 0.15686, 1.0); // #151d28
@@ -334,4 +354,6 @@ void fragment() {
             COLOR = vec4(0.0);
         }
     }
+
+    COLOR *= canvas_modulate;
 }
