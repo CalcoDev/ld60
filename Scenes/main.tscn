@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://qeaj0waj2luf" path="res://Scripts/Modules/module_port_area.gd" id="17_port_area"]
 [ext_resource type="Script" uid="uid://dbp5h2a85fvsq" path="res://Scripts/Modules/module_drag_area.gd" id="18_drag_area"]
 [ext_resource type="Script" uid="uid://uy4sdevdljc4" path="res://Scripts/Modules/module_attachment_visual.gd" id="19_attachment"]
+[ext_resource type="Script" uid="uid://dw0oc2xhip730" path="res://Scripts/Modules/wire_manager.gd" id="20_wire_manager"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rfxvn"]
 shader = ExtResource("1_bo1nx")
@@ -137,7 +138,7 @@ shader_parameter/max_shadow_x = 5
 shader_parameter/min_shadow_y = 2
 shader_parameter/max_shadow_y = 5
 shader_parameter/horizontal_outward = true
-shader_parameter/screen_center_uv = Vector2(0.32578126, 0.7152778)
+shader_parameter/screen_center_uv = Vector2(0.24296875, 0.7652778)
 shader_parameter/object_size_uv = Vector2(0.1703125, 0.33055556)
 shader_parameter/alpha_threshold = 0.1
 shader_parameter/noise_amount = 1.0
@@ -163,7 +164,7 @@ shader_parameter/max_shadow_x = 5
 shader_parameter/min_shadow_y = 2
 shader_parameter/max_shadow_y = 5
 shader_parameter/horizontal_outward = true
-shader_parameter/screen_center_uv = Vector2(0.27265626, 0.6944444)
+shader_parameter/screen_center_uv = Vector2(0.18984374, 0.74444443)
 shader_parameter/object_size_uv = Vector2(0.0453125, 0.20555556)
 shader_parameter/alpha_threshold = 0.1
 shader_parameter/noise_amount = 1.0
@@ -244,7 +245,6 @@ mouse_filter = 2
 script = ExtResource("18_drag_area")
 
 [node name="PortIn" type="TextureRect" parent="CanvasLayer/Boxes/MainScreen" unique_id=648146767]
-show_behind_parent = true
 material = SubResource("ShaderMaterial_k12tt")
 layout_mode = 0
 offset_left = 218.0
@@ -276,10 +276,10 @@ script = ExtResource("18_drag_area")
 
 [node name="Thruster" type="TextureRect" parent="CanvasLayer/Boxes" unique_id=1966267805]
 material = SubResource("ShaderMaterial_h1bgf")
-offset_left = 154.0
-offset_top = 198.0
-offset_right = 263.0
-offset_bottom = 317.0
+offset_left = 101.0
+offset_top = 216.0
+offset_right = 210.0
+offset_bottom = 335.0
 pivot_offset = Vector2(54.5, 59.5)
 texture = ExtResource("11_fdnlq")
 script = ExtResource("4_jjvhh")
@@ -318,7 +318,6 @@ offset_right = 47.0
 offset_bottom = 106.0
 
 [node name="PortsInOut" type="TextureRect" parent="CanvasLayer/Boxes/Thruster" unique_id=426891079]
-show_behind_parent = true
 material = SubResource("ShaderMaterial_b3802")
 layout_mode = 0
 offset_left = 6.0
@@ -351,12 +350,18 @@ editor_debug_color = Color(0.2, 0.9019608, 1, 0.5372549)
 
 [node name="DragArea" type="Control" parent="CanvasLayer/Boxes/Thruster/PortsInOut" unique_id=2139544090]
 anchors_preset = 0
-offset_left = 8.0
+offset_left = 7.0
 offset_top = 8.0
-offset_right = 21.0
+offset_right = 22.0
 offset_bottom = 68.0
 mouse_filter = 2
 script = ExtResource("18_drag_area")
+
+[node name="WireLayer" type="Node2D" parent="CanvasLayer" unique_id=125592954]
+z_index = 100
+script = ExtResource("20_wire_manager")
+tighten_below_ratio = 0.95
+tighten_speed = 400.0
 
 [node name="DemoTest" type="Node" parent="." unique_id=1452254446]
 script = ExtResource("13_fdnlq")

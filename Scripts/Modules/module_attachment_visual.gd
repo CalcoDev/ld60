@@ -14,6 +14,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
     if module_visual != null:
+        _update_layering()
         var module_inverse := (
             module_visual.get_global_transform().affine_inverse()
         )
@@ -39,6 +40,7 @@ func _setup_module_visual() -> void:
     
     if not Engine.is_editor_hint():
         set_shader_material(module_visual.shader_material)
+    _update_layering()
     update_shader_position()
 
 
@@ -57,3 +59,19 @@ func get_shader_screen_size() -> Vector2:
         return module_visual.get_shader_screen_size()
     
     return super.get_shader_screen_size()
+
+
+func _update_layering() -> void:
+    var module_transform := module_visual.get_global_transform()
+    var module_center := module_transform * (module_visual.size * 0.5)
+    var attachment_center := get_global_transform() * (size * 0.5)
+    var local_attachment_center := (
+        module_transform.affine_inverse() * attachment_center
+    )
+    var port_on_left := (
+        local_attachment_center.x < module_visual.size.x * 0.5
+    )
+    var module_on_left := (
+        module_center.x < get_shader_screen_size().x * 0.5
+    )
+    show_behind_parent = port_on_left != module_on_left

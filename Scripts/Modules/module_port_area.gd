@@ -77,10 +77,15 @@ func _has_point(point: Vector2) -> bool:
 
 func _gui_input(event: InputEvent) -> void:
     if event.is_action_pressed("Grab"):
-        _print_port_event("clicked")
+        if module_visual != null:
+            module_visual.move_to_front()
+        var wire_manager := get_tree().get_first_node_in_group(
+            &"wire_manager"
+        ) as WireManager
+        if wire_manager != null:
+            wire_manager.begin_wire(self)
         accept_event()
     elif event.is_action_released("Grab"):
-        _print_port_event("released")
         accept_event()
 
 
@@ -120,17 +125,5 @@ func _find_module_visual() -> ModuleVisual:
     return null
 
 
-func _print_port_event(action: String) -> void:
-    if module_port == null:
-        print("%s unbound port: %s" % [action, port_name])
-        return
-    
-    var direction := (
-        "input"
-        if module_port.direction == ModulePort.Direction.INPUT
-        else "output"
-    )
-    print(
-        "%s %s %s port: %s"
-        % [action, ship_module.module_name, direction, port_name]
-    )
+func get_wire_anchor_position() -> Vector2:
+    return get_global_transform() * (size * 0.5)
