@@ -1,0 +1,29 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3]
+
+[ext_resource type="Shader" path="res://Resources/Shaders/module_dynamic_outline.gdshader" id="1_shader"]
+
+[resource]
+shader = ExtResource("1_shader")
+shader_parameter/drag_grab_uv = Vector2(0.5, 0.5)
+shader_parameter/drag_skew = Vector2(0, 0)
+shader_parameter/drag_perspective = Vector2(0, 0)
+shader_parameter/drag_vertex_origin = Vector2(0, 0)
+shader_parameter/drag_module_size = Vector2(1, 1)
+shader_parameter/shadow_near = Color(0.08235, 0.11373, 0.15686, 1)
+shader_parameter/shadow_middle = Color(0.06275, 0.07843, 0.12157, 1)
+shader_parameter/shadow_outer = Color(0, 0, 0, 1)
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/enable_outline = true
+shader_parameter/outline_diagonals = true
+shader_parameter/enable_shadow = true
+shader_parameter/min_shadow_x = 0
+shader_parameter/max_shadow_x = 5
+shader_parameter/min_shadow_y = 2
+shader_parameter/max_shadow_y = 5
+shader_parameter/horizontal_outward = true
+shader_parameter/screen_center_uv = Vector2(0.5, 0.5)
+shader_parameter/object_size_uv = Vector2(0.2, 0.2)
+shader_parameter/alpha_threshold = 0.1
+shader_parameter/noise_amount = 1.0
+shader_parameter/noise_scale = 0.261
+shader_parameter/shadow_opacity = 1.0

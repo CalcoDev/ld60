@@ -6,10 +6,14 @@ varying vec4 canvas_modulate;
 uniform vec2 drag_grab_uv = vec2(0.5);
 uniform vec2 drag_skew = vec2(0.0);
 uniform vec2 drag_perspective = vec2(0.0);
+uniform vec2 drag_vertex_origin = vec2(0.0);
+uniform vec2 drag_module_size = vec2(1.0);
 
 
 void vertex() {
-    vec2 from_grab = UV - drag_grab_uv;
+    vec2 module_uv =
+        (VERTEX + drag_vertex_origin) / max(drag_module_size, vec2(1.0));
+    vec2 from_grab = module_uv - drag_grab_uv;
     vec2 skew_offset = vec2(
         from_grab.y * drag_skew.x,
         from_grab.x * drag_skew.y

@@ -1,12 +1,6 @@
 @tool
 class_name ModuleVisual
-extends TextureRect
-
-# (for accurate preview in editor)
-@export var logical_screen_size := Vector2(640.0, 360.0)
-
-# Optionally use the actual viewport size when running.
-@export var use_runtime_viewport_size := false
+extends ModuleShaderRect
 
 @export var powered := false
 @export var unpowered_modulate := Color(0.35, 0.35, 0.35, 0.75)
@@ -14,7 +8,7 @@ extends TextureRect
 
 @export var grid_size := 8.0
 @export var minimum_visible_pixels := 16.0
-@export var drag_threshold := 3.0
+@export var drag_threshold := 1.5
 @export var spring_strength := 1600.0
 @export var spring_damping := 65.0
 @export var visual_follow_speed := 60.0
@@ -25,7 +19,6 @@ extends TextureRect
 @export var max_skew_pixels := 2.0
 @export var max_perspective_pixels := 3.0
 
-var _shadow_material: ShaderMaterial
 var _press_pending := false
 var _dragging := false
 var _press_mouse_position := Vector2.ZERO
@@ -36,18 +29,13 @@ var _reference_velocity := Vector2.ZERO
 var _last_mouse_position := Vector2.ZERO
 var _drag_velocity := Vector2.ZERO
 var _effect_velocity := Vector2.ZERO
-var _grab_uv := Vector2(0.5, 0.5)
+var shader_grab_uv := Vector2(0.5, 0.5)
+var shader_skew := Vector2.ZERO
+var shader_perspective := Vector2.ZERO
 
 
 func _ready() -> void:
-    if material is ShaderMaterial:
-        _shadow_material = (
-            material as ShaderMaterial
-        ).duplicate() as ShaderMaterial
-
-        material = _shadow_material
-
-    set_process(true)
+    super._ready()
     pivot_offset = size * 0.5
     _reference_position = global_position
     if not Engine.is_editor_hint():
@@ -56,12 +44,8 @@ func _ready() -> void:
         )
         global_position = _reference_position
     _desired_position = _reference_position
-    if _shadow_material != null:
-        _shadow_material.set_shader_parameter(
-            "drag_grab_uv",
-            _grab_uv
-        )
-    _update_shadow_position()
+    _apply_motion_shader_params()
+    update_shader_position()
 
 
 func _process(delta: float) -> void:
@@ -70,7 +54,7 @@ func _process(delta: float) -> void:
         _update_drag(delta)
         _update_motion(delta)
     
-    _update_shadow_position()
+    super._process(delta)
 
 
 func _input(event: InputEvent) -> void:
@@ -86,20 +70,20 @@ func _gui_input(event: InputEvent) -> void:
         return
     
     if event.is_action_pressed("Grab"):
+        if not _can_start_drag():
+            return
+        
+        move_to_front()
         _press_pending = true
         _press_mouse_position = get_global_mouse_position()
         _last_mouse_position = _press_mouse_position
         pivot_offset = get_local_mouse_position().clamp(Vector2.ZERO, size)
         _drag_offset = pivot_offset
-        _grab_uv = Vector2(
+        shader_grab_uv = Vector2(
             pivot_offset.x / maxf(size.x, 1.0),
             pivot_offset.y / maxf(size.y, 1.0)
         )
-        if _shadow_material != null:
-            _shadow_material.set_shader_parameter(
-                "drag_grab_uv",
-                _grab_uv
-            )
+        _apply_motion_shader_params()
         accept_event()
     elif event.is_action_released("Grab"):
         _end_drag()
@@ -110,9 +94,45 @@ func set_powered(value: bool) -> void:
     powered = value
 
 
+func _has_point(point: Vector2) -> bool:
+    var global_point := get_global_transform() * point
+    return _is_drag_point_allowed(global_point)
+
+
+func _can_start_drag() -> bool:
+    return _is_drag_point_allowed(get_global_mouse_position())
+
+
+func _is_drag_point_allowed(global_point: Vector2) -> bool:
+    var allowed := false
+    
+    for child: Node in find_children("*", "", true, false):
+        if not (child is ModuleDragArea):
+            continue
+        
+        var area := child as ModuleDragArea
+        var area_point := (
+            area.get_global_transform().affine_inverse() * global_point
+        )
+        if not area._has_point(area_point):
+            continue
+        
+        if area.mode == ModuleDragArea.Mode.BLOCK:
+            return false
+        
+        allowed = true
+    
+    return allowed
+
+
 func _update_appearance(delta: float) -> void:
-    var hovered := Rect2(Vector2.ZERO, size).has_point(
-        get_local_mouse_position()
+    var hovered_control := get_viewport().gui_get_hovered_control()
+    var hovered := (
+        hovered_control == self
+        or (
+            hovered_control != null
+            and is_ancestor_of(hovered_control)
+        )
     )
     var target := (
         Color.WHITE
@@ -137,7 +157,6 @@ func _update_drag(delta: float) -> void:
     ):
         _press_pending = false
         _dragging = true
-        move_to_front()
     elif _press_pending:
         _last_mouse_position = mouse_position
     
@@ -170,20 +189,25 @@ func _update_motion(delta: float) -> void:
     var target_rotation := deg_to_rad(
         rotation_amount * max_tilt_degrees
     )
-    var target_skew := -motion * max_skew_pixels
-    var target_perspective := -motion * max_perspective_pixels
+    shader_skew = -motion * max_skew_pixels
+    shader_perspective = -motion * max_perspective_pixels
     
     rotation = lerp_angle(
         rotation,
         target_rotation,
         weight
     )
-    if _shadow_material != null:
-        _shadow_material.set_shader_parameter("drag_skew", target_skew)
-        _shadow_material.set_shader_parameter(
-            "drag_perspective",
-            target_perspective
-        )
+    _apply_motion_shader_params()
+
+
+func _apply_motion_shader_params() -> void:
+    set_motion_shader_params(
+        shader_grab_uv,
+        shader_skew,
+        shader_perspective,
+        Vector2.ZERO,
+        size
+    )
 
 
 func _end_drag() -> void:
@@ -242,38 +266,3 @@ func _clamp_grid_to_viewport(target_position: Vector2) -> Vector2:
 
 func _grid_step() -> float:
     return maxf(grid_size, 1.0)
-
-
-func _update_shadow_position() -> void:
-    if _shadow_material == null:
-        return
-
-    var screen_size := logical_screen_size
-
-    if use_runtime_viewport_size and not Engine.is_editor_hint():
-        screen_size = get_viewport_rect().size
-
-    if screen_size.x <= 0.0 or screen_size.y <= 0.0:
-        return
-
-    # Global transform includes parent transforms.
-    # This also handles scaled controls.
-    var xf := get_global_transform()
-
-    var center := xf * (size * 0.5)
-
-    # Axis-aligned bounding size in global coordinates.
-    var box_size := Vector2(
-        abs(xf.x.x) * size.x + abs(xf.y.x) * size.y,
-        abs(xf.x.y) * size.x + abs(xf.y.y) * size.y
-    )
-
-    _shadow_material.set_shader_parameter(
-        "screen_center_uv",
-        center / screen_size
-    )
-
-    _shadow_material.set_shader_parameter(
-        "object_size_uv",
-        box_size / screen_size
-    )

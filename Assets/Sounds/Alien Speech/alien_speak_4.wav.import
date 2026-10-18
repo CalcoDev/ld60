@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://d4cre0wm36qdy"
+path="res://.godot/imported/alien_speak_4.wav-3106102d53845dfa843537b9a5ca0db3.sample"
+
+[deps]
+
+source_file="res://Assets/Sounds/Alien Speech/alien_speak_4.wav"
+dest_files=["res://.godot/imported/alien_speak_4.wav-3106102d53845dfa843537b9a5ca0db3.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
