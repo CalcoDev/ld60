@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="AlienRaceData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Dialogue/alien_race_data.gd" id="1_race"]
+[ext_resource type="FontFile" path="res://Resources/Fonts/m3x6.ttf" id="2_font"]
+
+[resource]
+script = ExtResource("1_race")
+race_id = &"gleep_glorp"
+display_name = "Gleep Glorp"
+language = 0
+default_glyph_fonts = Array[Font]([ExtResource("2_font")])
+target_frequency = 142.0
+frequency_variance = 8.0
+target_amplitude = 0.65
+amplitude_variance = 0.1
+default_connection_buffer = 2.0
+cassette_id = &"gleep_glorp"

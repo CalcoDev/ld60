@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://c65itqlms88oa" path="res://Assets/Modules/module_translator.png" id="10_d1ilt"]
 [ext_resource type="Texture2D" uid="uid://g2janscogffp" path="res://Assets/Modules/module_tap_tap_tap.png" id="11_6iyac"]
 [ext_resource type="Texture2D" uid="uid://cdh85sst2dc0b" path="res://Assets/Modules/module_thrusters.png" id="11_fdnlq"]
+[ext_resource type="Script" uid="uid://4t27ox05m7c5" path="res://Scripts/Modules/demo_test.gd" id="13_fdnlq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rfxvn"]
 shader = ExtResource("1_bo1nx")
@@ -33,7 +34,7 @@ shader_parameter/vertical_spacing = 32.0
 shader_parameter/vertical_speed = 4.000009690000013
 shader_parameter/vertical_outward = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jjvhh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fdnlq"]
 shader = ExtResource("2_jjvhh")
 shader_parameter/shadow_near = Color(0.08235, 0.11373, 0.15686, 1)
 shader_parameter/shadow_middle = Color(0.06275, 0.07843, 0.12157, 1)
@@ -201,7 +202,7 @@ shader_parameter/noise_amount = 1.0
 shader_parameter/noise_scale = 0.26100001169898
 shader_parameter/shadow_opacity = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fdnlq"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pdsj5"]
 shader = ExtResource("2_jjvhh")
 shader_parameter/shadow_near = Color(0.20392157, 0.10980392, 0.15294118, 1)
 shader_parameter/shadow_middle = Color(0.14117648, 0.08235294, 0.15294118, 1)
@@ -238,7 +239,7 @@ color = Color(0.08235294, 0.11372549, 0.15686275, 1)
 [node name="Boxes" type="Node" parent="CanvasLayer" unique_id=1074442855]
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/Boxes" unique_id=985085648]
-material = SubResource("ShaderMaterial_jjvhh")
+material = SubResource("ShaderMaterial_fdnlq")
 offset_left = 461.0
 offset_top = 266.0
 offset_right = 632.0
@@ -310,10 +311,13 @@ texture = ExtResource("11_fdnlq")
 script = ExtResource("4_jjvhh")
 
 [node name="TextureRect8" type="TextureRect" parent="CanvasLayer/Boxes" unique_id=1977637291]
-material = SubResource("ShaderMaterial_fdnlq")
+material = SubResource("ShaderMaterial_pdsj5")
 offset_left = 510.0
 offset_top = 122.0
 offset_right = 606.0
 offset_bottom = 264.0
 texture = ExtResource("11_6iyac")
 script = ExtResource("4_jjvhh")
+
+[node name="Node" type="Node" parent="." unique_id=1452254446]
+script = ExtResource("13_fdnlq")
