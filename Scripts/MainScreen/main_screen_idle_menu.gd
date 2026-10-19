@@ -8,8 +8,6 @@ signal pause_requested
 
 
 func _ready() -> void:
-    process_mode = Node.PROCESS_MODE_ALWAYS
-    label.pivot_offset = label.size * 0.5
     pause_button.pressed.connect(pause_requested.emit)
     _start_label_animation()
 

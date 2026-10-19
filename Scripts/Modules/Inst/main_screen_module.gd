@@ -16,6 +16,9 @@ const MOVEMENT_SCREEN := preload(
 const COMMS_SCREEN := preload(
     "res://Scenes/MainScreen/main_screen_comms_menu.tscn"
 )
+const CLICKER_SCREEN := preload(
+    "res://Scenes/MainScreen/main_screen_clicker_menu.tscn"
+)
 
 @export_range(0.1, 30.0, 0.1) var boot_duration := 3.0
 @export_range(0.1, 5.0, 0.05) var transition_duration := 0.8
@@ -43,7 +46,6 @@ func _init() -> void:
 
 func _ready() -> void:
     super._ready()
-    process_mode = Node.PROCESS_MODE_ALWAYS
     _current_screen = get_parent().get_node_or_null(
         "MainScreenBootMenu"
     ) as Control
@@ -103,6 +105,14 @@ func process_input(_port_name: StringName, data: Dictionary) -> void:
             and _current_screen_scene != COMMS_SCREEN
         ):
             show_screen(COMMS_SCREEN)
+    elif connected_module is TapTapModule:
+        _last_comms_output = ""
+        if (
+            _boot_complete
+            and not get_tree().paused
+            and _current_screen_scene != CLICKER_SCREEN
+        ):
+            show_screen(CLICKER_SCREEN)
 
 
 func show_screen(screen_scene: PackedScene) -> void:

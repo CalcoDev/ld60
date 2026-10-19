@@ -13,10 +13,7 @@ var _dot_time := 0.0
 
 
 func _ready() -> void:
-    process_mode = Node.PROCESS_MODE_ALWAYS
-    label.pivot_offset = label.size * 0.5
     resume_button.pressed.connect(resume_requested.emit)
-    _set_pause_text()
     _start_label_animation()
 
 

@@ -11,7 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://begihssfex10l" path="res://Assets/Modules/Ports/port_inout_left..png" id="9_hptm8"]
 [ext_resource type="Texture2D" uid="uid://cdh85sst2dc0b" path="res://Assets/Modules/module_thrusters.png" id="11_fdnlq"]
 [ext_resource type="PackedScene" uid="uid://cge1m2env57d4" path="res://Scenes/MainScreen/main_screen_idle_menu.tscn" id="11_h1bgf"]
-[ext_resource type="Script" uid="uid://4t27ox05m7c5" path="res://Scripts/Modules/demo_test.gd" id="13_fdnlq"]
 [ext_resource type="Texture2D" uid="uid://b68pbgl5kolic" path="res://Assets/Modules/module_main_screen.png" id="14_screen"]
 [ext_resource type="Script" uid="uid://c3mwfgeqc3a7a" path="res://Scripts/Modules/Inst/main_screen_module.gd" id="15_screen_logic"]
 [ext_resource type="Script" uid="uid://dwpkdc0pwsif8" path="res://Scripts/Modules/Inst/comms_in_module.gd" id="16_comms_logic"]
@@ -60,6 +59,26 @@
 [ext_resource type="Texture2D" uid="uid://thvn6kwqfjta" path="res://Assets/Modules/Translator/translator_casette_scroll_up_disable.png" id="43_jut3y"]
 [ext_resource type="Texture2D" uid="uid://dxohoqjxx5v8y" path="res://Assets/Modules/Translator/translator_casette_scroll_down_enable.png" id="44_v2nl5"]
 [ext_resource type="Texture2D" uid="uid://drdgw4qsi8nxj" path="res://Assets/Modules/Translator/translator_casette_scroll_down_disable.png" id="45_dmskm"]
+[ext_resource type="Material" uid="uid://bhroq5qe46hke" path="res://Resources/Materials/taptaptap_module_visual.tres" id="59_my4ki"]
+[ext_resource type="Texture2D" uid="uid://g2janscogffp" path="res://Assets/Modules/module_tap_tap_tap.png" id="59_qax2n"]
+[ext_resource type="Texture2D" uid="uid://7bgoqwqvi718" path="res://Assets/Modules/Ports/port_out_taptaptap.png" id="60_y86h7"]
+[ext_resource type="Script" uid="uid://b88pjh02jaxho" path="res://Scripts/Modules/Inst/tap_tap_module.gd" id="61_tap_logic"]
+[ext_resource type="Texture2D" uid="uid://b2228t6l66arw" path="res://Assets/Modules/module_tap_tap_tap_pressed.png" id="62_tap_pressed"]
+[ext_resource type="Texture2D" uid="uid://yco2f4hyxxvo" path="res://Assets/Modules/Manual/module_manual_edge.png" id="64_ovafv"]
+[ext_resource type="Texture2D" uid="uid://5a1fsb5vwtnf" path="res://Assets/Modules/Manual/module_manual_bottom.png" id="65_fg68e"]
+[ext_resource type="Texture2D" uid="uid://bi8vpsk3grlk7" path="res://Assets/Modules/Manual/module_manual_folder_white.png" id="66_jekl6"]
+[ext_resource type="Texture2D" uid="uid://be6qxtfa0e5x8" path="res://Assets/Modules/Manual/manual_pages.png" id="66_ovafv"]
+[ext_resource type="Texture2D" uid="uid://dhf58n8jpg4ls" path="res://Assets/Modules/Manual/manual_corner_thingy.png" id="67_owhal"]
+[ext_resource type="Texture2D" uid="uid://by0veejre5ek4" path="res://Assets/Modules/Manual/module_manual_folder_purple.png" id="67_v1mrv"]
+[ext_resource type="Texture2D" uid="uid://cxgs03w252bky" path="res://Assets/Modules/Manual/module_manual_folder_red.png" id="68_fd3ed"]
+[ext_resource type="Texture2D" uid="uid://cmvo6fwmt0kvt" path="res://Assets/Modules/Manual/module_manual_folder_blue.png" id="69_qnggo"]
+[ext_resource type="Texture2D" uid="uid://d0fkhdofw5cxi" path="res://Assets/Modules/Manual/module_manual_folder_brown.png" id="70_tab3y"]
+[ext_resource type="Texture2D" uid="uid://bxhsj17kg7avq" path="res://Assets/Modules/Manual/module_manual_folder_yellow.png" id="71_1tvlp"]
+[ext_resource type="Texture2D" uid="uid://saqjmcyxljt1" path="res://Assets/Modules/Manual/module_manual_edge_front.png" id="72_wl4bb"]
+[ext_resource type="Script" uid="uid://yqm7b275ac8v" path="res://Scripts/Modules/Inst/manual_folder.gd" id="73_manual_folder"]
+[ext_resource type="Material" uid="uid://1j417pp54ter" path="res://Resources/Materials/module_visual_material.tres" id="74_fd3ed"]
+[ext_resource type="Script" uid="uid://b4j101e4qjd6q" path="res://Scripts/Modules/Inst/manual_layer.gd" id="74_manual_layer"]
+[ext_resource type="Texture2D" uid="uid://cr2p7u0tqv8gv" path="res://Assets/Modules/module_comms_out.png" id="75_qnggo"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rfxvn"]
 shader = ExtResource("1_bo1nx")
@@ -105,7 +124,7 @@ shader_parameter/max_shadow_x = 5
 shader_parameter/min_shadow_y = 2
 shader_parameter/max_shadow_y = 5
 shader_parameter/horizontal_outward = true
-shader_parameter/screen_center_uv = Vector2(0.6390625, 0.275)
+shader_parameter/screen_center_uv = Vector2(0.6265625, 0.23055555)
 shader_parameter/object_size_uv = Vector2(0.378125, 0.43888888)
 shader_parameter/alpha_threshold = 0.1
 shader_parameter/noise_amount = 1.0
@@ -131,7 +150,7 @@ shader_parameter/max_shadow_x = 5
 shader_parameter/min_shadow_y = 2
 shader_parameter/max_shadow_y = 5
 shader_parameter/horizontal_outward = true
-shader_parameter/screen_center_uv = Vector2(0.47421876, 0.35416666)
+shader_parameter/screen_center_uv = Vector2(0.46171874, 0.30972221)
 shader_parameter/object_size_uv = Vector2(0.0546875, 0.13611111)
 shader_parameter/alpha_threshold = 0.1
 shader_parameter/noise_amount = 1.0
@@ -157,7 +176,7 @@ shader_parameter/max_shadow_x = 5
 shader_parameter/min_shadow_y = 2
 shader_parameter/max_shadow_y = 5
 shader_parameter/horizontal_outward = true
-shader_parameter/screen_center_uv = Vector2(0.8171875, 0.16527778)
+shader_parameter/screen_center_uv = Vector2(0.8046875, 0.12083333)
 shader_parameter/object_size_uv = Vector2(0.053125, 0.15833333)
 shader_parameter/alpha_threshold = 0.1
 shader_parameter/noise_amount = 1.0
@@ -192,7 +211,7 @@ shader_parameter/max_shadow_x = 5
 shader_parameter/min_shadow_y = 2
 shader_parameter/max_shadow_y = 5
 shader_parameter/horizontal_outward = true
-shader_parameter/screen_center_uv = Vector2(0.2640625, 0.19305556)
+shader_parameter/screen_center_uv = Vector2(0.1515625, 0.14861111)
 shader_parameter/object_size_uv = Vector2(0.315625, 0.35277778)
 shader_parameter/alpha_threshold = 0.1
 shader_parameter/noise_amount = 1.0
@@ -218,7 +237,7 @@ shader_parameter/max_shadow_x = 5
 shader_parameter/min_shadow_y = 2
 shader_parameter/max_shadow_y = 5
 shader_parameter/horizontal_outward = true
-shader_parameter/screen_center_uv = Vector2(0.38828126, 0.18888889)
+shader_parameter/screen_center_uv = Vector2(0.27578124, 0.14444445)
 shader_parameter/object_size_uv = Vector2(0.0453125, 0.20555556)
 shader_parameter/alpha_threshold = 0.1
 shader_parameter/noise_amount = 1.0
@@ -284,14 +303,40 @@ shader_parameter/top_color = Color(1, 0.713725, 0.117647, 1)
 shader_parameter/background_color = Color(0, 0, 0, 0)
 shader_parameter/gradient_midpoint = 0.5
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nay3j"]
+shader = ExtResource("2_jjvhh")
+shader_parameter/drag_grab_uv = Vector2(0.5, 0.5)
+shader_parameter/drag_skew = Vector2(0, 0)
+shader_parameter/drag_perspective = Vector2(0, 0)
+shader_parameter/drag_vertex_origin = Vector2(0, 0)
+shader_parameter/drag_module_size = Vector2(141, 168)
+shader_parameter/shadow_near = Color(0.08235, 0.11373, 0.15686, 1)
+shader_parameter/shadow_middle = Color(0.06275, 0.07843, 0.12157, 1)
+shader_parameter/shadow_outer = Color(0, 0, 0, 1)
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/enable_outline = true
+shader_parameter/outline_diagonals = true
+shader_parameter/enable_shadow = true
+shader_parameter/min_shadow_x = 2
+shader_parameter/max_shadow_x = 5
+shader_parameter/min_shadow_y = 4
+shader_parameter/max_shadow_y = 12
+shader_parameter/horizontal_outward = true
+shader_parameter/screen_center_uv = Vector2(0.359375, 0.78333336)
+shader_parameter/object_size_uv = Vector2(0.096875, 0.21111111)
+shader_parameter/alpha_threshold = 0.1
+shader_parameter/noise_amount = 1.0
+shader_parameter/noise_scale = 0.261
+shader_parameter/shadow_opacity = 1.0
+
 [node name="Main" type="Node2D" unique_id=467932182]
 
 [node name="ShipSimulation" type="Node" parent="." unique_id=388067915]
 script = ExtResource("22_simulation")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2010514878]
+[node name="GameLayer" type="CanvasLayer" parent="." unique_id=2010514878]
 
-[node name="BackgroundShader" type="ColorRect" parent="CanvasLayer" unique_id=381124642]
+[node name="BackgroundShader" type="ColorRect" parent="GameLayer" unique_id=381124642]
 material = SubResource("ShaderMaterial_rfxvn")
 anchors_preset = 15
 anchor_right = 1.0
@@ -300,14 +345,14 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.08235294, 0.11372549, 0.15686275, 1)
 
-[node name="Boxes" type="Node" parent="CanvasLayer" unique_id=1074442855]
+[node name="Boxes" type="Node" parent="GameLayer" unique_id=1074442855]
 
-[node name="MainScreen" type="TextureRect" parent="CanvasLayer/Boxes" unique_id=985085648]
+[node name="MainScreen" type="TextureRect" parent="GameLayer/Boxes" unique_id=985085648]
 material = SubResource("ShaderMaterial_jkdf5")
-offset_left = 288.0
-offset_top = 20.0
-offset_right = 530.0
-offset_bottom = 178.0
+offset_left = 280.0
+offset_top = 4.0
+offset_right = 522.0
+offset_bottom = 162.0
 pivot_offset = Vector2(121, 79)
 texture = ExtResource("14_screen")
 script = ExtResource("4_jjvhh")
@@ -315,12 +360,13 @@ powered = true
 max_skew_pixels = 0.0
 max_perspective_pixels = 8.0
 
-[node name="MainScreenLogic" type="Node" parent="CanvasLayer/Boxes/MainScreen" unique_id=1163679355]
+[node name="MainScreenLogic" type="Node" parent="GameLayer/Boxes/MainScreen" unique_id=1163679355]
 unique_name_in_owner = true
+process_mode = 3
 script = ExtResource("15_screen_logic")
 always_powered = true
 
-[node name="DragArea" type="Control" parent="CanvasLayer/Boxes/MainScreen" unique_id=647416488]
+[node name="DragArea" type="Control" parent="GameLayer/Boxes/MainScreen" unique_id=647416488]
 anchors_preset = 0
 offset_left = 23.0
 offset_top = 7.0
@@ -329,7 +375,7 @@ offset_bottom = 141.0
 mouse_filter = 2
 script = ExtResource("18_drag_area")
 
-[node name="PortOut" type="TextureRect" parent="CanvasLayer/Boxes/MainScreen" unique_id=1566529201]
+[node name="PortOut" type="TextureRect" parent="GameLayer/Boxes/MainScreen" unique_id=1566529201]
 show_behind_parent = true
 material = SubResource("ShaderMaterial_wsu2k")
 layout_mode = 0
@@ -341,7 +387,7 @@ mouse_filter = 2
 texture = ExtResource("6_6iyac")
 script = ExtResource("19_attachment")
 
-[node name="PowerOutPort" type="Control" parent="CanvasLayer/Boxes/MainScreen/PortOut" unique_id=823892483]
+[node name="PowerOutPort" type="Control" parent="GameLayer/Boxes/MainScreen/PortOut" unique_id=823892483]
 anchors_preset = 0
 offset_left = 13.0
 offset_top = 17.0
@@ -351,7 +397,7 @@ script = ExtResource("17_port_area")
 port_name = &"power"
 editor_debug_color = Color(0.2, 0.9019608, 1, 0.5372549)
 
-[node name="DragArea" type="Control" parent="CanvasLayer/Boxes/MainScreen/PortOut" unique_id=1732801275]
+[node name="DragArea" type="Control" parent="GameLayer/Boxes/MainScreen/PortOut" unique_id=1732801275]
 anchors_preset = 0
 offset_left = 11.0
 offset_top = 5.0
@@ -360,7 +406,7 @@ offset_bottom = 38.0
 mouse_filter = 2
 script = ExtResource("18_drag_area")
 
-[node name="PortIn" type="TextureRect" parent="CanvasLayer/Boxes/MainScreen" unique_id=648146767]
+[node name="PortIn" type="TextureRect" parent="GameLayer/Boxes/MainScreen" unique_id=648146767]
 material = SubResource("ShaderMaterial_k12tt")
 layout_mode = 0
 offset_left = 218.0
@@ -371,7 +417,7 @@ mouse_filter = 2
 texture = ExtResource("8_fdnlq")
 script = ExtResource("19_attachment")
 
-[node name="DataInPort" type="Control" parent="CanvasLayer/Boxes/MainScreen/PortIn" unique_id=1951972893]
+[node name="DataInPort" type="Control" parent="GameLayer/Boxes/MainScreen/PortIn" unique_id=1951972893]
 anchors_preset = 0
 offset_left = 11.0
 offset_top = 23.0
@@ -381,7 +427,7 @@ script = ExtResource("17_port_area")
 port_name = &"data"
 editor_debug_color = Color(0.2, 0.9019608, 1, 0.5372549)
 
-[node name="DragArea" type="Control" parent="CanvasLayer/Boxes/MainScreen/PortIn" unique_id=1506654701]
+[node name="DragArea" type="Control" parent="GameLayer/Boxes/MainScreen/PortIn" unique_id=1506654701]
 anchors_preset = 0
 offset_left = 9.0
 offset_top = 13.0
@@ -390,10 +436,10 @@ offset_bottom = 44.0
 mouse_filter = 2
 script = ExtResource("18_drag_area")
 
-[node name="MainScreenIdleMenu" parent="CanvasLayer/Boxes/MainScreen" unique_id=1369341582 instance=ExtResource("11_h1bgf")]
+[node name="MainScreenIdleMenu" parent="GameLayer/Boxes/MainScreen" unique_id=1369341582 instance=ExtResource("11_h1bgf")]
 layout_mode = 0
 
-[node name="CrtTransition" type="ColorRect" parent="CanvasLayer/Boxes/MainScreen" unique_id=1814901289]
+[node name="CrtTransition" type="ColorRect" parent="GameLayer/Boxes/MainScreen" unique_id=1814901289]
 z_index = 10
 material = SubResource("ShaderMaterial_crt")
 layout_mode = 0
@@ -403,13 +449,13 @@ offset_right = 217.0
 offset_bottom = 134.0
 mouse_filter = 2
 
-[node name="Thruster" type="TextureRect" parent="CanvasLayer/Boxes" unique_id=1966267805]
+[node name="Thruster" type="TextureRect" parent="GameLayer/Boxes" unique_id=1966267805]
 z_index = 2
 material = SubResource("ShaderMaterial_h1bgf")
-offset_left = 101.0
-offset_top = 216.0
-offset_right = 210.0
-offset_bottom = 335.0
+offset_left = 163.0
+offset_top = 107.0
+offset_right = 272.0
+offset_bottom = 226.0
 pivot_offset = Vector2(54.5, 59.5)
 texture = ExtResource("11_fdnlq")
 script = ExtResource("4_jjvhh")
@@ -417,11 +463,11 @@ max_tilt_degrees = 4.0
 max_skew_pixels = 0.0
 max_perspective_pixels = 16.0
 
-[node name="ThrusterLogic" type="Node" parent="CanvasLayer/Boxes/Thruster" unique_id=2112329231]
+[node name="ThrusterLogic" type="Node" parent="GameLayer/Boxes/Thruster" unique_id=2112329231]
 unique_name_in_owner = true
 script = ExtResource("16_thruster_logic")
 
-[node name="DragArea" type="Control" parent="CanvasLayer/Boxes/Thruster" unique_id=4338473]
+[node name="DragArea" type="Control" parent="GameLayer/Boxes/Thruster" unique_id=4338473]
 anchors_preset = 0
 offset_left = 27.0
 offset_top = 9.0
@@ -430,14 +476,14 @@ offset_bottom = 107.0
 mouse_filter = 2
 script = ExtResource("18_drag_area")
 
-[node name="LeverInput" type="Control" parent="CanvasLayer/Boxes/Thruster" unique_id=2070543118]
+[node name="LeverInput" type="Control" parent="GameLayer/Boxes/Thruster" unique_id=2070543118]
 anchors_preset = 0
 offset_left = 10.0
 offset_top = 13.0
 offset_right = 47.0
 offset_bottom = 106.0
 
-[node name="PortsInOut" type="TextureRect" parent="CanvasLayer/Boxes/Thruster" unique_id=426891079]
+[node name="PortsInOut" type="TextureRect" parent="GameLayer/Boxes/Thruster" unique_id=426891079]
 material = SubResource("ShaderMaterial_b3802")
 layout_mode = 0
 offset_left = 6.0
@@ -448,7 +494,7 @@ mouse_filter = 2
 texture = ExtResource("9_hptm8")
 script = ExtResource("19_attachment")
 
-[node name="PowerInPort" type="Control" parent="CanvasLayer/Boxes/Thruster/PortsInOut" unique_id=1627462261]
+[node name="PowerInPort" type="Control" parent="GameLayer/Boxes/Thruster/PortsInOut" unique_id=1627462261]
 anchors_preset = 0
 offset_left = 9.0
 offset_top = 46.0
@@ -458,7 +504,7 @@ script = ExtResource("17_port_area")
 port_name = &"power"
 editor_debug_color = Color(0.2, 0.9019608, 1, 0.5372549)
 
-[node name="DataOutPort" type="Control" parent="CanvasLayer/Boxes/Thruster/PortsInOut" unique_id=587434803]
+[node name="DataOutPort" type="Control" parent="GameLayer/Boxes/Thruster/PortsInOut" unique_id=587434803]
 anchors_preset = 0
 offset_left = 9.0
 offset_top = 20.0
@@ -468,7 +514,7 @@ script = ExtResource("17_port_area")
 port_name = &"data"
 editor_debug_color = Color(0.2, 0.9019608, 1, 0.5372549)
 
-[node name="DragArea" type="Control" parent="CanvasLayer/Boxes/Thruster/PortsInOut" unique_id=2139544090]
+[node name="DragArea" type="Control" parent="GameLayer/Boxes/Thruster/PortsInOut" unique_id=2139544090]
 anchors_preset = 0
 offset_left = 7.0
 offset_top = 8.0
@@ -477,7 +523,7 @@ offset_bottom = 68.0
 mouse_filter = 2
 script = ExtResource("18_drag_area")
 
-[node name="LeverShaft" type="TextureRect" parent="CanvasLayer/Boxes/Thruster" unique_id=398263494]
+[node name="LeverShaft" type="TextureRect" parent="GameLayer/Boxes/Thruster" unique_id=398263494]
 layout_mode = 0
 offset_left = 47.0
 offset_top = 32.0
@@ -485,14 +531,14 @@ offset_right = 61.0
 offset_bottom = 96.0
 texture = ExtResource("17_3pmx8")
 
-[node name="LeverArmPivot" type="Control" parent="CanvasLayer/Boxes/Thruster" unique_id=1380566095]
+[node name="LeverArmPivot" type="Control" parent="GameLayer/Boxes/Thruster" unique_id=1380566095]
 anchors_preset = 0
 offset_left = 54.0
 offset_top = 63.0
 offset_right = 54.0
 offset_bottom = 63.0
 
-[node name="LeverArm" type="TextureRect" parent="CanvasLayer/Boxes/Thruster/LeverArmPivot" unique_id=498303521]
+[node name="LeverArm" type="TextureRect" parent="GameLayer/Boxes/Thruster/LeverArmPivot" unique_id=498303521]
 layout_mode = 0
 offset_left = -7.0
 offset_top = -31.0
@@ -500,7 +546,7 @@ offset_right = 7.0
 offset_bottom = -1.0
 texture = ExtResource("18_u50mg")
 
-[node name="LeverTop" type="TextureRect" parent="CanvasLayer/Boxes/Thruster" unique_id=1177121523]
+[node name="LeverTop" type="TextureRect" parent="GameLayer/Boxes/Thruster" unique_id=1177121523]
 layout_mode = 0
 offset_left = 41.0
 offset_top = 88.0
@@ -508,7 +554,7 @@ offset_right = 67.0
 offset_bottom = 104.0
 texture = ExtResource("19_cbgmd")
 
-[node name="DragArea2" type="Control" parent="CanvasLayer/Boxes/Thruster/LeverTop" unique_id=352786593]
+[node name="DragArea2" type="Control" parent="GameLayer/Boxes/Thruster/LeverTop" unique_id=352786593]
 anchors_preset = 0
 offset_left = 1.0
 offset_right = 26.0
@@ -517,13 +563,13 @@ mouse_filter = 2
 script = ExtResource("18_drag_area")
 mode = 1
 
-[node name="Rotator" type="TextureRect" parent="CanvasLayer/Boxes" unique_id=421918399]
+[node name="Rotator" type="TextureRect" parent="GameLayer/Boxes" unique_id=421918399]
 z_index = 4
 material = SubResource("ShaderMaterial_h1bgf")
-offset_left = 231.0
-offset_top = 221.0
-offset_right = 330.0
-offset_bottom = 323.0
+offset_left = -1.0
+offset_top = 229.0
+offset_right = 98.0
+offset_bottom = 331.0
 pivot_offset = Vector2(49.5, 51)
 texture = ExtResource("7_d1ilt")
 script = ExtResource("4_jjvhh")
@@ -531,11 +577,11 @@ max_tilt_degrees = 4.0
 max_skew_pixels = 0.0
 max_perspective_pixels = 16.0
 
-[node name="RotatorLogic" type="Node" parent="CanvasLayer/Boxes/Rotator" unique_id=359276756]
+[node name="RotatorLogic" type="Node" parent="GameLayer/Boxes/Rotator" unique_id=359276756]
 unique_name_in_owner = true
 script = ExtResource("16_rotator_logic")
 
-[node name="DragArea" type="Control" parent="CanvasLayer/Boxes/Rotator" unique_id=867956966]
+[node name="DragArea" type="Control" parent="GameLayer/Boxes/Rotator" unique_id=867956966]
 anchors_preset = 0
 offset_left = 19.0
 offset_top = 11.0
@@ -544,7 +590,7 @@ offset_bottom = 90.0
 mouse_filter = 2
 script = ExtResource("18_drag_area")
 
-[node name="DragArea2" type="Control" parent="CanvasLayer/Boxes/Rotator" unique_id=1911649933]
+[node name="DragArea2" type="Control" parent="GameLayer/Boxes/Rotator" unique_id=1911649933]
 anchors_preset = 0
 offset_left = 13.0
 offset_top = 31.0
@@ -553,7 +599,7 @@ offset_bottom = 90.0
 mouse_filter = 2
 script = ExtResource("18_drag_area")
 
-[node name="DragArea3" type="Control" parent="CanvasLayer/Boxes/Rotator" unique_id=1793833948]
+[node name="DragArea3" type="Control" parent="GameLayer/Boxes/Rotator" unique_id=1793833948]
 anchors_preset = 0
 offset_left = 16.0
 offset_top = 28.0
@@ -562,7 +608,7 @@ offset_bottom = 32.0
 mouse_filter = 2
 script = ExtResource("18_drag_area")
 
-[node name="DragArea4" type="Control" parent="CanvasLayer/Boxes/Rotator" unique_id=1976015202]
+[node name="DragArea4" type="Control" parent="GameLayer/Boxes/Rotator" unique_id=1976015202]
 anchors_preset = 0
 offset_left = 20.0
 offset_top = 22.0
@@ -573,14 +619,14 @@ script = ExtResource("18_drag_area")
 mode = 1
 hit_shape = 1
 
-[node name="LeverInput" type="Control" parent="CanvasLayer/Boxes/Rotator" unique_id=689477097]
+[node name="LeverInput" type="Control" parent="GameLayer/Boxes/Rotator" unique_id=689477097]
 anchors_preset = 0
 offset_left = 10.0
 offset_top = 13.0
 offset_right = 47.0
 offset_bottom = 106.0
 
-[node name="PortsInOut" type="TextureRect" parent="CanvasLayer/Boxes/Rotator" unique_id=1285049818]
+[node name="PortsInOut" type="TextureRect" parent="GameLayer/Boxes/Rotator" unique_id=1285049818]
 show_behind_parent = true
 material = SubResource("ShaderMaterial_b3802")
 layout_mode = 0
@@ -592,7 +638,7 @@ mouse_filter = 2
 texture = ExtResource("18_hibaj")
 script = ExtResource("19_attachment")
 
-[node name="PowerInPort" type="Control" parent="CanvasLayer/Boxes/Rotator/PortsInOut" unique_id=47560753]
+[node name="PowerInPort" type="Control" parent="GameLayer/Boxes/Rotator/PortsInOut" unique_id=47560753]
 anchors_preset = 0
 offset_left = 9.0
 offset_top = 46.0
@@ -602,7 +648,7 @@ script = ExtResource("17_port_area")
 port_name = &"power"
 editor_debug_color = Color(0.2, 0.9019608, 1, 0.5372549)
 
-[node name="DataOutPort" type="Control" parent="CanvasLayer/Boxes/Rotator/PortsInOut" unique_id=1390132081]
+[node name="DataOutPort" type="Control" parent="GameLayer/Boxes/Rotator/PortsInOut" unique_id=1390132081]
 anchors_preset = 0
 offset_left = 9.0
 offset_top = 20.0
@@ -612,7 +658,7 @@ script = ExtResource("17_port_area")
 port_name = &"data"
 editor_debug_color = Color(0.2, 0.9019608, 1, 0.5372549)
 
-[node name="DragArea" type="Control" parent="CanvasLayer/Boxes/Rotator/PortsInOut" unique_id=1513841705]
+[node name="DragArea" type="Control" parent="GameLayer/Boxes/Rotator/PortsInOut" unique_id=1513841705]
 anchors_preset = 0
 offset_left = 7.0
 offset_top = 6.0
@@ -621,7 +667,7 @@ offset_bottom = 67.0
 mouse_filter = 2
 script = ExtResource("18_drag_area")
 
-[node name="DialPivot" type="Control" parent="CanvasLayer/Boxes/Rotator" unique_id=1218145175]
+[node name="DialPivot" type="Control" parent="GameLayer/Boxes/Rotator" unique_id=1218145175]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -635,7 +681,7 @@ offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Dial" type="TextureRect" parent="CanvasLayer/Boxes/Rotator/DialPivot" unique_id=654323968]
+[node name="Dial" type="TextureRect" parent="GameLayer/Boxes/Rotator/DialPivot" unique_id=654323968]
 layout_mode = 0
 offset_left = -28.0
 offset_top = -28.0
@@ -643,13 +689,13 @@ offset_right = 28.0
 offset_bottom = 28.0
 texture = ExtResource("23_u50mg")
 
-[node name="CommsIn" type="TextureRect" parent="CanvasLayer/Boxes" unique_id=437558751]
+[node name="CommsIn" type="TextureRect" parent="GameLayer/Boxes" unique_id=437558751]
 z_index = 6
 material = SubResource("ShaderMaterial_h1bgf")
-offset_left = 364.0
-offset_top = 218.0
-offset_right = 531.0
-offset_bottom = 339.0
+offset_left = 2.0
+offset_top = 107.0
+offset_right = 169.0
+offset_bottom = 228.0
 pivot_offset = Vector2(83.5, 60.5)
 texture = ExtResource("9_fdnlq")
 script = ExtResource("4_jjvhh")
@@ -657,11 +703,11 @@ max_tilt_degrees = 4.0
 max_skew_pixels = 0.0
 max_perspective_pixels = 16.0
 
-[node name="CommsInLogic" type="Node" parent="CanvasLayer/Boxes/CommsIn" unique_id=323869824]
+[node name="CommsInLogic" type="Node" parent="GameLayer/Boxes/CommsIn" unique_id=323869824]
 unique_name_in_owner = true
 script = ExtResource("16_comms_logic")
 
-[node name="DragArea" type="Control" parent="CanvasLayer/Boxes/CommsIn" unique_id=977778971]
+[node name="DragArea" type="Control" parent="GameLayer/Boxes/CommsIn" unique_id=977778971]
 anchors_preset = 0
 offset_left = 10.0
 offset_top = 15.0
@@ -670,7 +716,7 @@ offset_bottom = 96.0
 mouse_filter = 2
 script = ExtResource("18_drag_area")
 
-[node name="DragArea2" type="Control" parent="CanvasLayer/Boxes/CommsIn" unique_id=157232739]
+[node name="DragArea2" type="Control" parent="GameLayer/Boxes/CommsIn" unique_id=157232739]
 anchors_preset = 0
 offset_left = 23.0
 offset_top = 5.0
@@ -679,7 +725,8 @@ offset_bottom = 16.0
 mouse_filter = 2
 script = ExtResource("18_drag_area")
 
-[node name="PortsInOut" type="TextureRect" parent="CanvasLayer/Boxes/CommsIn" unique_id=1686441092]
+[node name="PortsInOut" type="TextureRect" parent="GameLayer/Boxes/CommsIn" unique_id=1686441092]
+show_behind_parent = true
 material = SubResource("ShaderMaterial_b3802")
 layout_mode = 0
 offset_left = 136.0
@@ -690,7 +737,7 @@ mouse_filter = 2
 texture = ExtResource("18_hibaj")
 script = ExtResource("19_attachment")
 
-[node name="PowerInPort" type="Control" parent="CanvasLayer/Boxes/CommsIn/PortsInOut" unique_id=2092371464]
+[node name="PowerInPort" type="Control" parent="GameLayer/Boxes/CommsIn/PortsInOut" unique_id=2092371464]
 anchors_preset = 0
 offset_left = 9.0
 offset_top = 45.0
@@ -700,7 +747,7 @@ script = ExtResource("17_port_area")
 port_name = &"power"
 editor_debug_color = Color(0.2, 0.9019608, 1, 0.5372549)
 
-[node name="DataOutPort" type="Control" parent="CanvasLayer/Boxes/CommsIn/PortsInOut" unique_id=194291726]
+[node name="DataOutPort" type="Control" parent="GameLayer/Boxes/CommsIn/PortsInOut" unique_id=194291726]
 anchors_preset = 0
 offset_left = 9.0
 offset_top = 19.0
@@ -710,7 +757,7 @@ script = ExtResource("17_port_area")
 port_name = &"data"
 editor_debug_color = Color(0.2, 0.9019608, 1, 0.5372549)
 
-[node name="DragArea" type="Control" parent="CanvasLayer/Boxes/CommsIn/PortsInOut" unique_id=1031726836]
+[node name="DragArea" type="Control" parent="GameLayer/Boxes/CommsIn/PortsInOut" unique_id=1031726836]
 anchors_preset = 0
 offset_left = 7.0
 offset_top = 6.0
@@ -719,7 +766,7 @@ offset_bottom = 67.0
 mouse_filter = 2
 script = ExtResource("18_drag_area")
 
-[node name="TextBackground" type="ColorRect" parent="CanvasLayer/Boxes/CommsIn" unique_id=1609350446]
+[node name="TextBackground" type="ColorRect" parent="GameLayer/Boxes/CommsIn" unique_id=1609350446]
 clip_children = 2
 layout_mode = 0
 offset_left = 67.0
@@ -729,11 +776,12 @@ offset_bottom = 44.0
 mouse_filter = 2
 color = Color(0.08235294, 0.11372549, 0.15686275, 1)
 
-[node name="ScrollingText" type="Control" parent="CanvasLayer/Boxes/CommsIn/TextBackground" unique_id=259102882]
+[node name="ScrollingText" type="Control" parent="GameLayer/Boxes/CommsIn/TextBackground" unique_id=259102882]
+visible = false
 anchors_preset = 0
 mouse_filter = 2
 
-[node name="DisplayText" type="Label" parent="CanvasLayer/Boxes/CommsIn/TextBackground/ScrollingText" unique_id=677478570]
+[node name="DisplayText" type="Label" parent="GameLayer/Boxes/CommsIn/TextBackground/ScrollingText" unique_id=677478570]
 layout_mode = 0
 offset_left = 1.0
 offset_top = -4.0
@@ -742,7 +790,7 @@ offset_bottom = 9.0
 text = "INCOMING!!!"
 label_settings = SubResource("LabelSettings_rfxvn")
 
-[node name="DisplayText2" type="Label" parent="CanvasLayer/Boxes/CommsIn/TextBackground/ScrollingText" unique_id=547690480]
+[node name="DisplayText2" type="Label" parent="GameLayer/Boxes/CommsIn/TextBackground/ScrollingText" unique_id=547690480]
 layout_mode = 0
 offset_left = 44.0
 offset_top = -4.0
@@ -751,7 +799,7 @@ offset_bottom = 9.0
 text = "INCOMING!!!"
 label_settings = SubResource("LabelSettings_rfxvn")
 
-[node name="DisplayText3" type="Label" parent="CanvasLayer/Boxes/CommsIn/TextBackground/ScrollingText" unique_id=1842713077]
+[node name="DisplayText3" type="Label" parent="GameLayer/Boxes/CommsIn/TextBackground/ScrollingText" unique_id=1842713077]
 layout_mode = 0
 offset_left = -43.0
 offset_top = -4.0
@@ -760,7 +808,8 @@ offset_bottom = 9.0
 text = "INCOMING!!!"
 label_settings = SubResource("LabelSettings_rfxvn")
 
-[node name="LightOn" type="TextureRect" parent="CanvasLayer/Boxes/CommsIn" unique_id=1565662455]
+[node name="LightOn" type="TextureRect" parent="GameLayer/Boxes/CommsIn" unique_id=1565662455]
+visible = false
 layout_mode = 0
 offset_left = 67.0
 offset_top = 22.0
@@ -769,7 +818,7 @@ offset_bottom = 29.0
 mouse_filter = 2
 texture = ExtResource("26_7k868")
 
-[node name="Screen" type="TextureRect" parent="CanvasLayer/Boxes/CommsIn" unique_id=351237828]
+[node name="Screen" type="TextureRect" parent="GameLayer/Boxes/CommsIn" unique_id=351237828]
 material = SubResource("ShaderMaterial_55jeb")
 layout_mode = 0
 offset_left = 69.0
@@ -779,14 +828,14 @@ offset_bottom = 89.0
 mouse_filter = 2
 texture = ExtResource("28_55jeb")
 
-[node name="DialFreq" type="Control" parent="CanvasLayer/Boxes/CommsIn" unique_id=79984701]
+[node name="DialFreq" type="Control" parent="GameLayer/Boxes/CommsIn" unique_id=79984701]
 anchors_preset = 0
 offset_left = 126.0
 offset_top = 47.0
 offset_right = 126.0
 offset_bottom = 47.0
 
-[node name="DialShadow" type="TextureRect" parent="CanvasLayer/Boxes/CommsIn/DialFreq" unique_id=816072885]
+[node name="DialShadow" type="TextureRect" parent="GameLayer/Boxes/CommsIn/DialFreq" unique_id=816072885]
 layout_mode = 0
 offset_left = -11.0
 offset_top = -12.0
@@ -795,7 +844,7 @@ offset_bottom = 16.0
 mouse_filter = 2
 texture = ExtResource("27_dmskm")
 
-[node name="DialBlackout" type="TextureRect" parent="CanvasLayer/Boxes/CommsIn/DialFreq" unique_id=413825239]
+[node name="DialBlackout" type="TextureRect" parent="GameLayer/Boxes/CommsIn/DialFreq" unique_id=413825239]
 layout_mode = 0
 offset_left = -8.0
 offset_top = -8.0
@@ -804,12 +853,13 @@ offset_bottom = 9.0
 mouse_filter = 2
 texture = ExtResource("28_xdkp6")
 
-[node name="Pivot" type="Control" parent="CanvasLayer/Boxes/CommsIn/DialFreq" unique_id=1916404916]
+[node name="Pivot" type="Control" parent="GameLayer/Boxes/CommsIn/DialFreq" unique_id=1916404916]
 anchors_preset = 0
 offset_top = 1.0
 offset_bottom = 1.0
+rotation = -1.5707964
 
-[node name="DialInside" type="TextureRect" parent="CanvasLayer/Boxes/CommsIn/DialFreq/Pivot" unique_id=1719423240]
+[node name="DialInside" type="TextureRect" parent="GameLayer/Boxes/CommsIn/DialFreq/Pivot" unique_id=1719423240]
 layout_mode = 0
 offset_left = -7.0
 offset_top = -8.0
@@ -817,7 +867,7 @@ offset_right = 8.0
 offset_bottom = 7.0
 texture = ExtResource("29_54nrm")
 
-[node name="Freq" type="Label" parent="CanvasLayer/Boxes/CommsIn/DialFreq" unique_id=1426651912]
+[node name="Freq" type="Label" parent="GameLayer/Boxes/CommsIn/DialFreq" unique_id=1426651912]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -832,7 +882,7 @@ size_flags_vertical = 1
 text = "FREQ"
 label_settings = SubResource("LabelSettings_54nrm")
 
-[node name="DragArea3" type="Control" parent="CanvasLayer/Boxes/CommsIn/DialFreq" unique_id=2017502039]
+[node name="DragArea3" type="Control" parent="GameLayer/Boxes/CommsIn/DialFreq" unique_id=2017502039]
 anchors_preset = 0
 offset_left = -8.0
 offset_top = -8.0
@@ -842,14 +892,14 @@ mouse_filter = 2
 script = ExtResource("18_drag_area")
 mode = 1
 
-[node name="DialAmpl" type="Control" parent="CanvasLayer/Boxes/CommsIn" unique_id=1094789572]
+[node name="DialAmpl" type="Control" parent="GameLayer/Boxes/CommsIn" unique_id=1094789572]
 anchors_preset = 0
 offset_left = 126.0
 offset_top = 75.0
 offset_right = 126.0
 offset_bottom = 75.0
 
-[node name="DialShadow" type="TextureRect" parent="CanvasLayer/Boxes/CommsIn/DialAmpl" unique_id=1779609146]
+[node name="DialShadow" type="TextureRect" parent="GameLayer/Boxes/CommsIn/DialAmpl" unique_id=1779609146]
 layout_mode = 0
 offset_left = -11.0
 offset_top = -12.0
@@ -858,7 +908,7 @@ offset_bottom = 16.0
 mouse_filter = 2
 texture = ExtResource("27_dmskm")
 
-[node name="DialBlackout" type="TextureRect" parent="CanvasLayer/Boxes/CommsIn/DialAmpl" unique_id=1212100063]
+[node name="DialBlackout" type="TextureRect" parent="GameLayer/Boxes/CommsIn/DialAmpl" unique_id=1212100063]
 layout_mode = 0
 offset_left = -8.0
 offset_top = -8.0
@@ -867,12 +917,13 @@ offset_bottom = 9.0
 mouse_filter = 2
 texture = ExtResource("28_xdkp6")
 
-[node name="Pivot" type="Control" parent="CanvasLayer/Boxes/CommsIn/DialAmpl" unique_id=535155224]
+[node name="Pivot" type="Control" parent="GameLayer/Boxes/CommsIn/DialAmpl" unique_id=535155224]
 anchors_preset = 0
 offset_top = 1.0
 offset_bottom = 1.0
+rotation = -1.5707964
 
-[node name="DialInside" type="TextureRect" parent="CanvasLayer/Boxes/CommsIn/DialAmpl/Pivot" unique_id=434750398]
+[node name="DialInside" type="TextureRect" parent="GameLayer/Boxes/CommsIn/DialAmpl/Pivot" unique_id=434750398]
 layout_mode = 0
 offset_left = -7.0
 offset_top = -8.0
@@ -880,7 +931,7 @@ offset_right = 8.0
 offset_bottom = 7.0
 texture = ExtResource("29_54nrm")
 
-[node name="Ampl" type="Label" parent="CanvasLayer/Boxes/CommsIn/DialAmpl" unique_id=1462125142]
+[node name="Ampl" type="Label" parent="GameLayer/Boxes/CommsIn/DialAmpl" unique_id=1462125142]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -895,7 +946,7 @@ size_flags_vertical = 1
 text = "AMPL"
 label_settings = SubResource("LabelSettings_54nrm")
 
-[node name="DragArea4" type="Control" parent="CanvasLayer/Boxes/CommsIn/DialAmpl" unique_id=1299542369]
+[node name="DragArea4" type="Control" parent="GameLayer/Boxes/CommsIn/DialAmpl" unique_id=1299542369]
 anchors_preset = 0
 offset_left = -8.0
 offset_top = -8.0
@@ -905,14 +956,14 @@ mouse_filter = 2
 script = ExtResource("18_drag_area")
 mode = 1
 
-[node name="Dialogue" type="Control" parent="CanvasLayer/Boxes/CommsIn" unique_id=1603848582]
+[node name="Dialogue" type="Control" parent="GameLayer/Boxes/CommsIn" unique_id=1603848582]
 anchors_preset = 0
 offset_left = 55.0
 offset_top = -21.0
 offset_right = 194.0
 offset_bottom = 2.0
 
-[node name="DialogueBoxNinePatch" type="NinePatchRect" parent="CanvasLayer/Boxes/CommsIn/Dialogue" unique_id=976828558]
+[node name="DialogueBoxNinePatch" type="NinePatchRect" parent="GameLayer/Boxes/CommsIn/Dialogue" unique_id=976828558]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -926,7 +977,7 @@ patch_margin_top = 3
 patch_margin_right = 3
 patch_margin_bottom = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Boxes/CommsIn/Dialogue/DialogueBoxNinePatch" unique_id=1198322975]
+[node name="MarginContainer" type="MarginContainer" parent="GameLayer/Boxes/CommsIn/Dialogue/DialogueBoxNinePatch" unique_id=1198322975]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -938,10 +989,10 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="Control" type="Control" parent="CanvasLayer/Boxes/CommsIn/Dialogue/DialogueBoxNinePatch/MarginContainer" unique_id=179922536]
+[node name="Control" type="Control" parent="GameLayer/Boxes/CommsIn/Dialogue/DialogueBoxNinePatch/MarginContainer" unique_id=179922536]
 layout_mode = 2
 
-[node name="Text" type="Label" parent="CanvasLayer/Boxes/CommsIn/Dialogue/DialogueBoxNinePatch/MarginContainer/Control" unique_id=209253924]
+[node name="Text" type="Label" parent="GameLayer/Boxes/CommsIn/Dialogue/DialogueBoxNinePatch/MarginContainer/Control" unique_id=209253924]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -954,7 +1005,7 @@ text = "Hello world this is some sample text ovr here"
 label_settings = SubResource("LabelSettings_obnf1")
 autowrap_mode = 2
 
-[node name="DialogueNub" type="TextureRect" parent="CanvasLayer/Boxes/CommsIn/Dialogue" unique_id=912041944]
+[node name="DialogueNub" type="TextureRect" parent="GameLayer/Boxes/CommsIn/Dialogue" unique_id=912041944]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -964,13 +1015,13 @@ offset_right = 5.0
 grow_vertical = 0
 texture = ExtResource("28_kltya")
 
-[node name="Decoder" type="TextureRect" parent="CanvasLayer/Boxes" unique_id=908273060]
+[node name="Decoder" type="TextureRect" parent="GameLayer/Boxes" unique_id=908273060]
 z_index = 8
 material = SubResource("ShaderMaterial_h1bgf")
-offset_left = 9.0
-offset_top = 130.0
-offset_right = 127.0
-offset_bottom = 247.0
+offset_left = 170.0
+offset_top = -9.0
+offset_right = 288.0
+offset_bottom = 108.0
 pivot_offset = Vector2(59, 58.5)
 texture = ExtResource("6_hptm8")
 script = ExtResource("4_jjvhh")
@@ -978,11 +1029,11 @@ max_tilt_degrees = 4.0
 max_skew_pixels = 0.0
 max_perspective_pixels = 16.0
 
-[node name="DecoderLogic" type="Node" parent="CanvasLayer/Boxes/Decoder" unique_id=1513240017]
+[node name="DecoderLogic" type="Node" parent="GameLayer/Boxes/Decoder" unique_id=1513240017]
 unique_name_in_owner = true
 script = ExtResource("16_decoder_logic")
 
-[node name="DragArea" type="Control" parent="CanvasLayer/Boxes/Decoder" unique_id=105384719]
+[node name="DragArea" type="Control" parent="GameLayer/Boxes/Decoder" unique_id=105384719]
 anchors_preset = 0
 offset_left = 27.0
 offset_top = 21.0
@@ -991,7 +1042,7 @@ offset_bottom = 97.0
 mouse_filter = 2
 script = ExtResource("18_drag_area")
 
-[node name="DragArea2" type="Control" parent="CanvasLayer/Boxes/Decoder" unique_id=1058713802]
+[node name="DragArea2" type="Control" parent="GameLayer/Boxes/Decoder" unique_id=1058713802]
 anchors_preset = 0
 offset_left = 39.0
 offset_top = 67.0
@@ -1001,7 +1052,7 @@ mouse_filter = 2
 script = ExtResource("18_drag_area")
 mode = 1
 
-[node name="DragArea3" type="Control" parent="CanvasLayer/Boxes/Decoder" unique_id=1747306180]
+[node name="DragArea3" type="Control" parent="GameLayer/Boxes/Decoder" unique_id=1747306180]
 anchors_preset = 0
 offset_left = 59.0
 offset_top = 67.0
@@ -1011,7 +1062,7 @@ mouse_filter = 2
 script = ExtResource("18_drag_area")
 mode = 1
 
-[node name="PortsInOut" type="TextureRect" parent="CanvasLayer/Boxes/Decoder" unique_id=1265097997]
+[node name="PortsInOut" type="TextureRect" parent="GameLayer/Boxes/Decoder" unique_id=1265097997]
 show_behind_parent = true
 material = SubResource("ShaderMaterial_b3802")
 layout_mode = 0
@@ -1023,7 +1074,7 @@ mouse_filter = 2
 texture = ExtResource("18_hibaj")
 script = ExtResource("19_attachment")
 
-[node name="PowerInPort" type="Control" parent="CanvasLayer/Boxes/Decoder/PortsInOut" unique_id=1774801666]
+[node name="PowerInPort" type="Control" parent="GameLayer/Boxes/Decoder/PortsInOut" unique_id=1774801666]
 anchors_preset = 0
 offset_left = 9.0
 offset_top = 45.0
@@ -1033,7 +1084,7 @@ script = ExtResource("17_port_area")
 port_name = &"power"
 editor_debug_color = Color(0.2, 0.9019608, 1, 0.5372549)
 
-[node name="DataOutPort" type="Control" parent="CanvasLayer/Boxes/Decoder/PortsInOut" unique_id=700694835]
+[node name="DataOutPort" type="Control" parent="GameLayer/Boxes/Decoder/PortsInOut" unique_id=700694835]
 anchors_preset = 0
 offset_left = 9.0
 offset_top = 19.0
@@ -1043,7 +1094,7 @@ script = ExtResource("17_port_area")
 port_name = &"data"
 editor_debug_color = Color(0.2, 0.9019608, 1, 0.5372549)
 
-[node name="DragArea" type="Control" parent="CanvasLayer/Boxes/Decoder/PortsInOut" unique_id=1257318940]
+[node name="DragArea" type="Control" parent="GameLayer/Boxes/Decoder/PortsInOut" unique_id=1257318940]
 anchors_preset = 0
 offset_left = 7.0
 offset_top = 6.0
@@ -1052,7 +1103,7 @@ offset_bottom = 67.0
 mouse_filter = 2
 script = ExtResource("18_drag_area")
 
-[node name="Screen" type="TextureRect" parent="CanvasLayer/Boxes/Decoder" unique_id=1206986309]
+[node name="Screen" type="TextureRect" parent="GameLayer/Boxes/Decoder" unique_id=1206986309]
 clip_children = 2
 material = SubResource("ShaderMaterial_bv80c")
 layout_mode = 0
@@ -1060,69 +1111,79 @@ offset_left = 43.0
 offset_top = 31.0
 offset_right = 74.0
 offset_bottom = 62.0
+mouse_filter = 2
 texture = ExtResource("30_kltya")
 
-[node name="LeftButton" type="TextureRect" parent="CanvasLayer/Boxes/Decoder/Screen" unique_id=681465568]
+[node name="LeftButton" type="TextureRect" parent="GameLayer/Boxes/Decoder/Screen" unique_id=681465568]
 layout_mode = 0
 offset_left = 1.0
 offset_top = 22.0
 offset_right = 15.0
 offset_bottom = 29.0
+mouse_filter = 2
 texture = ExtResource("39_2060n")
 
-[node name="LeftButtonPressed" type="TextureRect" parent="CanvasLayer/Boxes/Decoder/Screen" unique_id=425101753]
+[node name="LeftButtonPressed" type="TextureRect" parent="GameLayer/Boxes/Decoder/Screen" unique_id=425101753]
+visible = false
 layout_mode = 0
 offset_left = 1.0
 offset_top = 22.0
 offset_right = 15.0
 offset_bottom = 29.0
+mouse_filter = 2
 texture = ExtResource("40_qax2n")
 
-[node name="LeftImpactArea" type="ColorRect" parent="CanvasLayer/Boxes/Decoder/Screen" unique_id=150513524]
+[node name="LeftImpactArea" type="ColorRect" parent="GameLayer/Boxes/Decoder/Screen" unique_id=150513524]
 material = SubResource("ShaderMaterial_obnf1")
 layout_mode = 0
 offset_left = 1.0
 offset_right = 15.0
 offset_bottom = 24.0
+mouse_filter = 2
 
-[node name="RightButton" type="TextureRect" parent="CanvasLayer/Boxes/Decoder/Screen" unique_id=751855654]
+[node name="RightButton" type="TextureRect" parent="GameLayer/Boxes/Decoder/Screen" unique_id=751855654]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 22.0
 offset_right = 30.0
 offset_bottom = 29.0
+mouse_filter = 2
 texture = ExtResource("41_qax2n")
 
-[node name="RightButtonPressed" type="TextureRect" parent="CanvasLayer/Boxes/Decoder/Screen" unique_id=554025591]
+[node name="RightButtonPressed" type="TextureRect" parent="GameLayer/Boxes/Decoder/Screen" unique_id=554025591]
+visible = false
 layout_mode = 0
 offset_left = 16.0
 offset_top = 22.0
 offset_right = 30.0
 offset_bottom = 29.0
+mouse_filter = 2
 texture = ExtResource("40_qax2n")
 
-[node name="RightImpactArea" type="ColorRect" parent="CanvasLayer/Boxes/Decoder/Screen" unique_id=1035718540]
+[node name="RightImpactArea" type="ColorRect" parent="GameLayer/Boxes/Decoder/Screen" unique_id=1035718540]
+visible = false
 material = SubResource("ShaderMaterial_2060n")
 layout_mode = 0
 offset_left = 16.0
 offset_right = 30.0
 offset_bottom = 24.0
+mouse_filter = 2
 
-[node name="LeftNotes" type="Control" parent="CanvasLayer/Boxes/Decoder/Screen" unique_id=1231378227]
+[node name="LeftNotes" type="Control" parent="GameLayer/Boxes/Decoder/Screen" unique_id=1231378227]
 anchors_preset = 0
 offset_left = 8.0
 offset_top = 1.0
 offset_right = 8.0
 offset_bottom = 1.0
 
-[node name="RightNotes" type="Control" parent="CanvasLayer/Boxes/Decoder/Screen" unique_id=1789734714]
+[node name="RightNotes" type="Control" parent="GameLayer/Boxes/Decoder/Screen" unique_id=1789734714]
 anchors_preset = 0
 offset_left = 23.0
 offset_top = 1.0
 offset_right = 23.0
 offset_bottom = 1.0
 
-[node name="ZButton" type="TextureRect" parent="CanvasLayer/Boxes/Decoder" unique_id=821904560]
+[node name="ZButton" type="TextureRect" parent="GameLayer/Boxes/Decoder" unique_id=821904560]
 layout_mode = 0
 offset_left = 39.0
 offset_top = 66.0
@@ -1130,15 +1191,17 @@ offset_right = 58.0
 offset_bottom = 91.0
 texture = ExtResource("31_hdf80")
 
-[node name="ZButtonPressed" type="TextureRect" parent="CanvasLayer/Boxes/Decoder" unique_id=105955849]
+[node name="ZButtonPressed" type="TextureRect" parent="GameLayer/Boxes/Decoder" unique_id=105955849]
+visible = false
 layout_mode = 0
 offset_left = 39.0
 offset_top = 66.0
 offset_right = 58.0
 offset_bottom = 91.0
+mouse_filter = 2
 texture = ExtResource("32_jwpg7")
 
-[node name="XButton" type="TextureRect" parent="CanvasLayer/Boxes/Decoder" unique_id=1841802399]
+[node name="XButton" type="TextureRect" parent="GameLayer/Boxes/Decoder" unique_id=1841802399]
 layout_mode = 0
 offset_left = 59.0
 offset_top = 66.0
@@ -1146,21 +1209,23 @@ offset_right = 78.0
 offset_bottom = 91.0
 texture = ExtResource("33_k2e45")
 
-[node name="XButtonPressed" type="TextureRect" parent="CanvasLayer/Boxes/Decoder" unique_id=1943443460]
+[node name="XButtonPressed" type="TextureRect" parent="GameLayer/Boxes/Decoder" unique_id=1943443460]
+visible = false
 layout_mode = 0
 offset_left = 59.0
 offset_top = 66.0
 offset_right = 78.0
 offset_bottom = 91.0
+mouse_filter = 2
 texture = ExtResource("34_536cc")
 
-[node name="Translator" type="TextureRect" parent="CanvasLayer/Boxes" unique_id=476558772]
+[node name="Translator" type="TextureRect" parent="GameLayer/Boxes" unique_id=476558772]
 z_index = 10
 material = SubResource("ShaderMaterial_h1bgf")
-offset_left = 68.0
-offset_top = 6.0
-offset_right = 270.0
-offset_bottom = 133.0
+offset_left = -4.0
+offset_top = -10.0
+offset_right = 198.0
+offset_bottom = 117.0
 pivot_offset = Vector2(101, 63.5)
 texture = ExtResource("35_jwpg7")
 script = ExtResource("4_jjvhh")
@@ -1168,11 +1233,11 @@ max_tilt_degrees = 4.0
 max_skew_pixels = 0.0
 max_perspective_pixels = 16.0
 
-[node name="TranslatorLogic" type="Node" parent="CanvasLayer/Boxes/Translator" unique_id=234159362]
+[node name="TranslatorLogic" type="Node" parent="GameLayer/Boxes/Translator" unique_id=234159362]
 unique_name_in_owner = true
 script = ExtResource("16_translator_logic")
 
-[node name="DragArea" type="Control" parent="CanvasLayer/Boxes/Translator" unique_id=165463001]
+[node name="DragArea" type="Control" parent="GameLayer/Boxes/Translator" unique_id=165463001]
 anchors_preset = 0
 offset_left = 13.0
 offset_top = 17.0
@@ -1181,7 +1246,7 @@ offset_bottom = 110.0
 mouse_filter = 2
 script = ExtResource("18_drag_area")
 
-[node name="DragArea2" type="Control" parent="CanvasLayer/Boxes/Translator" unique_id=849184423]
+[node name="DragArea2" type="Control" parent="GameLayer/Boxes/Translator" unique_id=849184423]
 anchors_preset = 0
 offset_left = 153.0
 offset_top = 17.0
@@ -1190,7 +1255,7 @@ offset_bottom = 109.0
 mouse_filter = 2
 script = ExtResource("18_drag_area")
 
-[node name="DragArea3" type="Control" parent="CanvasLayer/Boxes/Translator" unique_id=210682978]
+[node name="DragArea3" type="Control" parent="GameLayer/Boxes/Translator" unique_id=210682978]
 anchors_preset = 0
 offset_left = 143.0
 offset_top = 28.0
@@ -1199,7 +1264,7 @@ offset_bottom = 35.0
 mouse_filter = 2
 script = ExtResource("18_drag_area")
 
-[node name="DragArea4" type="Control" parent="CanvasLayer/Boxes/Translator" unique_id=658582728]
+[node name="DragArea4" type="Control" parent="GameLayer/Boxes/Translator" unique_id=658582728]
 anchors_preset = 0
 offset_left = 143.0
 offset_top = 54.0
@@ -1208,7 +1273,7 @@ offset_bottom = 61.0
 mouse_filter = 2
 script = ExtResource("18_drag_area")
 
-[node name="DragArea5" type="Control" parent="CanvasLayer/Boxes/Translator" unique_id=1685323203]
+[node name="DragArea5" type="Control" parent="GameLayer/Boxes/Translator" unique_id=1685323203]
 anchors_preset = 0
 offset_left = 143.0
 offset_top = 86.0
@@ -1217,7 +1282,7 @@ offset_bottom = 93.0
 mouse_filter = 2
 script = ExtResource("18_drag_area")
 
-[node name="PortsInOut" type="TextureRect" parent="CanvasLayer/Boxes/Translator" unique_id=1862803097]
+[node name="PortsInOut" type="TextureRect" parent="GameLayer/Boxes/Translator" unique_id=1862803097]
 show_behind_parent = true
 material = SubResource("ShaderMaterial_b3802")
 layout_mode = 0
@@ -1229,7 +1294,7 @@ mouse_filter = 2
 texture = ExtResource("18_hibaj")
 script = ExtResource("19_attachment")
 
-[node name="PowerInPort" type="Control" parent="CanvasLayer/Boxes/Translator/PortsInOut" unique_id=1365851804]
+[node name="PowerInPort" type="Control" parent="GameLayer/Boxes/Translator/PortsInOut" unique_id=1365851804]
 anchors_preset = 0
 offset_left = 9.0
 offset_top = 45.0
@@ -1239,7 +1304,7 @@ script = ExtResource("17_port_area")
 port_name = &"power"
 editor_debug_color = Color(0.2, 0.9019608, 1, 0.5372549)
 
-[node name="DataOutPort" type="Control" parent="CanvasLayer/Boxes/Translator/PortsInOut" unique_id=1906666901]
+[node name="DataOutPort" type="Control" parent="GameLayer/Boxes/Translator/PortsInOut" unique_id=1906666901]
 anchors_preset = 0
 offset_left = 9.0
 offset_top = 19.0
@@ -1249,7 +1314,7 @@ script = ExtResource("17_port_area")
 port_name = &"data"
 editor_debug_color = Color(0.2, 0.9019608, 1, 0.5372549)
 
-[node name="DragArea" type="Control" parent="CanvasLayer/Boxes/Translator/PortsInOut" unique_id=43871441]
+[node name="DragArea" type="Control" parent="GameLayer/Boxes/Translator/PortsInOut" unique_id=43871441]
 anchors_preset = 0
 offset_left = 7.0
 offset_top = 6.0
@@ -1258,7 +1323,7 @@ offset_bottom = 67.0
 mouse_filter = 2
 script = ExtResource("18_drag_area")
 
-[node name="CasetteArea" type="TextureRect" parent="CanvasLayer/Boxes/Translator" unique_id=1299348996]
+[node name="CasetteArea" type="TextureRect" parent="GameLayer/Boxes/Translator" unique_id=1299348996]
 layout_mode = 0
 offset_left = 21.0
 offset_top = 27.0
@@ -1266,26 +1331,27 @@ offset_right = 124.0
 offset_bottom = 100.0
 texture = ExtResource("36_k2e45")
 
-[node name="Clip" type="ColorRect" parent="CanvasLayer/Boxes/Translator/CasetteArea" unique_id=293710344]
+[node name="Clip" type="ColorRect" parent="GameLayer/Boxes/Translator/CasetteArea" unique_id=293710344]
 clip_children = 2
 layout_mode = 0
 offset_left = 2.0
 offset_top = 5.0
 offset_right = 101.0
 offset_bottom = 70.0
+mouse_filter = 1
 color = Color(0.08235294, 0.11372549, 0.15686275, 1)
 
-[node name="Casettes" type="VBoxContainer" parent="CanvasLayer/Boxes/Translator/CasetteArea/Clip" unique_id=1467017239]
+[node name="Casettes" type="VBoxContainer" parent="GameLayer/Boxes/Translator/CasetteArea/Clip" unique_id=1467017239]
 layout_mode = 0
 offset_right = 99.0
 offset_bottom = 16.0
 theme_override_constants/separation = 1
 
-[node name="BlankCasette" type="TextureRect" parent="CanvasLayer/Boxes/Translator/CasetteArea/Clip/Casettes" unique_id=2083618845]
+[node name="BlankCasette" type="TextureRect" parent="GameLayer/Boxes/Translator/CasetteArea/Clip/Casettes" unique_id=2083618845]
 layout_mode = 2
 texture = ExtResource("37_kwxat")
 
-[node name="DragArea6" type="Control" parent="CanvasLayer/Boxes/Translator/CasetteArea/Clip/Casettes/BlankCasette" unique_id=1465777350]
+[node name="DragArea6" type="Control" parent="GameLayer/Boxes/Translator/CasetteArea/Clip/Casettes/BlankCasette" unique_id=1465777350]
 z_index = 1
 anchors_preset = 0
 offset_left = 8.0
@@ -1296,11 +1362,11 @@ mouse_filter = 2
 script = ExtResource("18_drag_area")
 mode = 1
 
-[node name="BrownCasette" type="TextureRect" parent="CanvasLayer/Boxes/Translator/CasetteArea/Clip/Casettes" unique_id=281821515]
+[node name="BrownCasette" type="TextureRect" parent="GameLayer/Boxes/Translator/CasetteArea/Clip/Casettes" unique_id=281821515]
 layout_mode = 2
 texture = ExtResource("38_aa8k8")
 
-[node name="DragArea6" type="Control" parent="CanvasLayer/Boxes/Translator/CasetteArea/Clip/Casettes/BrownCasette" unique_id=1982796158]
+[node name="DragArea6" type="Control" parent="GameLayer/Boxes/Translator/CasetteArea/Clip/Casettes/BrownCasette" unique_id=1982796158]
 z_index = 1
 anchors_preset = 0
 offset_left = 8.0
@@ -1311,11 +1377,11 @@ mouse_filter = 2
 script = ExtResource("18_drag_area")
 mode = 1
 
-[node name="BlankCasette2" type="TextureRect" parent="CanvasLayer/Boxes/Translator/CasetteArea/Clip/Casettes" unique_id=1237481319]
+[node name="BlankCasette2" type="TextureRect" parent="GameLayer/Boxes/Translator/CasetteArea/Clip/Casettes" unique_id=1237481319]
 layout_mode = 2
 texture = ExtResource("37_kwxat")
 
-[node name="DragArea6" type="Control" parent="CanvasLayer/Boxes/Translator/CasetteArea/Clip/Casettes/BlankCasette2" unique_id=1415956311]
+[node name="DragArea6" type="Control" parent="GameLayer/Boxes/Translator/CasetteArea/Clip/Casettes/BlankCasette2" unique_id=1415956311]
 z_index = 1
 anchors_preset = 0
 offset_left = 8.0
@@ -1326,11 +1392,11 @@ mouse_filter = 2
 script = ExtResource("18_drag_area")
 mode = 1
 
-[node name="RedCasette" type="TextureRect" parent="CanvasLayer/Boxes/Translator/CasetteArea/Clip/Casettes" unique_id=117603043]
+[node name="RedCasette" type="TextureRect" parent="GameLayer/Boxes/Translator/CasetteArea/Clip/Casettes" unique_id=117603043]
 layout_mode = 2
 texture = ExtResource("39_kqrg6")
 
-[node name="DragArea6" type="Control" parent="CanvasLayer/Boxes/Translator/CasetteArea/Clip/Casettes/RedCasette" unique_id=1235869907]
+[node name="DragArea6" type="Control" parent="GameLayer/Boxes/Translator/CasetteArea/Clip/Casettes/RedCasette" unique_id=1235869907]
 z_index = 1
 anchors_preset = 0
 offset_left = 8.0
@@ -1341,11 +1407,11 @@ mouse_filter = 2
 script = ExtResource("18_drag_area")
 mode = 1
 
-[node name="BlueCasette" type="TextureRect" parent="CanvasLayer/Boxes/Translator/CasetteArea/Clip/Casettes" unique_id=1986822377]
+[node name="BlueCasette" type="TextureRect" parent="GameLayer/Boxes/Translator/CasetteArea/Clip/Casettes" unique_id=1986822377]
 layout_mode = 2
 texture = ExtResource("40_nwwfm")
 
-[node name="DragArea6" type="Control" parent="CanvasLayer/Boxes/Translator/CasetteArea/Clip/Casettes/BlueCasette" unique_id=1925396533]
+[node name="DragArea6" type="Control" parent="GameLayer/Boxes/Translator/CasetteArea/Clip/Casettes/BlueCasette" unique_id=1925396533]
 z_index = 1
 anchors_preset = 0
 offset_left = 8.0
@@ -1356,11 +1422,11 @@ mouse_filter = 2
 script = ExtResource("18_drag_area")
 mode = 1
 
-[node name="PurpleCasette" type="TextureRect" parent="CanvasLayer/Boxes/Translator/CasetteArea/Clip/Casettes" unique_id=182092072]
+[node name="PurpleCasette" type="TextureRect" parent="GameLayer/Boxes/Translator/CasetteArea/Clip/Casettes" unique_id=182092072]
 layout_mode = 2
 texture = ExtResource("41_s8vy0")
 
-[node name="DragArea6" type="Control" parent="CanvasLayer/Boxes/Translator/CasetteArea/Clip/Casettes/PurpleCasette" unique_id=514790740]
+[node name="DragArea6" type="Control" parent="GameLayer/Boxes/Translator/CasetteArea/Clip/Casettes/PurpleCasette" unique_id=514790740]
 z_index = 1
 anchors_preset = 0
 offset_left = 8.0
@@ -1371,11 +1437,11 @@ mouse_filter = 2
 script = ExtResource("18_drag_area")
 mode = 1
 
-[node name="BlankCasette3" type="TextureRect" parent="CanvasLayer/Boxes/Translator/CasetteArea/Clip/Casettes" unique_id=1435221651]
+[node name="BlankCasette3" type="TextureRect" parent="GameLayer/Boxes/Translator/CasetteArea/Clip/Casettes" unique_id=1435221651]
 layout_mode = 2
 texture = ExtResource("37_kwxat")
 
-[node name="DragArea6" type="Control" parent="CanvasLayer/Boxes/Translator/CasetteArea/Clip/Casettes/BlankCasette3" unique_id=1380803683]
+[node name="DragArea6" type="Control" parent="GameLayer/Boxes/Translator/CasetteArea/Clip/Casettes/BlankCasette3" unique_id=1380803683]
 z_index = 1
 anchors_preset = 0
 offset_left = 8.0
@@ -1386,14 +1452,15 @@ mouse_filter = 2
 script = ExtResource("18_drag_area")
 mode = 1
 
-[node name="ScrollUp" type="Control" parent="CanvasLayer/Boxes/Translator" unique_id=1430352905]
+[node name="ScrollUp" type="Control" parent="GameLayer/Boxes/Translator" unique_id=1430352905]
 anchors_preset = 0
 offset_left = 133.0
 offset_top = 43.0
 offset_right = 133.0
 offset_bottom = 43.0
 
-[node name="Enabled" type="TextureRect" parent="CanvasLayer/Boxes/Translator/ScrollUp" unique_id=1150343863]
+[node name="Enabled" type="TextureRect" parent="GameLayer/Boxes/Translator/ScrollUp" unique_id=1150343863]
+visible = false
 layout_mode = 0
 offset_left = -3.0
 offset_top = -4.0
@@ -1401,7 +1468,7 @@ offset_right = 4.0
 offset_bottom = 4.0
 texture = ExtResource("42_s8vy0")
 
-[node name="Disabled" type="TextureRect" parent="CanvasLayer/Boxes/Translator/ScrollUp" unique_id=617853111]
+[node name="Disabled" type="TextureRect" parent="GameLayer/Boxes/Translator/ScrollUp" unique_id=617853111]
 layout_mode = 0
 offset_left = -3.0
 offset_top = -4.0
@@ -1409,14 +1476,14 @@ offset_right = 4.0
 offset_bottom = 4.0
 texture = ExtResource("43_jut3y")
 
-[node name="ScrollDown" type="Control" parent="CanvasLayer/Boxes/Translator" unique_id=97153774]
+[node name="ScrollDown" type="Control" parent="GameLayer/Boxes/Translator" unique_id=97153774]
 anchors_preset = 0
 offset_left = 133.0
 offset_top = 86.0
 offset_right = 133.0
 offset_bottom = 86.0
 
-[node name="Enabled" type="TextureRect" parent="CanvasLayer/Boxes/Translator/ScrollDown" unique_id=724844886]
+[node name="Enabled" type="TextureRect" parent="GameLayer/Boxes/Translator/ScrollDown" unique_id=724844886]
 layout_mode = 0
 offset_left = -3.0
 offset_top = -4.0
@@ -1424,7 +1491,8 @@ offset_right = 4.0
 offset_bottom = 4.0
 texture = ExtResource("44_v2nl5")
 
-[node name="Disabled" type="TextureRect" parent="CanvasLayer/Boxes/Translator/ScrollDown" unique_id=559146091]
+[node name="Disabled" type="TextureRect" parent="GameLayer/Boxes/Translator/ScrollDown" unique_id=559146091]
+visible = false
 layout_mode = 0
 offset_left = -3.0
 offset_top = -4.0
@@ -1432,11 +1500,312 @@ offset_right = 4.0
 offset_bottom = 4.0
 texture = ExtResource("45_dmskm")
 
-[node name="WireLayer" type="Node2D" parent="CanvasLayer" unique_id=125592954]
+[node name="TapTapMachine" type="TextureRect" parent="GameLayer/Boxes" unique_id=1198457272]
+z_index = 12
+material = ExtResource("59_my4ki")
+offset_left = 516.0
+offset_top = 155.0
+offset_right = 612.0
+offset_bottom = 329.0
+pivot_offset = Vector2(54.5, 59.5)
+texture = ExtResource("59_qax2n")
+script = ExtResource("4_jjvhh")
+max_tilt_degrees = 4.0
+max_skew_pixels = 0.0
+max_perspective_pixels = 16.0
+shader_material_preset = ExtResource("59_my4ki")
+
+[node name="TapTapLogic" type="Node" parent="GameLayer/Boxes/TapTapMachine" unique_id=1277224175]
+unique_name_in_owner = true
+script = ExtResource("61_tap_logic")
+pressed_texture = ExtResource("62_tap_pressed")
+
+[node name="DragArea" type="Control" parent="GameLayer/Boxes/TapTapMachine" unique_id=332877564]
+anchors_preset = 0
+offset_left = 16.0
+offset_top = 44.0
+offset_right = 80.0
+offset_bottom = 138.0
+mouse_filter = 2
+script = ExtResource("18_drag_area")
+
+[node name="DragArea2" type="Control" parent="GameLayer/Boxes/TapTapMachine" unique_id=1048099270]
+anchors_preset = 0
+offset_left = 37.0
+offset_top = 96.0
+offset_right = 58.0
+offset_bottom = 119.0
+mouse_filter = 2
+script = ExtResource("18_drag_area")
+mode = 1
+
+[node name="PortsInOut" type="TextureRect" parent="GameLayer/Boxes/TapTapMachine" unique_id=614446375]
+material = ExtResource("59_my4ki")
+layout_mode = 0
+offset_left = 16.0
+offset_top = 126.0
+offset_right = 83.0
+offset_bottom = 165.0
+mouse_filter = 2
+texture = ExtResource("60_y86h7")
+script = ExtResource("19_attachment")
+automatic_layering = false
+shader_material_preset = ExtResource("59_my4ki")
+
+[node name="PowerInPort" type="Control" parent="GameLayer/Boxes/TapTapMachine/PortsInOut" unique_id=866970691]
+anchors_preset = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 27.0
+offset_bottom = 27.0
+script = ExtResource("17_port_area")
+port_name = &"power"
+editor_debug_color = Color(0.2, 0.9019608, 1, 0.5372549)
+
+[node name="DataOutPort" type="Control" parent="GameLayer/Boxes/TapTapMachine/PortsInOut" unique_id=146239997]
+anchors_preset = 0
+offset_left = 35.0
+offset_top = 16.0
+offset_right = 46.0
+offset_bottom = 27.0
+script = ExtResource("17_port_area")
+port_name = &"data"
+editor_debug_color = Color(0.2, 0.9019608, 1, 0.5372549)
+
+[node name="DragArea" type="Control" parent="GameLayer/Boxes/TapTapMachine/PortsInOut" unique_id=265342333]
+anchors_preset = 0
+offset_left = 5.0
+offset_top = 13.0
+offset_right = 58.0
+offset_bottom = 30.0
+mouse_filter = 2
+script = ExtResource("18_drag_area")
+
+[node name="TapArea" type="Control" parent="GameLayer/Boxes/TapTapMachine" unique_id=240419324]
+anchors_preset = 0
+offset_left = 37.0
+offset_top = 96.0
+offset_right = 58.0
+offset_bottom = 119.0
+
+[node name="Manual" type="TextureRect" parent="GameLayer/Boxes" unique_id=883140214]
+z_index = 14
+material = SubResource("ShaderMaterial_nay3j")
+offset_left = 353.0
+offset_top = 177.0
+offset_right = 494.0
+offset_bottom = 345.0
+pivot_offset = Vector2(54.5, 59.5)
+texture = ExtResource("64_ovafv")
+script = ExtResource("4_jjvhh")
+max_tilt_degrees = 4.0
+max_skew_pixels = 0.0
+max_perspective_pixels = 16.0
+
+[node name="DragAreas" type="Control" parent="GameLayer/Boxes/Manual" unique_id=697203764]
+anchors_preset = 0
+
+[node name="DragArea" type="Control" parent="GameLayer/Boxes/Manual/DragAreas" unique_id=223061723]
+anchors_preset = 0
+offset_left = 20.0
+offset_top = 117.0
+offset_right = 119.0
+offset_bottom = 149.0
+mouse_filter = 2
+script = ExtResource("18_drag_area")
+
+[node name="DragArea5" type="Control" parent="GameLayer/Boxes/Manual/DragAreas" unique_id=1578587020]
+anchors_preset = 0
+offset_left = 35.0
+offset_top = 22.0
+offset_right = 105.0
+offset_bottom = 29.0
+mouse_filter = 2
+script = ExtResource("18_drag_area")
+
+[node name="DragArea2" type="Control" parent="GameLayer/Boxes/Manual/DragAreas" unique_id=836550025]
+anchors_preset = 0
+offset_left = 25.0
+offset_top = 28.0
+offset_right = 115.0
+offset_bottom = 60.0
+mouse_filter = 2
+script = ExtResource("18_drag_area")
+
+[node name="DragArea3" type="Control" parent="GameLayer/Boxes/Manual/DragAreas" unique_id=1016495964]
+anchors_preset = 0
+offset_left = 23.0
+offset_top = 59.0
+offset_right = 117.0
+offset_bottom = 83.0
+mouse_filter = 2
+script = ExtResource("18_drag_area")
+
+[node name="DragArea4" type="Control" parent="GameLayer/Boxes/Manual/DragAreas" unique_id=724894163]
+anchors_preset = 0
+offset_left = 21.0
+offset_top = 82.0
+offset_right = 117.0
+offset_bottom = 118.0
+mouse_filter = 2
+script = ExtResource("18_drag_area")
+
+[node name="Bottom" type="TextureRect" parent="GameLayer/Boxes/Manual" unique_id=889710250]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = ExtResource("65_fg68e")
+
+[node name="WhiteFolder" type="TextureRect" parent="GameLayer/Boxes/Manual" unique_id=1738259260]
+self_modulate = Color(0.53333336, 0.53333336, 0.53333336, 1)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("66_jekl6")
+script = ExtResource("73_manual_folder")
+page_name = "white"
+
+[node name="PurpleFolder" type="TextureRect" parent="GameLayer/Boxes/Manual" unique_id=357196297]
+self_modulate = Color(0.53333336, 0.53333336, 0.53333336, 1)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("67_v1mrv")
+script = ExtResource("73_manual_folder")
+page_name = "purple"
+
+[node name="RedFolder" type="TextureRect" parent="GameLayer/Boxes/Manual" unique_id=1610515922]
+self_modulate = Color(0.53333336, 0.53333336, 0.53333336, 1)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("68_fd3ed")
+script = ExtResource("73_manual_folder")
+page_name = "red"
+
+[node name="BlueFolder" type="TextureRect" parent="GameLayer/Boxes/Manual" unique_id=666243448]
+self_modulate = Color(0.53333336, 0.53333336, 0.53333336, 1)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("69_qnggo")
+script = ExtResource("73_manual_folder")
+page_name = "blue"
+
+[node name="BrownFolder" type="TextureRect" parent="GameLayer/Boxes/Manual" unique_id=1315183153]
+self_modulate = Color(0.53333336, 0.53333336, 0.53333336, 1)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("70_tab3y")
+script = ExtResource("73_manual_folder")
+page_name = "brown"
+
+[node name="YellowFolder" type="TextureRect" parent="GameLayer/Boxes/Manual" unique_id=1594758518]
+self_modulate = Color(0.53333336, 0.53333336, 0.53333336, 1)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("71_1tvlp")
+script = ExtResource("73_manual_folder")
+page_name = "yellow"
+
+[node name="Front" type="TextureRect" parent="GameLayer/Boxes/Manual" unique_id=455425908]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = ExtResource("72_wl4bb")
+
+[node name="Output" type="TextureRect" parent="GameLayer/Boxes" unique_id=784024785]
+z_index = 16
+material = ExtResource("74_fd3ed")
+offset_left = 199.0
+offset_top = 244.0
+offset_right = 261.0
+offset_bottom = 320.0
+pivot_offset = Vector2(54.5, 59.5)
+texture = ExtResource("75_qnggo")
+script = ExtResource("4_jjvhh")
+max_tilt_degrees = 4.0
+max_skew_pixels = 0.0
+max_perspective_pixels = 16.0
+
+[node name="OutputLogic" type="Node" parent="GameLayer/Boxes/Output" unique_id=1724929007]
+
+[node name="DragAreas" type="Control" parent="GameLayer/Boxes/Output" unique_id=1117225484]
+anchors_preset = 0
+
+[node name="DragArea" type="Control" parent="GameLayer/Boxes/Output/DragAreas" unique_id=262271406]
+anchors_preset = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 55.0
+offset_bottom = 43.0
+mouse_filter = 2
+script = ExtResource("18_drag_area")
+
+[node name="WireLayer" type="Node2D" parent="GameLayer" unique_id=125592954]
 z_index = 100
 script = ExtResource("20_wire_manager")
 tighten_below_ratio = 0.95
 tighten_speed = 400.0
 
-[node name="DemoTest" type="Node" parent="." unique_id=1452254446]
-script = ExtResource("13_fdnlq")
+[node name="NotebookLayer" type="CanvasLayer" parent="." unique_id=101868951]
+layer = 3
+visible = false
+script = ExtResource("74_manual_layer")
+fade_duration = 0.4
+
+[node name="SCREEN" type="Control" parent="NotebookLayer" unique_id=1284536041]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 640.0
+offset_bottom = 360.0
+
+[node name="ColorRect" type="ColorRect" parent="NotebookLayer/SCREEN" unique_id=981173813]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+color = Color(0, 0, 0, 0.7921569)
+
+[node name="CornerThingy" type="TextureRect" parent="NotebookLayer/SCREEN/ColorRect" unique_id=1592571300]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+texture = ExtResource("67_owhal")
+
+[node name="CornerThingy2" type="TextureRect" parent="NotebookLayer/SCREEN/ColorRect" unique_id=1620666379]
+layout_mode = 0
+offset_left = 576.0
+offset_right = 640.0
+offset_bottom = 64.0
+texture = ExtResource("67_owhal")
+flip_h = true
+
+[node name="CornerThingy3" type="TextureRect" parent="NotebookLayer/SCREEN/ColorRect" unique_id=1666923802]
+layout_mode = 0
+offset_left = 576.0
+offset_top = 296.0
+offset_right = 640.0
+offset_bottom = 360.0
+texture = ExtResource("67_owhal")
+flip_h = true
+flip_v = true
+
+[node name="CornerThingy4" type="TextureRect" parent="NotebookLayer/SCREEN/ColorRect" unique_id=1372940336]
+layout_mode = 0
+offset_top = 296.0
+offset_right = 64.0
+offset_bottom = 360.0
+texture = ExtResource("67_owhal")
+flip_v = true
+
+[node name="Manual" type="TextureRect" parent="NotebookLayer/SCREEN" unique_id=1183239721]
+layout_mode = 0
+offset_top = 360.0
+offset_right = 640.0
+offset_bottom = 720.0
+texture = ExtResource("66_ovafv")

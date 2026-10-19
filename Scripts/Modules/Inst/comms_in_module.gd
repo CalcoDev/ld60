@@ -67,9 +67,8 @@ func _ready() -> void:
     amplitude_dial.gui_input.connect(
         _on_dial_gui_input.bind(amplitude_pivot, amplitude_dial)
     )
-    _set_dial_rotation(frequency_pivot, -MAX_DIAL_ANGLE)
-    _set_dial_rotation(amplitude_pivot, -MAX_DIAL_ANGLE)
-    _update_incoming_visuals(0.0)
+    _set_dial_rotation(frequency_pivot, frequency_pivot.rotation)
+    _set_dial_rotation(amplitude_pivot, amplitude_pivot.rotation)
 
 
 func _process(delta: float) -> void:

@@ -50,15 +50,11 @@ func _init() -> void:
 
 func _ready() -> void:
     super._ready()
-    casette_clip.mouse_filter = Control.MOUSE_FILTER_PASS
-    casette_clip.get_parent().mouse_filter = Control.MOUSE_FILTER_PASS
-    casettes.mouse_filter = Control.MOUSE_FILTER_PASS
     for child: Node in casettes.get_children():
         var casette := child as TextureRect
         if casette == null:
             continue
         
-        casette.mouse_filter = Control.MOUSE_FILTER_PASS
         casette.gui_input.connect(
             _on_casette_gui_input.bind(casette)
         )

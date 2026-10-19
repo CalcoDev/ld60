@@ -1,0 +1,29 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bhroq5qe46hke"]
+
+[ext_resource type="Shader" uid="uid://cthaoclnf05c7" path="res://Resources/Shaders/module_dynamic_outline.gdshader" id="1_tt3tr"]
+
+[resource]
+shader = ExtResource("1_tt3tr")
+shader_parameter/drag_grab_uv = Vector2(0.5, 0.5)
+shader_parameter/drag_skew = Vector2(0, 0)
+shader_parameter/drag_perspective = Vector2(0, 0)
+shader_parameter/drag_vertex_origin = Vector2(0, 0)
+shader_parameter/drag_module_size = Vector2(96, 142)
+shader_parameter/shadow_near = Color(0.20392157, 0.10980392, 0.15294118, 1)
+shader_parameter/shadow_middle = Color(0.14117648, 0.08235294, 0.15294118, 1)
+shader_parameter/shadow_outer = Color(0, 0, 0, 1)
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/enable_outline = true
+shader_parameter/outline_diagonals = true
+shader_parameter/enable_shadow = true
+shader_parameter/min_shadow_x = 0
+shader_parameter/max_shadow_x = 3
+shader_parameter/min_shadow_y = 6
+shader_parameter/max_shadow_y = 11
+shader_parameter/horizontal_outward = true
+shader_parameter/screen_center_uv = Vector2(0.88125, 0.6722222)
+shader_parameter/object_size_uv = Vector2(0.15, 0.48333332)
+shader_parameter/alpha_threshold = 0.1
+shader_parameter/noise_amount = 1.0
+shader_parameter/noise_scale = 0.26100001169898
+shader_parameter/shadow_opacity = 1.0

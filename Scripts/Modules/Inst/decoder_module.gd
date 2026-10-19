@@ -88,13 +88,6 @@ func _ready() -> void:
     right_impact.material = right_impact.material.duplicate()
     z_button.gui_input.connect(_on_button_gui_input.bind(LEFT))
     x_button.gui_input.connect(_on_button_gui_input.bind(RIGHT))
-    _set_physical_button(LEFT, false)
-    _set_physical_button(RIGHT, false)
-    _set_screen_button(LEFT, false)
-    _set_screen_button(RIGHT, false)
-    left_impact.visible = false
-    right_impact.visible = false
-    _ignore_decorative_mouse_input()
     play_binary_data(DEMO_BINARY_DATA)
 
 
@@ -575,21 +568,6 @@ func _clear_chart() -> void:
     missed_notes.clear()
     _end_impact(LEFT)
     _end_impact(RIGHT)
-
-
-func _ignore_decorative_mouse_input() -> void:
-    for control: Control in [
-        screen,
-        left_screen_button,
-        left_screen_button_pressed,
-        right_screen_button,
-        right_screen_button_pressed,
-        left_impact,
-        right_impact,
-        z_button_pressed,
-        x_button_pressed,
-    ]:
-        control.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 
 func _is_module_hovered() -> bool:

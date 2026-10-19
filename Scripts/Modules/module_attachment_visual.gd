@@ -2,13 +2,13 @@
 class_name ModuleAttachmentVisual
 extends ModuleShaderRect
 
+@export var automatic_layering := true
+
 var module_visual: ModuleVisual
 
 
 func _ready() -> void:
     super._ready()
-    show_behind_parent = true
-    mouse_filter = Control.MOUSE_FILTER_IGNORE
     call_deferred("_setup_module_visual")
 
 
@@ -62,6 +62,9 @@ func get_shader_screen_size() -> Vector2:
 
 
 func _update_layering() -> void:
+    if not automatic_layering:
+        return
+    
     var module_transform := module_visual.get_global_transform()
     var module_center := module_transform * (module_visual.size * 0.5)
     var attachment_center := get_global_transform() * (size * 0.5)

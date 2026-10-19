@@ -27,7 +27,6 @@ var ship_module: ShipModule
 
 
 func _ready() -> void:
-    mouse_filter = Control.MOUSE_FILTER_STOP
     queue_redraw()
     if not Engine.is_editor_hint():
         call_deferred("_bind_port")

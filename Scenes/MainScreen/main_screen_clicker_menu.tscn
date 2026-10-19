@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://irj23gcs75f"]
+
+[ext_resource type="Script" path="res://Scripts/MainScreen/main_screen_clicker_menu.gd" id="1_hg45m"]
+[ext_resource type="Texture2D" uid="uid://bf0k4jqkgojj0" path="res://Assets/Modules/MainScreen/main_screen_screen_mask.png" id="2_kd3ko"]
+[ext_resource type="FontFile" uid="uid://crtxyytbn746j" path="res://Resources/Fonts/Perfect DOS VGA 437.ttf" id="3_6y6dr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_c8doj"]
+font = ExtResource("3_6y6dr")
+font_size = 12
+font_color = Color(0.45882353, 0.654902, 0.2627451, 1)
+shadow_color = Color(0.09803922, 0.2, 0.1764706, 1)
+shadow_offset = Vector2(-0.615, 0.745)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rbwg7"]
+font = ExtResource("3_6y6dr")
+font_size = 8
+font_color = Color(0.45882353, 0.654902, 0.2627451, 1)
+shadow_color = Color(0.09803922, 0.2, 0.1764706, 1)
+shadow_offset = Vector2(-0.615, 0.745)
+
+[node name="MainScreenClickerMenu" type="Control" unique_id=1369341582]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_hg45m")
+
+[node name="ScreenMask" type="TextureRect" parent="." unique_id=510478170]
+clip_children = 2
+clip_contents = true
+layout_mode = 0
+offset_left = 33.0
+offset_top = 15.0
+offset_right = 217.0
+offset_bottom = 134.0
+mouse_filter = 2
+texture = ExtResource("2_kd3ko")
+
+[node name="Title" type="Label" parent="ScreenMask" unique_id=989014233]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 11.0
+offset_right = 182.0
+offset_bottom = 27.0
+mouse_filter = 2
+text = "Company Clicker"
+label_settings = SubResource("LabelSettings_c8doj")
+horizontal_alignment = 1
+
+[node name="Text" type="Label" parent="ScreenMask" unique_id=912929517]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 35.0
+offset_right = 179.0
+offset_bottom = 93.0
+mouse_filter = 2
+text = "welcome to cookie clicker but company
+if there is no cookie here I ran out
+of time to add things."
+label_settings = SubResource("LabelSettings_rbwg7")
+horizontal_alignment = 1
+vertical_alignment = 1

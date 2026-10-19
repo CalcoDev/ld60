@@ -27,6 +27,7 @@ shadow_size = 0
 shadow_offset = Vector2(-0.615, 0.745)
 
 [node name="MainScreenPauseMenu" type="Control" unique_id=1369341582]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
@@ -49,8 +50,9 @@ offset_left = 3.0
 offset_top = 44.0
 offset_right = 182.0
 offset_bottom = 60.0
+pivot_offset = Vector2(89.5, 8)
 mouse_filter = 2
-text = "PAUSED..."
+text = "PAUSED"
 label_settings = SubResource("LabelSettings_dw5xf")
 horizontal_alignment = 1
 

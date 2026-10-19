@@ -19,7 +19,6 @@ func _ready() -> void:
         shader_material = material as ShaderMaterial
     else:
         set_shader_material(source)
-    set_process(true)
     update_shader_position()
 
 

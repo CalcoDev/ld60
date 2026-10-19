@@ -42,6 +42,7 @@ offset_top = 7.0
 offset_right = 180.0
 offset_bottom = 356.0
 mouse_filter = 2
+visible_characters = 0
 text = "Initialising boot sequence...
 Loading system configuration...
 Establishing connection...
@@ -134,6 +135,7 @@ offset_transform_position = Vector2(-29, -30)
 mouse_filter = 2
 texture = ExtResource("5_ykd3e")
 script = ExtResource("6_52oyk")
+fill = 0.0
 
 [node name="Fill" type="TextureRect" parent="ScreenMask/Loader" unique_id=1178066799]
 material = SubResource("ShaderMaterial_pdsj5")

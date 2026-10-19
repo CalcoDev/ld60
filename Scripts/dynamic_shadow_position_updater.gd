@@ -41,7 +41,6 @@ var shader_perspective := Vector2.ZERO
 
 func _ready() -> void:
     super._ready()
-    pivot_offset = size * 0.5
     _reference_position = global_position
     if not Engine.is_editor_hint():
         _reference_position = _clamp_grid_to_viewport(

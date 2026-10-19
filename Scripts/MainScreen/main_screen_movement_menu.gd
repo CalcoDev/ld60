@@ -15,10 +15,6 @@ extends Control
 }
 
 
-func _ready() -> void:
-    player_icon.pivot_offset = player_icon.size * 0.5
-
-
 func _process(_delta: float) -> void:
     var simulation := Globals.ship_simulation
     if simulation == null:

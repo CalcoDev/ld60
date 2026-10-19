@@ -28,6 +28,7 @@ shadow_size = 0
 shadow_offset = Vector2(-0.615, 0.745)
 
 [node name="MainScreenIdleMenu" type="Control" unique_id=1369341582]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
@@ -60,6 +61,7 @@ offset_left = 3.0
 offset_top = -4.0
 offset_right = 182.0
 offset_bottom = 104.0
+pivot_offset = Vector2(89.5, 54)
 mouse_filter = 2
 text = "Why are you idle, employee?
 Connect some module to this..."

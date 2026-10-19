@@ -20,8 +20,6 @@ var _finished := false
 
 func _ready() -> void:
     _label_start_y = label.position.y
-    label.visible_characters = 0
-    loader.fill = 0.0
 
 
 func _process(delta: float) -> void:
