@@ -48,12 +48,12 @@ uniform bool outline_diagonals = true;
 uniform bool enable_shadow = true;
 
 // Horizontal shadow grows towards screen edges.
-uniform int min_shadow_x : hint_range(0, 8, 1) = 0;
-uniform int max_shadow_x : hint_range(0, 8, 1) = 5;
+uniform int min_shadow_x = 0;
+uniform int max_shadow_x = 5;
 
 // Vertical shadow grows towards screen bottom.
-uniform int min_shadow_y : hint_range(0, 8, 1) = 2;
-uniform int max_shadow_y : hint_range(0, 8, 1) = 5;
+uniform int min_shadow_y = 2;
+uniform int max_shadow_y = 5;
 
 // If true, horizontal shadow points away from center.
 // Otherwise, it always points right.
@@ -79,7 +79,7 @@ uniform float shadow_opacity :
     hint_range(0.0, 1.0) = 1.0;
 
 
-const int MAX_RADIUS = 8;
+const int MAX_RADIUS = 16;
 
 
 // noise funcs

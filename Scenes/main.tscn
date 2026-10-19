@@ -1285,29 +1285,106 @@ theme_override_constants/separation = 1
 layout_mode = 2
 texture = ExtResource("37_kwxat")
 
+[node name="DragArea6" type="Control" parent="CanvasLayer/Boxes/Translator/CasetteArea/Clip/Casettes/BlankCasette" unique_id=1465777350]
+z_index = 1
+anchors_preset = 0
+offset_left = 8.0
+offset_top = 1.0
+offset_right = 96.0
+offset_bottom = 15.0
+mouse_filter = 2
+script = ExtResource("18_drag_area")
+mode = 1
+
 [node name="BrownCasette" type="TextureRect" parent="CanvasLayer/Boxes/Translator/CasetteArea/Clip/Casettes" unique_id=281821515]
 layout_mode = 2
 texture = ExtResource("38_aa8k8")
+
+[node name="DragArea6" type="Control" parent="CanvasLayer/Boxes/Translator/CasetteArea/Clip/Casettes/BrownCasette" unique_id=1982796158]
+z_index = 1
+anchors_preset = 0
+offset_left = 8.0
+offset_top = 1.0
+offset_right = 96.0
+offset_bottom = 15.0
+mouse_filter = 2
+script = ExtResource("18_drag_area")
+mode = 1
 
 [node name="BlankCasette2" type="TextureRect" parent="CanvasLayer/Boxes/Translator/CasetteArea/Clip/Casettes" unique_id=1237481319]
 layout_mode = 2
 texture = ExtResource("37_kwxat")
 
+[node name="DragArea6" type="Control" parent="CanvasLayer/Boxes/Translator/CasetteArea/Clip/Casettes/BlankCasette2" unique_id=1415956311]
+z_index = 1
+anchors_preset = 0
+offset_left = 8.0
+offset_top = 1.0
+offset_right = 96.0
+offset_bottom = 15.0
+mouse_filter = 2
+script = ExtResource("18_drag_area")
+mode = 1
+
 [node name="RedCasette" type="TextureRect" parent="CanvasLayer/Boxes/Translator/CasetteArea/Clip/Casettes" unique_id=117603043]
 layout_mode = 2
 texture = ExtResource("39_kqrg6")
+
+[node name="DragArea6" type="Control" parent="CanvasLayer/Boxes/Translator/CasetteArea/Clip/Casettes/RedCasette" unique_id=1235869907]
+z_index = 1
+anchors_preset = 0
+offset_left = 8.0
+offset_top = 1.0
+offset_right = 96.0
+offset_bottom = 15.0
+mouse_filter = 2
+script = ExtResource("18_drag_area")
+mode = 1
 
 [node name="BlueCasette" type="TextureRect" parent="CanvasLayer/Boxes/Translator/CasetteArea/Clip/Casettes" unique_id=1986822377]
 layout_mode = 2
 texture = ExtResource("40_nwwfm")
 
+[node name="DragArea6" type="Control" parent="CanvasLayer/Boxes/Translator/CasetteArea/Clip/Casettes/BlueCasette" unique_id=1925396533]
+z_index = 1
+anchors_preset = 0
+offset_left = 8.0
+offset_top = 1.0
+offset_right = 96.0
+offset_bottom = 15.0
+mouse_filter = 2
+script = ExtResource("18_drag_area")
+mode = 1
+
 [node name="PurpleCasette" type="TextureRect" parent="CanvasLayer/Boxes/Translator/CasetteArea/Clip/Casettes" unique_id=182092072]
 layout_mode = 2
 texture = ExtResource("41_s8vy0")
 
+[node name="DragArea6" type="Control" parent="CanvasLayer/Boxes/Translator/CasetteArea/Clip/Casettes/PurpleCasette" unique_id=514790740]
+z_index = 1
+anchors_preset = 0
+offset_left = 8.0
+offset_top = 1.0
+offset_right = 96.0
+offset_bottom = 15.0
+mouse_filter = 2
+script = ExtResource("18_drag_area")
+mode = 1
+
 [node name="BlankCasette3" type="TextureRect" parent="CanvasLayer/Boxes/Translator/CasetteArea/Clip/Casettes" unique_id=1435221651]
 layout_mode = 2
 texture = ExtResource("37_kwxat")
+
+[node name="DragArea6" type="Control" parent="CanvasLayer/Boxes/Translator/CasetteArea/Clip/Casettes/BlankCasette3" unique_id=1380803683]
+z_index = 1
+anchors_preset = 0
+offset_left = 8.0
+offset_top = 1.0
+offset_right = 96.0
+offset_bottom = 15.0
+mouse_filter = 2
+script = ExtResource("18_drag_area")
+mode = 1
 
 [node name="ScrollUp" type="Control" parent="CanvasLayer/Boxes/Translator" unique_id=1430352905]
 anchors_preset = 0

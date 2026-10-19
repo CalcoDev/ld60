@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://cs26u43jwlswa"]
+
+[ext_resource type="Shader" uid="uid://cthaoclnf05c7" path="res://Resources/Shaders/module_dynamic_outline.gdshader" id="1_uegwl"]
+[ext_resource type="Texture2D" uid="uid://dnicx76vh05gx" path="res://Assets/Modules/Translator/translator_casette_red_inner.png" id="2_j5g1o"]
+[ext_resource type="Script" path="res://Scripts/Modules/module_shader_rect.gd" id="3_ln47i"]
+[ext_resource type="Script" path="res://Scripts/Modules/Inst/floating_casette.gd" id="4_floating"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y86h7"]
+shader = ExtResource("1_uegwl")
+shader_parameter/drag_grab_uv = Vector2(0.5, 0.5)
+shader_parameter/drag_skew = Vector2(0, 0)
+shader_parameter/drag_perspective = Vector2(0, 0)
+shader_parameter/drag_vertex_origin = Vector2(0, 0)
+shader_parameter/drag_module_size = Vector2(1, 1)
+shader_parameter/shadow_near = Color(0.65882355, 0.70980394, 0.69803923, 1)
+shader_parameter/shadow_middle = Color(0.5058824, 0.5921569, 0.5882353, 1)
+shader_parameter/shadow_outer = Color(1, 1, 1, 1)
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/enable_outline = true
+shader_parameter/outline_diagonals = true
+shader_parameter/enable_shadow = true
+shader_parameter/min_shadow_x = 3
+shader_parameter/max_shadow_x = 20
+shader_parameter/min_shadow_y = 4
+shader_parameter/max_shadow_y = 8
+shader_parameter/horizontal_outward = true
+shader_parameter/screen_center_uv = Vector2(0, 0.10555556)
+shader_parameter/object_size_uv = Vector2(0.0625, 0.33333334)
+shader_parameter/alpha_threshold = 0.1
+shader_parameter/noise_amount = 1.0
+shader_parameter/noise_scale = 0.261
+shader_parameter/shadow_opacity = 1.0
+
+[node name="FloatingCasette" type="Control" unique_id=2069496296]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("4_floating")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=191358392]
+z_index = 500
+z_as_relative = false
+material = SubResource("ShaderMaterial_y86h7")
+layout_mode = 0
+offset_left = -20.0
+offset_top = -22.0
+offset_right = 20.0
+offset_bottom = 98.0
+mouse_filter = 2
+texture = ExtResource("2_j5g1o")
+script = ExtResource("3_ln47i")
