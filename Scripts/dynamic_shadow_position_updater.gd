@@ -2,6 +2,10 @@
 class_name ModuleVisual
 extends ModuleShaderRect
 
+const NORMAL_Z_INDEX := 0
+const FOREGROUND_Z_INDEX := 102
+const Z_INDEX_STEP := 2
+
 @export var powered := false
 @export var unpowered_modulate := Color(0.35, 0.35, 0.35, 0.75)
 @export var appearance_speed := 10.0
@@ -21,6 +25,7 @@ extends ModuleShaderRect
 
 var _press_pending := false
 var _dragging := false
+var _foreground := false
 var _press_mouse_position := Vector2.ZERO
 var _drag_offset := Vector2.ZERO
 var _desired_position := Vector2.ZERO
@@ -46,6 +51,7 @@ func _ready() -> void:
     _desired_position = _reference_position
     _apply_motion_shader_params()
     update_shader_position()
+    call_deferred("_update_module_render_order")
 
 
 func _process(delta: float) -> void:
@@ -73,7 +79,7 @@ func _gui_input(event: InputEvent) -> void:
         if not _can_start_drag():
             return
         
-        move_to_front()
+        bring_to_foreground()
         _press_pending = true
         _press_mouse_position = get_global_mouse_position()
         _last_mouse_position = _press_mouse_position
@@ -92,6 +98,12 @@ func _gui_input(event: InputEvent) -> void:
 
 func set_powered(value: bool) -> void:
     powered = value
+
+
+func bring_to_foreground() -> void:
+    _foreground = true
+    move_to_front()
+    _update_module_render_order()
 
 
 func _has_point(point: Vector2) -> bool:
@@ -123,6 +135,22 @@ func _is_drag_point_allowed(global_point: Vector2) -> bool:
         allowed = true
     
     return allowed
+
+
+func _update_module_render_order() -> void:
+    var normal_z := NORMAL_Z_INDEX
+    var foreground_z := FOREGROUND_Z_INDEX
+    for child: Node in get_parent().get_children():
+        if not child is ModuleVisual:
+            continue
+        
+        var module := child as ModuleVisual
+        if module._foreground:
+            module.z_index = foreground_z
+            foreground_z += Z_INDEX_STEP
+        else:
+            module.z_index = normal_z
+            normal_z += Z_INDEX_STEP
 
 
 func _update_appearance(delta: float) -> void:

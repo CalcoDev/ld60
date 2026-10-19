@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://cge1m2env57d4"]
+
+[ext_resource type="Texture2D" uid="uid://bf0k4jqkgojj0" path="res://Assets/Modules/MainScreen/main_screen_screen_mask.png" id="1_nl2sp"]
+[ext_resource type="FontFile" uid="uid://crtxyytbn746j" path="res://Resources/Fonts/Perfect DOS VGA 437.ttf" id="2_ttw8h"]
+[ext_resource type="Texture2D" uid="uid://bo0rfdst1m8ax" path="res://Assets/Modules/MainScreen/main_screen_company_guy_filled.png" id="3_gl32g"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_rfxvn"]
+font = ExtResource("2_ttw8h")
+font_size = 8
+font_color = Color(0.45882353, 0.654902, 0.2627451, 1)
+shadow_color = Color(0.09803922, 0.2, 0.1764706, 1)
+shadow_offset = Vector2(-0.615, 0.745)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nl2sp"]
+bg_color = Color(0.14509805, 0.3372549, 0.18039216, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.45882353, 0.654902, 0.2627451, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ttw8h"]
+font = ExtResource("2_ttw8h")
+font_size = 8
+font_color = Color(0.45882353, 0.654902, 0.2627451, 1)
+shadow_size = 0
+shadow_offset = Vector2(-0.615, 0.745)
+
+[node name="MainScreenIdleMenu" type="Control" unique_id=1369341582]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+
+[node name="ScreenMask" type="TextureRect" parent="." unique_id=510478170]
+clip_children = 2
+clip_contents = true
+layout_mode = 0
+offset_left = 33.0
+offset_top = 15.0
+offset_right = 217.0
+offset_bottom = 134.0
+texture = ExtResource("1_nl2sp")
+
+[node name="TextureRect" type="TextureRect" parent="ScreenMask" unique_id=593504532]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 89.0
+offset_right = 26.0
+offset_bottom = 112.32
+texture = ExtResource("3_gl32g")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="ScreenMask" unique_id=989014233]
+layout_mode = 0
+offset_left = 3.0
+offset_top = -4.0
+offset_right = 182.0
+offset_bottom = 104.0
+text = "Why are you idle, employee?
+Connect some module to this..."
+label_settings = SubResource("LabelSettings_rfxvn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="ScreenMask" unique_id=1847703541]
+layout_mode = 0
+offset_left = 71.0
+offset_top = 61.0
+offset_right = 111.0
+offset_bottom = 73.0
+theme_override_colors/font_color = Color(0.45882353, 0.654902, 0.2627451, 1)
+theme_override_fonts/font = ExtResource("2_ttw8h")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_nl2sp")
+
+[node name="Label" type="Label" parent="ScreenMask/Button" unique_id=743587968]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "pause"
+label_settings = SubResource("LabelSettings_ttw8h")
+horizontal_alignment = 1
+vertical_alignment = 1

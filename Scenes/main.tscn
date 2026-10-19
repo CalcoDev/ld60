@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://721qrb7stwrg" path="res://Assets/Modules/Ports/port_out_right.png" id="8_fdnlq"]
 [ext_resource type="Texture2D" uid="uid://begihssfex10l" path="res://Assets/Modules/Ports/port_inout_left..png" id="9_hptm8"]
 [ext_resource type="Texture2D" uid="uid://cdh85sst2dc0b" path="res://Assets/Modules/module_thrusters.png" id="11_fdnlq"]
+[ext_resource type="PackedScene" uid="uid://d153qpxsnh7jx" path="res://Scenes/MainScreen/main_screen_boot_menu.tscn" id="11_k12tt"]
 [ext_resource type="Script" uid="uid://4t27ox05m7c5" path="res://Scripts/Modules/demo_test.gd" id="13_fdnlq"]
 [ext_resource type="Texture2D" uid="uid://b68pbgl5kolic" path="res://Assets/Modules/module_main_screen.png" id="14_screen"]
 [ext_resource type="Script" uid="uid://c3mwfgeqc3a7a" path="res://Scripts/Modules/Inst/main_screen_module.gd" id="15_screen_logic"]
@@ -274,7 +275,11 @@ offset_bottom = 44.0
 mouse_filter = 2
 script = ExtResource("18_drag_area")
 
+[node name="MainScreenBootMenu" parent="CanvasLayer/Boxes/MainScreen" unique_id=1369341582 instance=ExtResource("11_k12tt")]
+layout_mode = 0
+
 [node name="Thruster" type="TextureRect" parent="CanvasLayer/Boxes" unique_id=1966267805]
+z_index = 2
 material = SubResource("ShaderMaterial_h1bgf")
 offset_left = 101.0
 offset_top = 216.0

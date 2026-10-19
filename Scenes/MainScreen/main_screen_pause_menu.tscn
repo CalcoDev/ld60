@@ -1,0 +1,126 @@
+[gd_scene format=3 uid="uid://fvvu62snwsmm"]
+
+[ext_resource type="Texture2D" uid="uid://bf0k4jqkgojj0" path="res://Assets/Modules/MainScreen/main_screen_screen_mask.png" id="1_yp7en"]
+[ext_resource type="FontFile" uid="uid://crtxyytbn746j" path="res://Resources/Fonts/Perfect DOS VGA 437.ttf" id="2_qgjcp"]
+[ext_resource type="Texture2D" uid="uid://bo0rfdst1m8ax" path="res://Assets/Modules/MainScreen/main_screen_company_guy_filled.png" id="3_b6aqp"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dw5xf"]
+font = ExtResource("2_qgjcp")
+font_color = Color(0.45882353, 0.654902, 0.2627451, 1)
+shadow_color = Color(0.09803922, 0.2, 0.1764706, 1)
+shadow_offset = Vector2(-0.615, 0.745)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rfxvn"]
+bg_color = Color(0.14509805, 0.3372549, 0.18039216, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.45882353, 0.654902, 0.2627451, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_yp7en"]
+font = ExtResource("2_qgjcp")
+font_size = 8
+font_color = Color(0.45882353, 0.654902, 0.2627451, 1)
+shadow_size = 0
+shadow_offset = Vector2(-0.615, 0.745)
+
+[node name="MainScreenPauseMenu" type="Control" unique_id=1369341582]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+
+[node name="ScreenMask" type="TextureRect" parent="." unique_id=510478170]
+clip_children = 2
+clip_contents = true
+layout_mode = 0
+offset_left = 33.0
+offset_top = 15.0
+offset_right = 217.0
+offset_bottom = 134.0
+texture = ExtResource("1_yp7en")
+
+[node name="Label" type="Label" parent="ScreenMask" unique_id=989014233]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 44.0
+offset_right = 182.0
+offset_bottom = 60.0
+text = "PAUSED..."
+label_settings = SubResource("LabelSettings_dw5xf")
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="ScreenMask" unique_id=654842791]
+layout_mode = 0
+offset_left = 71.0
+offset_top = 63.0
+offset_right = 111.0
+offset_bottom = 75.0
+theme_override_colors/font_color = Color(0.45882353, 0.654902, 0.2627451, 1)
+theme_override_fonts/font = ExtResource("2_qgjcp")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_rfxvn")
+
+[node name="Label" type="Label" parent="ScreenMask/Button" unique_id=1231672209]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "resume"
+label_settings = SubResource("LabelSettings_yp7en")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="ScreenMask" unique_id=82218548]
+layout_mode = 0
+offset_left = 153.0
+offset_top = 89.0
+offset_right = 175.0
+offset_bottom = 112.32
+texture = ExtResource("3_b6aqp")
+expand_mode = 1
+flip_h = true
+
+[node name="TextureRect2" type="TextureRect" parent="ScreenMask" unique_id=259811273]
+layout_mode = 0
+offset_left = 153.0
+offset_top = 89.0
+offset_right = 175.0
+offset_bottom = 112.32
+texture = ExtResource("3_b6aqp")
+expand_mode = 1
+flip_h = true
+
+[node name="TextureRect3" type="TextureRect" parent="ScreenMask" unique_id=149639508]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 89.0
+offset_right = 29.0
+offset_bottom = 112.32
+texture = ExtResource("3_b6aqp")
+expand_mode = 1
+
+[node name="TextureRect4" type="TextureRect" parent="ScreenMask" unique_id=1299376910]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 5.0
+offset_right = 29.0
+offset_bottom = 28.32
+texture = ExtResource("3_b6aqp")
+expand_mode = 1
+
+[node name="TextureRect5" type="TextureRect" parent="ScreenMask" unique_id=35377762]
+layout_mode = 0
+offset_left = 154.0
+offset_top = 5.0
+offset_right = 176.0
+offset_bottom = 28.32
+texture = ExtResource("3_b6aqp")
+expand_mode = 1
+flip_h = true

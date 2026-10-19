@@ -78,7 +78,7 @@ func _has_point(point: Vector2) -> bool:
 func _gui_input(event: InputEvent) -> void:
     if event.is_action_pressed("Grab"):
         if module_visual != null:
-            module_visual.move_to_front()
+            module_visual.bring_to_foreground()
         var wire_manager := get_tree().get_first_node_in_group(
             &"wire_manager"
         ) as WireManager

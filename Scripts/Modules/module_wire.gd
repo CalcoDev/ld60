@@ -34,7 +34,8 @@ var dragging_source := false
 var _positions: Array[Vector2] = []
 var _previous_positions: Array[Vector2] = []
 var _segment_length := MINIMUM_LENGTH / float(POINT_COUNT - 1)
-var _line: Line2D
+var _source_line: Line2D
+var _target_line: Line2D
 var _source_jack: Sprite2D
 var _target_jack: Sprite2D
 var _source_socket_position := Vector2.ZERO
@@ -44,14 +45,10 @@ var _target_jack_direction := Vector2.DOWN
 
 
 func _ready() -> void:
-    _line = Line2D.new()
-    _line.width = wire_width
-    _line.default_color = wire_color
-    _line.antialiased = true
-    _line.begin_cap_mode = Line2D.LINE_CAP_ROUND
-    _line.end_cap_mode = Line2D.LINE_CAP_ROUND
-    _line.joint_mode = Line2D.LINE_JOINT_ROUND
-    add_child(_line)
+    _source_line = _make_line()
+    _target_line = _make_line()
+    add_child(_source_line)
+    add_child(_target_line)
     
     _source_jack = _make_jack(output_jack_texture)
     _target_jack = _make_jack(input_jack_texture)
@@ -155,6 +152,8 @@ func begin_drag(port_area: ModulePortArea) -> void:
         _previous_positions.append(position)
     
     _update_visuals()
+    _target_line.z_index = _source_line.z_index
+    _target_jack.z_index = _source_jack.z_index
     _animate_jack(_source_jack)
 
 
@@ -220,13 +219,25 @@ func drop() -> void:
 func _make_jack(texture: Texture2D) -> Sprite2D:
     var jack := Sprite2D.new()
     jack.texture = texture
-    jack.z_index = 1
+    jack.z_as_relative = false
     if texture != null:
         var visible_size := texture.get_size() - JACK_PADDING * 2.0
         jack.region_enabled = true
         jack.region_rect = Rect2(JACK_PADDING, visible_size)
         jack.offset.y = visible_size.y * 0.5
     return jack
+
+
+func _make_line() -> Line2D:
+    var line := Line2D.new()
+    line.width = wire_width
+    line.default_color = wire_color
+    line.antialiased = true
+    line.begin_cap_mode = Line2D.LINE_CAP_ROUND
+    line.end_cap_mode = Line2D.LINE_CAP_ROUND
+    line.joint_mode = Line2D.LINE_JOINT_ROUND
+    line.z_as_relative = false
+    return line
 
 
 func _update_cable_length(
@@ -335,7 +346,22 @@ func _solve_constraints(start_pinned: bool, end_pinned: bool) -> void:
 
 
 func _update_visuals() -> void:
-    _line.points = PackedVector2Array(_positions)
+    var split_index := _positions.size() / 2
+    var midpoint := (
+        _positions[split_index - 1] + _positions[split_index]
+    ) * 0.5
+    var source_points := PackedVector2Array()
+    var target_points := PackedVector2Array()
+    for index: int in range(split_index):
+        source_points.append(_positions[index])
+    source_points.append(midpoint)
+    target_points.append(midpoint)
+    for index: int in range(split_index, _positions.size()):
+        target_points.append(_positions[index])
+    _source_line.points = source_points
+    _target_line.points = target_points
+    _set_line_layer(_source_line, source_area)
+    _set_line_layer(_target_line, target_area)
     if state == State.DROPPED:
         _source_socket_position = (
             _positions[0]
@@ -350,6 +376,18 @@ func _update_visuals() -> void:
     _target_jack.position = _target_socket_position
     _source_jack.rotation = _direction_rotation(_source_jack_direction)
     _target_jack.rotation = _direction_rotation(_target_jack_direction)
+    _set_jack_layer(_source_jack, source_area)
+    _set_jack_layer(_target_jack, target_area)
+
+
+func _set_jack_layer(jack: Sprite2D, area: ModulePortArea) -> void:
+    if area != null and area.module_visual != null:
+        jack.z_index = area.module_visual.z_index + 1
+
+
+func _set_line_layer(line: Line2D, area: ModulePortArea) -> void:
+    if area != null and area.module_visual != null:
+        line.z_index = area.module_visual.z_index + 1
 
 
 func _direction_rotation(direction: Vector2) -> float:
