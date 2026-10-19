@@ -18,6 +18,7 @@ const JACK_PADDING := Vector2(7.0, 5.0)
 const JACK_CABLE_OFFSET := 26.0
 const JACK_DIRECTION_RESPONSE := 20.0
 const CONNECTED_JACK_DIRECTION_RESPONSE := 4.0
+const WIRE_Z_INDEX := 4090
 
 var output_jack_texture: Texture2D
 var input_jack_texture: Texture2D
@@ -34,8 +35,7 @@ var dragging_source := false
 var _positions: Array[Vector2] = []
 var _previous_positions: Array[Vector2] = []
 var _segment_length := MINIMUM_LENGTH / float(POINT_COUNT - 1)
-var _source_line: Line2D
-var _target_line: Line2D
+var _line: Line2D
 var _source_jack: Sprite2D
 var _target_jack: Sprite2D
 var _source_socket_position := Vector2.ZERO
@@ -45,10 +45,8 @@ var _target_jack_direction := Vector2.DOWN
 
 
 func _ready() -> void:
-    _source_line = _make_line()
-    _target_line = _make_line()
-    add_child(_source_line)
-    add_child(_target_line)
+    _line = _make_line()
+    add_child(_line)
     
     _source_jack = _make_jack(output_jack_texture)
     _target_jack = _make_jack(input_jack_texture)
@@ -126,13 +124,23 @@ func _physics_process(delta: float) -> void:
 
 
 func begin_drag(port_area: ModulePortArea) -> void:
-    source_area = port_area
     state = State.DRAGGING
-    dragging_source = false
-    _source_socket_position = to_local(
-        source_area.get_wire_anchor_position()
-    )
-    _target_socket_position = get_local_mouse_position()
+    if port_area.module_port.direction == ModulePort.Direction.OUTPUT:
+        source_area = port_area
+        target_area = null
+        dragging_source = false
+        _source_socket_position = to_local(
+            source_area.get_wire_anchor_position()
+        )
+        _target_socket_position = get_local_mouse_position()
+    else:
+        source_area = null
+        target_area = port_area
+        dragging_source = true
+        _source_socket_position = get_local_mouse_position()
+        _target_socket_position = to_local(
+            target_area.get_wire_anchor_position()
+        )
     var start_position := (
         _source_socket_position
         + _source_jack_direction * JACK_CABLE_OFFSET
@@ -152,9 +160,12 @@ func begin_drag(port_area: ModulePortArea) -> void:
         _previous_positions.append(position)
     
     _update_visuals()
-    _target_line.z_index = _source_line.z_index
-    _target_jack.z_index = _source_jack.z_index
-    _animate_jack(_source_jack)
+    if dragging_source:
+        _source_jack.z_index = _target_jack.z_index
+        _animate_jack(_target_jack)
+    else:
+        _target_jack.z_index = _source_jack.z_index
+        _animate_jack(_source_jack)
 
 
 func finish_connection(port_area: ModulePortArea) -> void:
@@ -237,6 +248,7 @@ func _make_line() -> Line2D:
     line.end_cap_mode = Line2D.LINE_CAP_ROUND
     line.joint_mode = Line2D.LINE_JOINT_ROUND
     line.z_as_relative = false
+    line.z_index = WIRE_Z_INDEX
     return line
 
 
@@ -346,22 +358,7 @@ func _solve_constraints(start_pinned: bool, end_pinned: bool) -> void:
 
 
 func _update_visuals() -> void:
-    var split_index := _positions.size() / 2
-    var midpoint := (
-        _positions[split_index - 1] + _positions[split_index]
-    ) * 0.5
-    var source_points := PackedVector2Array()
-    var target_points := PackedVector2Array()
-    for index: int in range(split_index):
-        source_points.append(_positions[index])
-    source_points.append(midpoint)
-    target_points.append(midpoint)
-    for index: int in range(split_index, _positions.size()):
-        target_points.append(_positions[index])
-    _source_line.points = source_points
-    _target_line.points = target_points
-    _set_line_layer(_source_line, source_area)
-    _set_line_layer(_target_line, target_area)
+    _line.points = PackedVector2Array(_positions)
     if state == State.DROPPED:
         _source_socket_position = (
             _positions[0]
@@ -383,11 +380,6 @@ func _update_visuals() -> void:
 func _set_jack_layer(jack: Sprite2D, area: ModulePortArea) -> void:
     if area != null and area.module_visual != null:
         jack.z_index = area.module_visual.z_index + 1
-
-
-func _set_line_layer(line: Line2D, area: ModulePortArea) -> void:
-    if area != null and area.module_visual != null:
-        line.z_index = area.module_visual.z_index + 1
 
 
 func _direction_rotation(direction: Vector2) -> float:

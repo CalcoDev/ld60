@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://btyjhk0b73bql" path="res://Assets/Modules/MainScreen/main_screen_slider..png" id="5_ykd3e"]
 [ext_resource type="Script" uid="uid://cnb51ih7uuowi" path="res://Scripts/misc/loader.gd" id="6_52oyk"]
 [ext_resource type="Texture2D" uid="uid://bn7y03lr16v3w" path="res://Assets/Modules/MainScreen/main_screen_slider_fill.png" id="7_6bin4"]
+[ext_resource type="Script" uid="uid://b01vh1v6dt4q0" path="res://Scripts/MainScreen/main_screen_boot_menu.gd" id="8_boot"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_dnafo"]
 font = ExtResource("2_62hhh")
@@ -21,6 +22,7 @@ shadow_offset = Vector2(-0.615, 0.745)
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
+script = ExtResource("8_boot")
 
 [node name="ScreenMask" type="TextureRect" parent="." unique_id=510478170]
 clip_children = 2
@@ -30,6 +32,7 @@ offset_left = 33.0
 offset_top = 15.0
 offset_right = 217.0
 offset_bottom = 134.0
+mouse_filter = 2
 texture = ExtResource("1_dnafo")
 
 [node name="Label" type="Label" parent="ScreenMask" unique_id=989014233]
@@ -38,6 +41,7 @@ offset_left = 6.0
 offset_top = 7.0
 offset_right = 180.0
 offset_bottom = 356.0
+mouse_filter = 2
 text = "Initialising boot sequence...
 Loading system configuration...
 Establishing connection...
@@ -74,6 +78,35 @@ offset_left = 94.0
 offset_top = 59.0
 offset_right = 94.0
 offset_bottom = 59.0
+mouse_filter = 2
+
+[node name="SpinnyThingRotator" type="Control" parent="ScreenMask/CompanyLogo" unique_id=1912878186]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="SpinnyThing" type="TextureRect" parent="ScreenMask/CompanyLogo/SpinnyThingRotator" unique_id=1411369608]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -27.5
+offset_right = 28.0
+offset_bottom = 27.5
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_position = Vector2(-29, -30)
+mouse_filter = 2
+texture = ExtResource("4_x254r")
 
 [node name="CompanyGuy" type="TextureRect" parent="ScreenMask/CompanyLogo" unique_id=2005845778]
 layout_mode = 1
@@ -88,33 +121,8 @@ offset_right = 10.5
 offset_bottom = 14.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("3_ec3fj")
-
-[node name="SpinnyThingRotator" type="Control" parent="ScreenMask/CompanyLogo/CompanyGuy" unique_id=1912878186]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="SpinnyThing" type="TextureRect" parent="ScreenMask/CompanyLogo/CompanyGuy/SpinnyThingRotator" unique_id=1411369608]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -28.0
-offset_top = -27.5
-offset_right = 28.0
-offset_bottom = 27.5
-grow_horizontal = 2
-grow_vertical = 2
-offset_transform_position = Vector2(-29, -30)
-texture = ExtResource("4_x254r")
 
 [node name="Loader" type="TextureRect" parent="ScreenMask" unique_id=2070540657]
 layout_mode = 0
@@ -123,29 +131,34 @@ offset_top = 92.0
 offset_right = 150.0
 offset_bottom = 106.0
 offset_transform_position = Vector2(-29, -30)
+mouse_filter = 2
 texture = ExtResource("5_ykd3e")
 script = ExtResource("6_52oyk")
 
 [node name="Fill" type="TextureRect" parent="ScreenMask/Loader" unique_id=1178066799]
 material = SubResource("ShaderMaterial_pdsj5")
 layout_mode = 0
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 108.0
-offset_bottom = 13.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 110.0
+offset_bottom = 15.0
 offset_transform_position = Vector2(-29, -30)
+mouse_filter = 2
 texture = ExtResource("7_6bin4")
 expand_mode = 5
 
 [node name="Move" type="ColorRect" parent="ScreenMask/Loader" unique_id=43652784]
 layout_mode = 0
-offset_top = 1.0
-offset_right = 108.0
-offset_bottom = 13.0
+offset_left = 2.0
+offset_top = 3.0
+offset_right = 110.0
+offset_bottom = 15.0
+mouse_filter = 2
 color = Color(0.09803922, 0.2, 0.1764706, 1)
 
 [node name="ColorRect2" type="ColorRect" parent="ScreenMask/Loader/Move" unique_id=648083372]
 layout_mode = 0
 offset_right = 1.0
 offset_bottom = 12.0
+mouse_filter = 2
 color = Color(0.45882353, 0.654902, 0.2627451, 1)

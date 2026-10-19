@@ -42,9 +42,6 @@ func begin_wire(port_area: ModulePortArea) -> void:
         _active_wire = connected_wire
         return
     
-    if port_area.module_port.direction != ModulePort.Direction.OUTPUT:
-        return
-    
     var wire := ModuleWire.new()
     wire.output_jack_texture = output_jack_texture
     wire.input_jack_texture = input_jack_texture

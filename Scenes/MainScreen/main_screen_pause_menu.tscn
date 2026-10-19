@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bf0k4jqkgojj0" path="res://Assets/Modules/MainScreen/main_screen_screen_mask.png" id="1_yp7en"]
 [ext_resource type="FontFile" uid="uid://crtxyytbn746j" path="res://Resources/Fonts/Perfect DOS VGA 437.ttf" id="2_qgjcp"]
 [ext_resource type="Texture2D" uid="uid://bo0rfdst1m8ax" path="res://Assets/Modules/MainScreen/main_screen_company_guy_filled.png" id="3_b6aqp"]
+[ext_resource type="Script" uid="uid://br04khn1u63ox" path="res://Scripts/MainScreen/main_screen_pause_menu.gd" id="4_pause"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_dw5xf"]
 font = ExtResource("2_qgjcp")
@@ -29,6 +30,7 @@ shadow_offset = Vector2(-0.615, 0.745)
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
+script = ExtResource("4_pause")
 
 [node name="ScreenMask" type="TextureRect" parent="." unique_id=510478170]
 clip_children = 2
@@ -38,6 +40,7 @@ offset_left = 33.0
 offset_top = 15.0
 offset_right = 217.0
 offset_bottom = 134.0
+mouse_filter = 2
 texture = ExtResource("1_yp7en")
 
 [node name="Label" type="Label" parent="ScreenMask" unique_id=989014233]
@@ -46,6 +49,7 @@ offset_left = 3.0
 offset_top = 44.0
 offset_right = 182.0
 offset_bottom = 60.0
+mouse_filter = 2
 text = "PAUSED..."
 label_settings = SubResource("LabelSettings_dw5xf")
 horizontal_alignment = 1
@@ -72,6 +76,7 @@ offset_right = -1.0
 offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 text = "resume"
 label_settings = SubResource("LabelSettings_yp7en")
 horizontal_alignment = 1
@@ -83,6 +88,7 @@ offset_left = 153.0
 offset_top = 89.0
 offset_right = 175.0
 offset_bottom = 112.32
+mouse_filter = 2
 texture = ExtResource("3_b6aqp")
 expand_mode = 1
 flip_h = true
@@ -93,6 +99,7 @@ offset_left = 153.0
 offset_top = 89.0
 offset_right = 175.0
 offset_bottom = 112.32
+mouse_filter = 2
 texture = ExtResource("3_b6aqp")
 expand_mode = 1
 flip_h = true
@@ -103,6 +110,7 @@ offset_left = 7.0
 offset_top = 89.0
 offset_right = 29.0
 offset_bottom = 112.32
+mouse_filter = 2
 texture = ExtResource("3_b6aqp")
 expand_mode = 1
 
@@ -112,6 +120,7 @@ offset_left = 7.0
 offset_top = 5.0
 offset_right = 29.0
 offset_bottom = 28.32
+mouse_filter = 2
 texture = ExtResource("3_b6aqp")
 expand_mode = 1
 
@@ -121,6 +130,7 @@ offset_left = 154.0
 offset_top = 5.0
 offset_right = 176.0
 offset_bottom = 28.32
+mouse_filter = 2
 texture = ExtResource("3_b6aqp")
 expand_mode = 1
 flip_h = true

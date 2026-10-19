@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bf0k4jqkgojj0" path="res://Assets/Modules/MainScreen/main_screen_screen_mask.png" id="1_nl2sp"]
 [ext_resource type="FontFile" uid="uid://crtxyytbn746j" path="res://Resources/Fonts/Perfect DOS VGA 437.ttf" id="2_ttw8h"]
 [ext_resource type="Texture2D" uid="uid://bo0rfdst1m8ax" path="res://Assets/Modules/MainScreen/main_screen_company_guy_filled.png" id="3_gl32g"]
+[ext_resource type="Script" uid="uid://pm7u54fhcsfo" path="res://Scripts/MainScreen/main_screen_idle_menu.gd" id="4_idle"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_rfxvn"]
 font = ExtResource("2_ttw8h")
@@ -30,6 +31,7 @@ shadow_offset = Vector2(-0.615, 0.745)
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
+script = ExtResource("4_idle")
 
 [node name="ScreenMask" type="TextureRect" parent="." unique_id=510478170]
 clip_children = 2
@@ -39,6 +41,7 @@ offset_left = 33.0
 offset_top = 15.0
 offset_right = 217.0
 offset_bottom = 134.0
+mouse_filter = 2
 texture = ExtResource("1_nl2sp")
 
 [node name="TextureRect" type="TextureRect" parent="ScreenMask" unique_id=593504532]
@@ -47,6 +50,7 @@ offset_left = 4.0
 offset_top = 89.0
 offset_right = 26.0
 offset_bottom = 112.32
+mouse_filter = 2
 texture = ExtResource("3_gl32g")
 expand_mode = 1
 
@@ -56,6 +60,7 @@ offset_left = 3.0
 offset_top = -4.0
 offset_right = 182.0
 offset_bottom = 104.0
+mouse_filter = 2
 text = "Why are you idle, employee?
 Connect some module to this..."
 label_settings = SubResource("LabelSettings_rfxvn")
@@ -84,6 +89,7 @@ offset_right = -1.0
 offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 text = "pause"
 label_settings = SubResource("LabelSettings_ttw8h")
 horizontal_alignment = 1

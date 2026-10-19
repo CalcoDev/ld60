@@ -1,0 +1,189 @@
+[gd_scene format=3 uid="uid://bokm7nxpm4e1c"]
+
+[ext_resource type="Texture2D" uid="uid://bf0k4jqkgojj0" path="res://Assets/Modules/MainScreen/main_screen_screen_mask.png" id="1_iv814"]
+[ext_resource type="FontFile" uid="uid://crtxyytbn746j" path="res://Resources/Fonts/Perfect DOS VGA 437.ttf" id="2_j2ufx"]
+[ext_resource type="Texture2D" uid="uid://bc3qc1eqvm6h8" path="res://Assets/Modules/MainScreen/main_screen_movement_grid.png" id="3_j2ufx"]
+[ext_resource type="Texture2D" uid="uid://bo0rfdst1m8ax" path="res://Assets/Modules/MainScreen/main_screen_company_guy_filled.png" id="3_rbwg7"]
+[ext_resource type="Texture2D" uid="uid://cdgub13y38eyf" path="res://Assets/Modules/MainScreen/main_screen_movement_grid_player.png" id="4_rbwg7"]
+[ext_resource type="Texture2D" uid="uid://b6b0hmc5ilpgk" path="res://Assets/Modules/MainScreen/main_screen_movement_grid_planet_blue.png" id="6_ij8bc"]
+[ext_resource type="Texture2D" uid="uid://d4epaeb5l4nd2" path="res://Assets/Modules/MainScreen/main_screen_movement_grid_planet_red.png" id="7_n1uds"]
+[ext_resource type="Texture2D" uid="uid://diwafpwtpu7kw" path="res://Assets/Modules/MainScreen/main_screen_movement_grid_planet_purple.png" id="8_714so"]
+[ext_resource type="Texture2D" uid="uid://dxn0sqse4o2vf" path="res://Assets/Modules/MainScreen/main_screen_movement_grid_planet_brown.png" id="9_tejwx"]
+[ext_resource type="Script" uid="uid://bik82d6row26w" path="res://Scripts/MainScreen/main_screen_movement_menu.gd" id="10_movement"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_c8doj"]
+font = ExtResource("2_j2ufx")
+font_size = 12
+font_color = Color(0.45882353, 0.654902, 0.2627451, 1)
+shadow_color = Color(0.09803922, 0.2, 0.1764706, 1)
+shadow_offset = Vector2(-0.615, 0.745)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rbwg7"]
+font = ExtResource("2_j2ufx")
+font_size = 8
+font_color = Color(0.45882353, 0.654902, 0.2627451, 1)
+shadow_color = Color(0.09803922, 0.2, 0.1764706, 1)
+shadow_offset = Vector2(-0.615, 0.745)
+
+[node name="MainScreenMovementMenu" type="Control" unique_id=1369341582]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("10_movement")
+
+[node name="ScreenMask" type="TextureRect" parent="." unique_id=510478170]
+clip_children = 2
+clip_contents = true
+layout_mode = 0
+offset_left = 33.0
+offset_top = 15.0
+offset_right = 217.0
+offset_bottom = 134.0
+mouse_filter = 2
+texture = ExtResource("1_iv814")
+
+[node name="Title" type="Label" parent="ScreenMask" unique_id=989014233]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 11.0
+offset_right = 182.0
+offset_bottom = 27.0
+text = "Thrusters / Rotator Menu"
+label_settings = SubResource("LabelSettings_c8doj")
+horizontal_alignment = 1
+
+[node name="Velocity" type="Label" parent="ScreenMask" unique_id=1655145155]
+layout_mode = 0
+offset_left = 117.0
+offset_top = 81.0
+offset_right = 166.0
+offset_bottom = 89.0
+text = "VELO:"
+label_settings = SubResource("LabelSettings_rbwg7")
+
+[node name="Angle" type="Label" parent="ScreenMask" unique_id=716749509]
+layout_mode = 0
+offset_left = 117.0
+offset_top = 89.0
+offset_right = 166.0
+offset_bottom = 97.0
+text = "ANGL:"
+label_settings = SubResource("LabelSettings_rbwg7")
+
+[node name="Cell" type="Label" parent="ScreenMask" unique_id=912929517]
+layout_mode = 0
+offset_left = 117.0
+offset_top = 97.0
+offset_right = 166.0
+offset_bottom = 105.0
+text = "CELL:"
+label_settings = SubResource("LabelSettings_rbwg7")
+
+[node name="Grid" type="TextureRect" parent="ScreenMask" unique_id=469493744]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 24.0
+offset_right = 113.0
+offset_bottom = 114.0
+mouse_filter = 2
+texture = ExtResource("3_j2ufx")
+
+[node name="PlayerIcon" type="TextureRect" parent="ScreenMask" unique_id=1793883759]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 58.0
+offset_right = 79.0
+offset_bottom = 62.0
+mouse_filter = 2
+texture = ExtResource("4_rbwg7")
+
+[node name="TextureRect3" type="TextureRect" parent="ScreenMask" unique_id=149639508]
+visible = false
+layout_mode = 0
+offset_left = 7.0
+offset_top = 48.0
+offset_right = 29.0
+offset_bottom = 71.32
+mouse_filter = 2
+texture = ExtResource("3_rbwg7")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="ScreenMask" unique_id=82218548]
+visible = false
+layout_mode = 0
+offset_left = 153.0
+offset_top = 89.0
+offset_right = 175.0
+offset_bottom = 112.32
+mouse_filter = 2
+texture = ExtResource("3_rbwg7")
+expand_mode = 1
+flip_h = true
+
+[node name="BluePlanet" type="Control" parent="ScreenMask" unique_id=1652308877]
+anchors_preset = 0
+offset_left = 67.0
+offset_top = 60.0
+offset_right = 67.0
+offset_bottom = 60.0
+mouse_filter = 2
+
+[node name="TextureRetc" type="TextureRect" parent="ScreenMask/BluePlanet" unique_id=581140614]
+layout_mode = 0
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+mouse_filter = 2
+texture = ExtResource("6_ij8bc")
+
+[node name="RedPlanet" type="Control" parent="ScreenMask" unique_id=362715081]
+anchors_preset = 0
+offset_left = 67.0
+offset_top = 70.0
+offset_right = 67.0
+offset_bottom = 70.0
+mouse_filter = 2
+
+[node name="TextureRetc" type="TextureRect" parent="ScreenMask/RedPlanet" unique_id=1680601877]
+layout_mode = 0
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+mouse_filter = 2
+texture = ExtResource("7_n1uds")
+
+[node name="PurplePlanet" type="Control" parent="ScreenMask" unique_id=985763289]
+anchors_preset = 0
+offset_left = 67.0
+offset_top = 80.0
+offset_right = 67.0
+offset_bottom = 80.0
+mouse_filter = 2
+
+[node name="TextureRetc" type="TextureRect" parent="ScreenMask/PurplePlanet" unique_id=631730007]
+layout_mode = 0
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+mouse_filter = 2
+texture = ExtResource("8_714so")
+
+[node name="BrownPlanet" type="Control" parent="ScreenMask" unique_id=140546451]
+anchors_preset = 0
+offset_left = 67.0
+offset_top = 90.0
+offset_right = 67.0
+offset_bottom = 90.0
+mouse_filter = 2
+
+[node name="TextureRetc" type="TextureRect" parent="ScreenMask/BrownPlanet" unique_id=1655121975]
+layout_mode = 0
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+mouse_filter = 2
+texture = ExtResource("9_tejwx")
