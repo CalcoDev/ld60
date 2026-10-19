@@ -967,10 +967,10 @@ texture = ExtResource("28_kltya")
 [node name="Decoder" type="TextureRect" parent="CanvasLayer/Boxes" unique_id=908273060]
 z_index = 8
 material = SubResource("ShaderMaterial_h1bgf")
-offset_left = 12.0
-offset_top = 83.0
-offset_right = 130.0
-offset_bottom = 200.0
+offset_left = 9.0
+offset_top = 130.0
+offset_right = 127.0
+offset_bottom = 247.0
 pivot_offset = Vector2(59, 58.5)
 texture = ExtResource("6_hptm8")
 script = ExtResource("4_jjvhh")
@@ -1155,7 +1155,6 @@ offset_bottom = 91.0
 texture = ExtResource("34_536cc")
 
 [node name="Translator" type="TextureRect" parent="CanvasLayer/Boxes" unique_id=476558772]
-visible = false
 z_index = 10
 material = SubResource("ShaderMaterial_h1bgf")
 offset_left = 68.0
