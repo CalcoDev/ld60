@@ -1,6 +1,8 @@
 class_name ShipSimulation
 extends Node
 
+signal object_reached(object_id: StringName)
+
 const GRID_SIZE := Vector2i(8, 8)
 const ROW_NAMES := "ABCDEFGH"
 
@@ -12,7 +14,7 @@ var player_position := Vector2.ZERO
 var player_angle := 0.0
 var player_velocity := 0.0
 var objects := {
-    &"blue_planet": {"cell": &"B2"},
+    &"blue_planet": {"cell": &"D0"},
     &"red_planet": {"cell": &"F1"},
     &"purple_planet": {"cell": &"C7"},
     &"brown_planet": {"cell": &"G6"},
@@ -20,6 +22,7 @@ var objects := {
 
 var _thrust_input := 0.0
 var _rotation_input := 0.0
+var _blue_planet_reached := false
 
 
 func _ready() -> void:
@@ -30,6 +33,17 @@ func _ready() -> void:
 func _exit_tree() -> void:
     if Globals.ship_simulation == self:
         Globals.ship_simulation = null
+
+
+func _process(_delta: float) -> void:
+    if (
+        not _blue_planet_reached
+        and get_distance_to_object(&"blue_planet") < tile_size
+    ):
+        _blue_planet_reached = true
+        clear_controls()
+        player_velocity = 0.0
+        object_reached.emit(&"blue_planet")
 
 
 func _physics_process(delta: float) -> void:
@@ -73,6 +87,10 @@ func get_player_cell() -> StringName:
 func get_object_position(object_id: StringName) -> Vector2:
     var object_data: Dictionary = objects.get(object_id, {})
     return cell_to_position(object_data.get("cell", &"A0"))
+
+
+func get_distance_to_object(object_id: StringName) -> float:
+    return player_position.distance_to(get_object_position(object_id))
 
 
 func cell_to_position(cell_name: StringName) -> Vector2:

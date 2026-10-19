@@ -4,8 +4,32 @@ extends ShipModule
 signal transmission_finished
 
 const FALLBACK_CHARACTERS_PER_SECOND := 12.0
+const MAX_DIAL_ANGLE := PI * 0.5
+const MAX_SIGNAL_FREQUENCY := 200.0
+const MAX_WAVE_FREQUENCY := 4.5
+const MAX_WAVE_AMPLITUDE := 15.0
+const TUNING_TOLERANCE := 0.04
+const INDICATOR_INTERVAL := 0.33
+const INCOMING_SCROLL_SPEED := 10.0
+const INCOMING_SCROLL_WRAP := 44.0
+const INCOMING_COLOR_A := Color(0.6588, 0.7098, 0.6980)
+const INCOMING_COLOR_B := Color(0.9216, 0.9294, 0.9137)
+
+@onready var screen: TextureRect = $"../Screen"
+@onready var frequency_pivot: Control = $"../DialFreq/Pivot"
+@onready var frequency_dial: TextureRect = (
+    $"../DialFreq/Pivot/DialInside"
+)
+@onready var amplitude_pivot: Control = $"../DialAmpl/Pivot"
+@onready var amplitude_dial: TextureRect = (
+    $"../DialAmpl/Pivot/DialInside"
+)
+@onready var incoming_light: TextureRect = $"../LightOn"
+@onready var scrolling_text: Control = $"../TextBackground/ScrollingText"
 
 var current_message: AlienDialogueMessage
+var frequency := 0.0
+var amplitude := 0.0
 
 var _waiting_elapsed := 0.0
 var _transmission_elapsed := 0.0
@@ -19,12 +43,44 @@ var _transmitting := false
 var _connection_established := false
 var _resolved_fonts: Array[Font] = []
 var _resolved_voices: Array[AudioStream] = []
+var _dragging_pivot: Control
+var _last_mouse_angle := 0.0
+var _indicator_elapsed := 0.0
+var _scroll_offset := 0.0
+var _scroll_start_x := 0.0
+var _screen_material: ShaderMaterial
 
 
 func _init() -> void:
     module_name = "Comms In"
     add_input_port(&"power")
     add_output_port(&"data")
+
+
+func _ready() -> void:
+    super._ready()
+    _screen_material = screen.material as ShaderMaterial
+    _scroll_start_x = scrolling_text.position.x
+    frequency_dial.gui_input.connect(
+        _on_dial_gui_input.bind(frequency_pivot, frequency_dial)
+    )
+    amplitude_dial.gui_input.connect(
+        _on_dial_gui_input.bind(amplitude_pivot, amplitude_dial)
+    )
+    _set_dial_rotation(frequency_pivot, -MAX_DIAL_ANGLE)
+    _set_dial_rotation(amplitude_pivot, -MAX_DIAL_ANGLE)
+    _update_incoming_visuals(0.0)
+
+
+func _process(delta: float) -> void:
+    _update_dial_drag()
+    _update_incoming_visuals(delta)
+    _try_establish_connection()
+
+
+func _input(event: InputEvent) -> void:
+    if event.is_action_released("Grab"):
+        _dragging_pivot = null
 
 
 func play_message(message: AlienDialogueMessage) -> void:
@@ -135,6 +191,16 @@ func _begin_message(message: AlienDialogueMessage) -> bool:
         race.language
     )
     _transmission_duration = _resolve_duration(message)
+    _screen_material.set_shader_parameter(
+        "wave1_frequency",
+        clampf(_actual_frequency / MAX_SIGNAL_FREQUENCY, 0.0, 1.0)
+        * MAX_WAVE_FREQUENCY
+    )
+    _screen_material.set_shader_parameter(
+        "wave1_amplitude_px",
+        clampf(_actual_amplitude, 0.0, 1.0)
+        * MAX_WAVE_AMPLITUDE
+    )
     
     print(
         "incoming %s transmission: tune to %.2f / %.2f"
@@ -206,3 +272,123 @@ func _resolve_duration(message: AlienDialogueMessage) -> float:
 
 func _resolve_float(override_value: Variant, fallback: float) -> float:
     return fallback if override_value == null else float(override_value)
+
+
+func _on_dial_gui_input(
+    event: InputEvent,
+    pivot: Control,
+    dial: TextureRect
+) -> void:
+    var mouse_event := event as InputEventMouseButton
+    if (
+        mouse_event != null
+        and mouse_event.double_click
+        and event.is_action_pressed("Grab")
+    ):
+        _dragging_pivot = null
+        _set_dial_rotation(pivot, -MAX_DIAL_ANGLE)
+        dial.accept_event()
+        return
+    
+    if not event.is_action_pressed("Grab"):
+        return
+    
+    _dragging_pivot = pivot
+    _last_mouse_angle = _get_mouse_angle(pivot)
+    if visual != null:
+        visual.bring_to_foreground()
+    dial.accept_event()
+
+
+func _update_dial_drag() -> void:
+    if _dragging_pivot == null:
+        return
+    
+    if not Input.is_action_pressed("Grab"):
+        _dragging_pivot = null
+        return
+    
+    var mouse_angle := _get_mouse_angle(_dragging_pivot)
+    var mouse_delta := wrapf(
+        mouse_angle - _last_mouse_angle,
+        -PI,
+        PI
+    )
+    _last_mouse_angle = mouse_angle
+    _set_dial_rotation(
+        _dragging_pivot,
+        _dragging_pivot.rotation + mouse_delta
+    )
+
+
+func _set_dial_rotation(pivot: Control, value: float) -> void:
+    pivot.rotation = clampf(value, -MAX_DIAL_ANGLE, MAX_DIAL_ANGLE)
+    var normalized_value := inverse_lerp(
+        -MAX_DIAL_ANGLE,
+        MAX_DIAL_ANGLE,
+        pivot.rotation
+    )
+    
+    if pivot == frequency_pivot:
+        frequency = normalized_value
+        _screen_material.set_shader_parameter(
+            "wave2_frequency",
+            frequency * MAX_WAVE_FREQUENCY
+        )
+    else:
+        amplitude = normalized_value
+        _screen_material.set_shader_parameter(
+            "wave2_amplitude_px",
+            amplitude * MAX_WAVE_AMPLITUDE
+        )
+
+
+func _get_mouse_angle(pivot: Control) -> float:
+    var dial_parent := pivot.get_parent() as Control
+    return (
+        dial_parent.get_local_mouse_position()
+        - pivot.position
+    ).angle()
+
+
+func _try_establish_connection() -> void:
+    if current_message == null or _connection_established:
+        return
+    
+    var target_frequency := clampf(
+        _actual_frequency / MAX_SIGNAL_FREQUENCY,
+        0.0,
+        1.0
+    )
+    var target_amplitude := clampf(_actual_amplitude, 0.0, 1.0)
+    if (
+        absf(frequency - target_frequency) <= TUNING_TOLERANCE
+        and absf(amplitude - target_amplitude) <= TUNING_TOLERANCE
+    ):
+        establish_connection()
+
+
+func _update_incoming_visuals(delta: float) -> void:
+    var incoming := current_message != null
+    scrolling_text.visible = incoming
+    if not incoming:
+        incoming_light.visible = false
+        _indicator_elapsed = 0.0
+        _scroll_offset = 0.0
+        scrolling_text.position.x = _scroll_start_x
+        return
+    
+    _indicator_elapsed = fposmod(
+        _indicator_elapsed + delta,
+        INDICATOR_INTERVAL * 2.0
+    )
+    var bright := _indicator_elapsed >= INDICATOR_INTERVAL
+    incoming_light.visible = bright
+    scrolling_text.modulate = (
+        INCOMING_COLOR_B if bright else INCOMING_COLOR_A
+    )
+    _scroll_offset = fposmod(
+        _scroll_offset + INCOMING_SCROLL_SPEED * delta,
+        INCOMING_SCROLL_WRAP
+    )
+    scrolling_text.position.x = _scroll_start_x + _scroll_offset

@@ -13,6 +13,9 @@ const PAUSE_SCREEN := preload(
 const MOVEMENT_SCREEN := preload(
     "res://Scenes/MainScreen/main_screen_movement_menu.tscn"
 )
+const COMMS_SCREEN := preload(
+    "res://Scenes/MainScreen/main_screen_comms_menu.tscn"
+)
 
 @export_range(0.1, 30.0, 0.1) var boot_duration := 3.0
 @export_range(0.1, 5.0, 0.05) var transition_duration := 0.8
@@ -28,6 +31,7 @@ var _screen_before_pause: PackedScene = IDLE_SCREEN
 var _transition_overlay: ColorRect
 var _transition_material: ShaderMaterial
 var _paused_modulates: Dictionary = {}
+var _latest_comms: Dictionary = {}
 
 
 func _init() -> void:
@@ -70,26 +74,35 @@ func process_input(_port_name: StringName, data: Dictionary) -> void:
     if not data.get("power", false):
         return
     
-    if data.has("comms"):
-        _process_comms(data["comms"])
-        return
-    
-    _last_comms_output = ""
-    if Globals.ship_simulation != null:
-        Globals.ship_simulation.set_controls(data)
-    
     var connected_port := get_input_port(&"data").connected_port
     var connected_module := connected_port.get_parent() as ShipModule
-    if (
-        _boot_complete
-        and not get_tree().paused
-        and _current_screen_scene != MOVEMENT_SCREEN
-        and (
-            connected_module is ThrusterModule
-            or connected_module is RotatorModule
-        )
+    
+    if data.has("comms"):
+        _latest_comms = data["comms"].duplicate(true)
+        _process_comms(_latest_comms)
+        _update_comms_screen()
+    
+    if connected_module is ThrusterModule or connected_module is RotatorModule:
+        _last_comms_output = ""
+        if Globals.ship_simulation != null:
+            Globals.ship_simulation.set_controls(data)
+        if (
+            _boot_complete
+            and not get_tree().paused
+            and _current_screen_scene != MOVEMENT_SCREEN
+        ):
+            show_screen(MOVEMENT_SCREEN)
+    elif (
+        connected_module is CommsInModule
+        or connected_module is DecoderModule
+        or connected_module is TranslatorModule
     ):
-        show_screen(MOVEMENT_SCREEN)
+        if (
+            _boot_complete
+            and not get_tree().paused
+            and _current_screen_scene != COMMS_SCREEN
+        ):
+            show_screen(COMMS_SCREEN)
 
 
 func show_screen(screen_scene: PackedScene) -> void:
@@ -122,6 +135,7 @@ func show_screen(screen_scene: PackedScene) -> void:
 func _on_screen_connection_changed(other_port: ModulePort) -> void:
     if Globals.ship_simulation != null:
         Globals.ship_simulation.clear_controls()
+    _latest_comms.clear()
     
     if other_port == null:
         print("showing idle ui")
@@ -140,6 +154,8 @@ func _replace_screen(screen_scene: PackedScene) -> void:
     
     _current_screen = screen_scene.instantiate() as Control
     _current_screen_scene = screen_scene
+    if _current_screen is MainScreenCommsMenu:
+        (_current_screen as MainScreenCommsMenu).set_comms(_latest_comms)
     get_parent().add_child.call_deferred(_current_screen)
     _connect_screen_signals(_current_screen)
     if _transition_overlay != null:
@@ -249,3 +265,8 @@ func _process_comms(comms: Dictionary) -> void:
     
     _last_comms_output = printed_output
     print(printed_output)
+
+
+func _update_comms_screen() -> void:
+    if _current_screen is MainScreenCommsMenu:
+        (_current_screen as MainScreenCommsMenu).set_comms(_latest_comms)

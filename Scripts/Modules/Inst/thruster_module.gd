@@ -58,10 +58,7 @@ func process_input(_port_name: StringName, data: Dictionary) -> void:
 
 func _on_lever_top_gui_input(event: InputEvent) -> void:
     if _is_grab_double_click(event):
-        _lever_dragging = false
-        _set_lever_position(
-            (LEVER_TOP_Y + LEVER_BOTTOM_Y) * 0.5
-        )
+        reset_thrust()
         lever_top.accept_event()
         return
     
@@ -81,10 +78,14 @@ func _on_lever_top_gui_input(event: InputEvent) -> void:
 
 func _on_module_gui_input(event: InputEvent) -> void:
     if _is_grab_double_click(event):
-        _lever_dragging = false
-        _set_lever_position(
-            (LEVER_TOP_Y + LEVER_BOTTOM_Y) * 0.5
-        )
+        reset_thrust()
+
+
+func reset_thrust() -> void:
+    _lever_dragging = false
+    _set_lever_position(
+        (LEVER_TOP_Y + LEVER_BOTTOM_Y) * 0.5
+    )
 
 
 func _is_grab_double_click(event: InputEvent) -> bool:

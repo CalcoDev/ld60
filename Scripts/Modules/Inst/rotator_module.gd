@@ -62,8 +62,7 @@ func process_input(_port_name: StringName, data: Dictionary) -> void:
 
 func _on_dial_gui_input(event: InputEvent) -> void:
     if _is_grab_double_click(event):
-        _dial_dragging = false
-        _set_dial_rotation(0.0)
+        reset_rotation()
         dial.accept_event()
         return
     
@@ -79,8 +78,12 @@ func _on_dial_gui_input(event: InputEvent) -> void:
 
 func _on_module_gui_input(event: InputEvent) -> void:
     if _is_grab_double_click(event):
-        _dial_dragging = false
-        _set_dial_rotation(0.0)
+        reset_rotation()
+
+
+func reset_rotation() -> void:
+    _dial_dragging = false
+    _set_dial_rotation(0.0)
 
 
 func _is_grab_double_click(event: InputEvent) -> bool:
