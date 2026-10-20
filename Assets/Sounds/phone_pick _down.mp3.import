@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c2ueeke3gffd4"
+path="res://.godot/imported/phone_pick _down.mp3-f3ef5b2d4c97c8c7c6297eac859fad26.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sounds/phone_pick _down.mp3"
+dest_files=["res://.godot/imported/phone_pick _down.mp3-f3ef5b2d4c97c8c7c6297eac859fad26.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

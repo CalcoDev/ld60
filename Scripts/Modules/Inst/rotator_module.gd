@@ -4,13 +4,16 @@ extends ShipModule
 const MAX_DIAL_ANGLE := PI * 0.5
 
 @export var rotation_per_second := 0.5
+@export_range(1.0, 15.0, 0.5) var click_step_degrees := 4.0
 
 @onready var dial_pivot: Control = $"../DialPivot"
 @onready var dial: TextureRect = $"../DialPivot/Dial"
+@onready var click_sfx: AudioStreamPlayer = $ClickSfx
 
 var current_rotation := 0.0
 var _dial_dragging := false
 var _last_mouse_angle := 0.0
+var _click_angle_accumulator := 0.0
 
 
 func _init() -> void:
@@ -41,7 +44,9 @@ func _process(_delta: float) -> void:
         PI
     )
     _last_mouse_angle = mouse_angle
+    var old_rotation := dial_pivot.rotation
     _set_dial_rotation(dial_pivot.rotation + mouse_delta)
+    _play_rotation_clicks(absf(dial_pivot.rotation - old_rotation))
 
 
 func _input(event: InputEvent) -> void:
@@ -70,6 +75,7 @@ func _on_dial_gui_input(event: InputEvent) -> void:
         return
     
     _dial_dragging = true
+    _click_angle_accumulator = 0.0
     _last_mouse_angle = _get_mouse_angle()
     if visual != null:
         visual.bring_to_foreground()
@@ -83,7 +89,16 @@ func _on_module_gui_input(event: InputEvent) -> void:
 
 func reset_rotation() -> void:
     _dial_dragging = false
+    _click_angle_accumulator = 0.0
     _set_dial_rotation(0.0)
+
+
+func _play_rotation_clicks(angle_moved: float) -> void:
+    var click_step := deg_to_rad(click_step_degrees)
+    _click_angle_accumulator += angle_moved
+    while _click_angle_accumulator >= click_step:
+        _click_angle_accumulator -= click_step
+        click_sfx.play()
 
 
 func _is_grab_double_click(event: InputEvent) -> bool:

@@ -19,6 +19,7 @@ const JACK_CABLE_OFFSET := 26.0
 const JACK_DIRECTION_RESPONSE := 20.0
 const CONNECTED_JACK_DIRECTION_RESPONSE := 4.0
 const WIRE_Z_INDEX := 4090
+const STRETCH_SOUND_STEP := 20.0
 
 var output_jack_texture: Texture2D
 var input_jack_texture: Texture2D
@@ -26,6 +27,7 @@ var wire_color := Color(0.16, 0.2, 0.27)
 var wire_width := 5.0
 var tighten_below_ratio := 0.5
 var tighten_speed := 120.0
+var stretch_sfx: AudioStreamPlayer
 
 var source_area: ModulePortArea
 var target_area: ModulePortArea
@@ -42,6 +44,7 @@ var _source_socket_position := Vector2.ZERO
 var _target_socket_position := Vector2.ZERO
 var _source_jack_direction := Vector2.DOWN
 var _target_jack_direction := Vector2.DOWN
+var _stretch_sound_distance := 0.0
 
 
 func _ready() -> void:
@@ -261,7 +264,17 @@ func _update_cable_length(
     var required_length := span + CABLE_SLACK
     var cable_length := _segment_length * float(POINT_COUNT - 1)
     if required_length > cable_length:
+        _stretch_sound_distance += required_length - cable_length
         cable_length = required_length
+        if (
+            stretch_sfx != null
+            and _stretch_sound_distance >= STRETCH_SOUND_STEP
+        ):
+            _stretch_sound_distance = fmod(
+                _stretch_sound_distance,
+                STRETCH_SOUND_STEP
+            )
+            stretch_sfx.play()
     elif (
         tighten_below_ratio > 0.0
         and span / maxf(cable_length, 0.001) < tighten_below_ratio

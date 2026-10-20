@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="AlienRaceData" format=3]
+
+[ext_resource type="Script" path="res://Scripts/Dialogue/alien_race_data.gd" id="1_race"]
+[ext_resource type="FontFile" path="res://Resources/Fonts/m3x6.ttf" id="2_font"]
+
+[resource]
+script = ExtResource("1_race")
+race_id = &"purple_planet"
+display_name = "Purple Planet"
+language = 1
+default_glyph_fonts = Array[Font]([ExtResource("2_font")])
+target_frequency = 91.0
+frequency_variance = 7.0
+target_amplitude = 0.42
+amplitude_variance = 0.08
+cassette_id = &"purple"

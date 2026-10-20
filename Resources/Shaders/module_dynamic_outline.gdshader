@@ -204,6 +204,7 @@ void fragment() {
             / available_y,
             0.0, 1.0
         );
+        y_strength = 1.0 - y_strength;
 
         int sx = clamp(
             int(round(mix(

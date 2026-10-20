@@ -11,7 +11,7 @@ extends Control
     &"blue_planet": $ScreenMask/BluePlanet,
     &"red_planet": $ScreenMask/RedPlanet,
     &"purple_planet": $ScreenMask/PurplePlanet,
-    &"brown_planet": $ScreenMask/BrownPlanet,
+    &"orange_planet": $ScreenMask/BrownPlanet,
 }
 
 

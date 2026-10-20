@@ -12,6 +12,10 @@ enum HitShape {
     CIRCLE,
 }
 
+@export var enabled := true:
+    set(value):
+        enabled = value
+        queue_redraw()
 @export var mode := Mode.ALLOW:
     set(value):
         mode = value
@@ -36,7 +40,7 @@ func _notification(what: int) -> void:
 
 
 func _draw() -> void:
-    if not Engine.is_editor_hint():
+    if not Engine.is_editor_hint() or not enabled:
         return
     
     var color := (
@@ -70,6 +74,9 @@ func _draw() -> void:
 
 
 func _has_point(point: Vector2) -> bool:
+    if not enabled:
+        return false
+    
     if hit_shape == HitShape.CIRCLE:
         var radius := minf(size.x, size.y) * 0.5
         return point.distance_squared_to(size * 0.5) <= radius * radius

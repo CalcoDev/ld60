@@ -26,6 +26,7 @@ const Z_INDEX_STEP := 2
 var _press_pending := false
 var _dragging := false
 var _foreground := false
+var _force_lit := false
 var _press_mouse_position := Vector2.ZERO
 var _drag_offset := Vector2.ZERO
 var _desired_position := Vector2.ZERO
@@ -37,12 +38,23 @@ var _effect_velocity := Vector2.ZERO
 var shader_grab_uv := Vector2(0.5, 0.5)
 var shader_skew := Vector2.ZERO
 var shader_perspective := Vector2.ZERO
+var _slide_sfx: AudioStreamPlayer
+var _slide_click_sfx: AudioStreamPlayer
+var _owns_slide_sfx := false
+var _slide_click_distance := 0.0
 
 
 func _ready() -> void:
     super._ready()
     _reference_position = global_position
     if not Engine.is_editor_hint():
+        modulate = Color.WHITE if powered else unpowered_modulate
+        _slide_sfx = get_tree().get_first_node_in_group(
+            &"module_slide_sfx"
+        ) as AudioStreamPlayer
+        _slide_click_sfx = get_tree().get_first_node_in_group(
+            &"module_slide_click_sfx"
+        ) as AudioStreamPlayer
         _reference_position = _clamp_grid_to_viewport(
             global_position.snapped(Vector2.ONE * _grid_step())
         )
@@ -97,6 +109,10 @@ func _gui_input(event: InputEvent) -> void:
 
 func set_powered(value: bool) -> void:
     powered = value
+
+
+func set_force_lit(value: bool) -> void:
+    _force_lit = value
 
 
 func bring_to_foreground() -> void:
@@ -163,7 +179,7 @@ func _update_appearance(delta: float) -> void:
     )
     var target := (
         Color.WHITE
-        if powered or hovered
+        if powered or hovered or _force_lit
         else unpowered_modulate
     )
     var weight := 1.0 - exp(-appearance_speed * delta)
@@ -184,6 +200,7 @@ func _update_drag(delta: float) -> void:
     ):
         _press_pending = false
         _dragging = true
+        _slide_click_distance = 0.0
     elif _press_pending:
         _last_mouse_position = mouse_position
     
@@ -197,6 +214,7 @@ func _update_drag(delta: float) -> void:
             mouse_position - _drag_offset
         )
     
+    _update_slide_sfx(delta)
     _update_positions(delta)
 
 
@@ -241,6 +259,44 @@ func _end_drag() -> void:
     _press_pending = false
     _dragging = false
     _drag_velocity = Vector2.ZERO
+    _slide_click_distance = 0.0
+    if _owns_slide_sfx:
+        _slide_sfx.stop()
+        _owns_slide_sfx = false
+
+
+func _update_slide_sfx(delta: float) -> void:
+    if _slide_sfx == null:
+        return
+    
+    var speed_ratio := clampf(
+        _drag_velocity.length() / maxf(effect_velocity_for_max, 1.0),
+        0.0,
+        1.0
+    )
+    if not _dragging or speed_ratio < 0.02:
+        if _owns_slide_sfx:
+            _slide_sfx.stop()
+            _owns_slide_sfx = false
+        return
+    
+    _owns_slide_sfx = true
+    _slide_sfx.volume_db = lerpf(0.0, 8.0, speed_ratio)
+    _slide_sfx.pitch_scale = lerpf(0.65, 0.9, speed_ratio)
+    if not _slide_sfx.playing:
+        _slide_sfx.play()
+    
+    if _slide_click_sfx == null:
+        return
+    
+    _slide_click_distance += _drag_velocity.length() * delta
+    if _slide_click_distance < 24.0:
+        return
+    
+    _slide_click_distance = fmod(_slide_click_distance, 24.0)
+    _slide_click_sfx.volume_db = lerpf(-20.0, -12.0, speed_ratio)
+    _slide_click_sfx.pitch_scale = lerpf(0.5, 0.72, speed_ratio)
+    _slide_click_sfx.play()
 
 
 func _update_positions(delta: float) -> void:

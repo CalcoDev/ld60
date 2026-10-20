@@ -8,12 +8,15 @@ const MAX_DIAL_ANGLE := PI * 0.5
 const MAX_SIGNAL_FREQUENCY := 200.0
 const MAX_WAVE_FREQUENCY := 4.5
 const MAX_WAVE_AMPLITUDE := 15.0
-const TUNING_TOLERANCE := 0.04
+const SYNTH_MIN_FREQUENCY := 130.81
+const SYNTH_MAX_FREQUENCY := 523.25
+const TUNING_TOLERANCE := 0.1
 const INDICATOR_INTERVAL := 0.33
 const INCOMING_SCROLL_SPEED := 10.0
 const INCOMING_SCROLL_WRAP := 44.0
-const INCOMING_COLOR_A := Color(0.6588, 0.7098, 0.6980)
-const INCOMING_COLOR_B := Color(0.9216, 0.9294, 0.9137)
+const INCOMING_COLOR := Color(0.9216, 0.9294, 0.9137)
+
+@export_range(4.0, 30.0, 1.0) var click_step_degrees := 12.0
 
 @onready var screen: TextureRect = $"../Screen"
 @onready var frequency_pivot: Control = $"../DialFreq/Pivot"
@@ -26,29 +29,37 @@ const INCOMING_COLOR_B := Color(0.9216, 0.9294, 0.9137)
 )
 @onready var incoming_light: TextureRect = $"../LightOn"
 @onready var scrolling_text: Control = $"../TextBackground/ScrollingText"
+@onready var click_sfx: AudioStreamPlayer = $ClickSfx
+@onready var synth_player: AudioStreamPlayer = $SynthPlayer
+@onready var incoming_sfx: AudioStreamPlayer = $IncomingSfx
 
 var current_message: AlienDialogueMessage
 var frequency := 0.0
 var amplitude := 0.0
 
-var _waiting_elapsed := 0.0
 var _transmission_elapsed := 0.0
-var _connection_buffer := 0.0
 var _transmission_duration := 1.0
 var _receive_start_ratio := 1.0
 var _actual_frequency := 0.0
 var _actual_amplitude := 0.0
 var _signal_text := ""
+var _latched_comms: Dictionary = {}
 var _transmitting := false
 var _connection_established := false
 var _resolved_fonts: Array[Font] = []
 var _resolved_voices: Array[AudioStream] = []
 var _dragging_pivot: Control
 var _last_mouse_angle := 0.0
+var _click_angle_accumulator := 0.0
 var _indicator_elapsed := 0.0
 var _scroll_offset := 0.0
 var _scroll_start_x := 0.0
 var _screen_material: ShaderMaterial
+var _synth_playback: AudioStreamGeneratorPlayback
+var _synth_mix_rate := 22050.0
+var _synth_phase := 0.0
+var _synth_frequency := 261.63
+var _synth_amplitude := 0.0
 
 
 func _init() -> void:
@@ -69,12 +80,20 @@ func _ready() -> void:
     )
     _set_dial_rotation(frequency_pivot, frequency_pivot.rotation)
     _set_dial_rotation(amplitude_pivot, amplitude_pivot.rotation)
+    var generator := synth_player.stream as AudioStreamGenerator
+    _synth_mix_rate = generator.mix_rate
+    synth_player.play()
+    _synth_playback = (
+        synth_player.get_stream_playback()
+        as AudioStreamGeneratorPlayback
+    )
 
 
 func _process(delta: float) -> void:
     _update_dial_drag()
     _update_incoming_visuals(delta)
     _try_establish_connection()
+    _fill_synth_buffer()
 
 
 func _input(event: InputEvent) -> void:
@@ -92,6 +111,8 @@ func establish_connection() -> void:
     if current_message == null or _connection_established:
         return
     _connection_established = true
+    visual.set_force_lit(false)
+    incoming_sfx.stop()
     
     if _transmitting:
         _receive_start_ratio = _get_transmission_progress()
@@ -108,17 +129,19 @@ func establish_connection() -> void:
 func process_input(_port_name: StringName, data: Dictionary) -> void:
     var output_data := data.duplicate(true)
     
-    if current_message == null or not data.get("power", false):
+    if not data.get("power", false):
+        send_data(&"data", output_data)
+        return
+    
+    if current_message == null:
+        if not _latched_comms.is_empty():
+            output_data["comms"] = _latched_comms.duplicate(true)
         send_data(&"data", output_data)
         return
     
     var delta := float(data.get("delta", 0.0))
     
-    if not _transmitting:
-        _waiting_elapsed += delta
-        if _waiting_elapsed >= _connection_buffer:
-            _start_transmission()
-    else:
+    if _transmitting:
         _transmission_elapsed += delta
     
     if _connection_established:
@@ -127,6 +150,7 @@ func process_input(_port_name: StringName, data: Dictionary) -> void:
     if _get_transmission_progress() >= 1.0:
         if _connection_established:
             print("[received] %s" % output_data["comms"]["display_text"])
+            _latched_comms = output_data["comms"].duplicate(true)
         else:
             print("[received] missed entire transmission")
         
@@ -143,11 +167,14 @@ func _begin_message(message: AlienDialogueMessage) -> bool:
         return false
     
     current_message = message
-    _waiting_elapsed = 0.0
+    _latched_comms.clear()
     _transmission_elapsed = 0.0
     _transmitting = false
     _connection_established = false
     _receive_start_ratio = 1.0
+    _indicator_elapsed = INDICATOR_INTERVAL
+    visual.set_force_lit(true)
+    incoming_sfx.play()
     
     var race := message.race
     var seed_value := hash(message.message_id)
@@ -170,10 +197,6 @@ func _begin_message(message: AlienDialogueMessage) -> bool:
     _actual_amplitude = target_amplitude + random.randf_range(
         -race.amplitude_variance,
         race.amplitude_variance
-    )
-    _connection_buffer = _resolve_float(
-        message.connection_buffer_override,
-        race.default_connection_buffer
     )
     _resolved_fonts = (
         message.glyph_fonts_override.duplicate()
@@ -220,6 +243,8 @@ func _start_transmission() -> void:
 func _finish_message() -> void:
     current_message = null
     _transmitting = false
+    visual.set_force_lit(false)
+    incoming_sfx.stop()
     transmission_finished.emit()
 
 
@@ -285,7 +310,8 @@ func _on_dial_gui_input(
         and event.is_action_pressed("Grab")
     ):
         _dragging_pivot = null
-        _set_dial_rotation(pivot, -MAX_DIAL_ANGLE)
+        _click_angle_accumulator = 0.0
+        _set_dial_rotation(pivot, 0.0)
         dial.accept_event()
         return
     
@@ -293,6 +319,7 @@ func _on_dial_gui_input(
         return
     
     _dragging_pivot = pivot
+    _click_angle_accumulator = 0.0
     _last_mouse_angle = _get_mouse_angle(pivot)
     if visual != null:
         visual.bring_to_foreground()
@@ -314,10 +341,54 @@ func _update_dial_drag() -> void:
         PI
     )
     _last_mouse_angle = mouse_angle
+    var old_rotation := _dragging_pivot.rotation
     _set_dial_rotation(
         _dragging_pivot,
         _dragging_pivot.rotation + mouse_delta
     )
+    _play_dial_clicks(absf(_dragging_pivot.rotation - old_rotation))
+
+
+func _play_dial_clicks(angle_moved: float) -> void:
+    var click_step := deg_to_rad(click_step_degrees)
+    _click_angle_accumulator += angle_moved
+    while _click_angle_accumulator >= click_step:
+        _click_angle_accumulator -= click_step
+        click_sfx.play()
+
+
+func _fill_synth_buffer() -> void:
+    if _synth_playback == null:
+        return
+    
+    var target_frequency := (
+        SYNTH_MIN_FREQUENCY
+        * pow(
+            SYNTH_MAX_FREQUENCY / SYNTH_MIN_FREQUENCY,
+            frequency
+        )
+    )
+    var target_amplitude := amplitude
+    var frequency_weight := 1.0 - exp(-20.0 / _synth_mix_rate)
+    var amplitude_weight := 1.0 - exp(-30.0 / _synth_mix_rate)
+    var frames_available := _synth_playback.get_frames_available()
+    for _frame: int in range(frames_available):
+        _synth_frequency = lerpf(
+            _synth_frequency,
+            target_frequency,
+            frequency_weight
+        )
+        _synth_amplitude = lerpf(
+            _synth_amplitude,
+            target_amplitude,
+            amplitude_weight
+        )
+        var sample := sin(_synth_phase * TAU) * _synth_amplitude
+        _synth_playback.push_frame(Vector2(sample, sample))
+        _synth_phase = fposmod(
+            _synth_phase + _synth_frequency / _synth_mix_rate,
+            1.0
+        )
 
 
 func _set_dial_rotation(pivot: Control, value: float) -> void:
@@ -354,6 +425,10 @@ func _try_establish_connection() -> void:
     if current_message == null or _connection_established:
         return
     
+    var power_data: Dictionary = input_data.get(&"power", {})
+    if not power_data.get("power", false):
+        return
+    
     var target_frequency := clampf(
         _actual_frequency / MAX_SIGNAL_FREQUENCY,
         0.0,
@@ -368,10 +443,10 @@ func _try_establish_connection() -> void:
 
 
 func _update_incoming_visuals(delta: float) -> void:
-    var incoming := current_message != null
-    scrolling_text.visible = incoming
+    var incoming := current_message != null and not _connection_established
     if not incoming:
         incoming_light.visible = false
+        scrolling_text.visible = false
         _indicator_elapsed = 0.0
         _scroll_offset = 0.0
         scrolling_text.position.x = _scroll_start_x
@@ -383,9 +458,8 @@ func _update_incoming_visuals(delta: float) -> void:
     )
     var bright := _indicator_elapsed >= INDICATOR_INTERVAL
     incoming_light.visible = bright
-    scrolling_text.modulate = (
-        INCOMING_COLOR_B if bright else INCOMING_COLOR_A
-    )
+    scrolling_text.visible = bright
+    scrolling_text.modulate = INCOMING_COLOR
     _scroll_offset = fposmod(
         _scroll_offset + INCOMING_SCROLL_SPEED * delta,
         INCOMING_SCROLL_WRAP

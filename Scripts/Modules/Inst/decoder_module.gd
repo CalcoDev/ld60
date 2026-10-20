@@ -20,13 +20,17 @@ const IMPACT_FADED_COLOR := Color(1.0, 0.7137, 0.0, 0.4)
 const FAILED_LEFT_COLOR := Color("#7a367b")
 const FAILED_RIGHT_COLOR := Color("#3c5e8b")
 
-const DEMO_BINARY_DATA := """bpm 120 / steps 2
+const GLEEP_GLORP_BINARY_DATA := """bpm 100 / steps 2
 
 L . R . L R LR .
-L . . R L:8 . R .
-R L R L LR . . .
-L:20 . . . R . R .
+R . L:4 . R . L .
+L R . LR . R L . .
+L:4 . R . LR . R .
+R L . . L R . LR
+LR . L . R:4 . L .
 """
+
+@export var note_sounds: Array[AudioStream] = []
 
 @onready var screen: TextureRect = $"../Screen"
 @onready var left_notes: Control = $"../Screen/LeftNotes"
@@ -45,6 +49,10 @@ L:20 . . . R . R .
 @onready var z_button_pressed: TextureRect = $"../ZButtonPressed"
 @onready var x_button: TextureRect = $"../XButton"
 @onready var x_button_pressed: TextureRect = $"../XButtonPressed"
+@onready var button_sfx: AudioStreamPlayer = $ButtonSfx
+@onready var left_note_sfx: AudioStreamPlayer = $LeftNoteSfx
+@onready var right_note_sfx: AudioStreamPlayer = $RightNoteSfx
+@onready var miss_sfx: AudioStreamPlayer = $MissSfx
 
 var bpm := 120.0
 var steps_per_beat := 2
@@ -61,6 +69,7 @@ var _key_held := [false, false]
 var _lane_held := [false, false]
 var _active_hold_notes: Array = [null, null]
 var _active_impact_notes: Array = [null, null]
+var _note_sfx_holding := [false, false]
 var _impact_elapsed := [0.0, 0.0]
 var _step_duration := 0.25
 var _note_speed := 12.0
@@ -88,7 +97,6 @@ func _ready() -> void:
     right_impact.material = right_impact.material.duplicate()
     z_button.gui_input.connect(_on_button_gui_input.bind(LEFT))
     x_button.gui_input.connect(_on_button_gui_input.bind(RIGHT))
-    play_binary_data(DEMO_BINARY_DATA)
 
 
 func _process(delta: float) -> void:
@@ -163,7 +171,7 @@ func process_input(_port_name: StringName, data: Dictionary) -> void:
     var message_id: StringName = comms["message_id"]
     if message_id != _chart_message_id:
         _chart_message_id = message_id
-        play_binary_data(DEMO_BINARY_DATA)
+        play_binary_data(GLEEP_GLORP_BINARY_DATA)
     
     var signal_text: String = comms["signal_text"]
     var receive_start := float(comms["receive_start_ratio"])
@@ -340,6 +348,7 @@ func _update_holds() -> void:
         if int(note["units_awarded"]) >= duration_steps:
             note["state"] = &"complete"
             _active_hold_notes[lane] = null
+            _stop_note_sfx(lane)
 
 
 func _update_impacts(delta: float) -> void:
@@ -399,6 +408,7 @@ func _try_hit(lane: int) -> void:
         _active_hold_notes[lane] = closest_note
     else:
         closest_note["state"] = &"complete"
+    _play_note_sfx(lane, int(closest_note["duration_steps"]) > 1)
     _start_impact(lane, closest_note)
 
 
@@ -435,6 +445,7 @@ func _drop_hold(note: Dictionary) -> void:
             if note["lane"] == LEFT
             else FAILED_RIGHT_COLOR
         )
+    _stop_note_sfx(int(note["lane"]))
     _register_miss(note)
     _update_accuracy()
 
@@ -445,6 +456,7 @@ func _register_miss(note: Dictionary) -> void:
     
     note["miss_reported"] = true
     misses += 1
+    miss_sfx.play()
     var lane_name: StringName = &"left" if note["lane"] == LEFT else &"right"
     missed_notes.append({
         "step": note["step"],
@@ -485,12 +497,34 @@ func _refresh_lane_held(lane: int) -> void:
     _set_physical_button(lane, held)
     _set_screen_button(lane, held)
     if held:
+        button_sfx.play()
         _try_hit(lane)
     else:
         var hold_note = _active_hold_notes[lane]
         if hold_note != null:
             _drop_hold(hold_note)
+        elif _note_sfx_holding[lane]:
+            _stop_note_sfx(lane)
         _end_impact(lane)
+
+
+func _play_note_sfx(lane: int, looping: bool) -> void:
+    if note_sounds.is_empty():
+        return
+    
+    var stream := note_sounds.pick_random().duplicate() as AudioStream
+    if stream is AudioStreamMP3:
+        (stream as AudioStreamMP3).loop = looping
+    
+    var player := _note_sfx(lane)
+    player.stream = stream
+    player.play()
+    _note_sfx_holding[lane] = looping
+
+
+func _stop_note_sfx(lane: int) -> void:
+    _note_sfx(lane).stop()
+    _note_sfx_holding[lane] = false
 
 
 func _start_impact(lane: int, note: Dictionary) -> void:
@@ -557,6 +591,8 @@ func _clear_chart() -> void:
     _notes.clear()
     _active_hold_notes = [null, null]
     _active_impact_notes = [null, null]
+    _stop_note_sfx(LEFT)
+    _stop_note_sfx(RIGHT)
     _impact_elapsed = [0.0, 0.0]
     _chart_end_time = 0.0
     _earned_score_units = 0
@@ -618,6 +654,10 @@ func _impact_material(lane: int) -> ShaderMaterial:
 
 func _note_parent(lane: int) -> Control:
     return left_notes if lane == LEFT else right_notes
+
+
+func _note_sfx(lane: int) -> AudioStreamPlayer:
+    return left_note_sfx if lane == LEFT else right_note_sfx
 
 
 func _decode_text(

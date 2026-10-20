@@ -13,6 +13,9 @@ signal page_pressed(page_name: String)
 var _image: Image
 var _rest_position := Vector2.ZERO
 var _hover_tween: Tween
+var _hovered := false
+
+@onready var movement_sfx: AudioStreamPlayer = $"../FolderSfx"
 
 
 func _ready() -> void:
@@ -63,6 +66,11 @@ func _is_opaque_at(point: Vector2) -> bool:
 
 
 func _set_hovered(hovered: bool) -> void:
+    if hovered == _hovered:
+        return
+    
+    _hovered = hovered
+    movement_sfx.play()
     if _hover_tween != null:
         _hover_tween.kill()
     

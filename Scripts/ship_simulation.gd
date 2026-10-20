@@ -2,9 +2,12 @@ class_name ShipSimulation
 extends Node
 
 signal object_reached(object_id: StringName)
+signal object_left(object_id: StringName)
+signal map_edge_reached(side: StringName)
 
 const GRID_SIZE := Vector2i(8, 8)
 const ROW_NAMES := "ABCDEFGH"
+const EDGE_THRESHOLD := 1.0
 
 @export var tile_size := 128.0
 @export var player_speed := 16.0
@@ -17,12 +20,15 @@ var objects := {
     &"blue_planet": {"cell": &"D0"},
     &"red_planet": {"cell": &"F1"},
     &"purple_planet": {"cell": &"C7"},
-    &"brown_planet": {"cell": &"G6"},
+    &"orange_planet": {"cell": &"G6"},
 }
 
 var _thrust_input := 0.0
 var _rotation_input := 0.0
-var _blue_planet_reached := false
+var _reached_objects: Dictionary[StringName, bool] = {}
+var _nearby_objects: Dictionary[StringName, bool] = {}
+var _left_objects: Dictionary[StringName, bool] = {}
+var _reached_edges: Dictionary[StringName, bool] = {}
 
 
 func _ready() -> void:
@@ -36,14 +42,49 @@ func _exit_tree() -> void:
 
 
 func _process(_delta: float) -> void:
+    for object_id: StringName in objects:
+        var is_near := get_distance_to_object(object_id) <= tile_size
+        var was_near: bool = _nearby_objects.get(object_id, false)
+        if is_near:
+            _nearby_objects[object_id] = true
+            if not _reached_objects.has(object_id):
+                _reached_objects[object_id] = true
+                clear_controls()
+                player_velocity = 0.0
+                object_reached.emit(object_id)
+        elif was_near:
+            _nearby_objects.erase(object_id)
+            if not _left_objects.has(object_id):
+                _left_objects[object_id] = true
+                object_left.emit(object_id)
+    
+    _check_map_edge()
+
+
+func _check_map_edge() -> void:
+    var map_size := get_map_size()
+    var distances := {
+        &"left": player_position.x,
+        &"right": map_size.x - player_position.x,
+        &"top": player_position.y,
+        &"bottom": map_size.y - player_position.y,
+    }
+    var closest_side: StringName
+    var closest_distance := INF
+    for side: StringName in distances:
+        var distance: float = distances[side]
+        if distance < closest_distance:
+            closest_distance = distance
+            closest_side = side
+    
     if (
-        not _blue_planet_reached
-        and get_distance_to_object(&"blue_planet") < tile_size
+        closest_distance <= EDGE_THRESHOLD
+        and not _reached_edges.has(closest_side)
     ):
-        _blue_planet_reached = true
+        _reached_edges[closest_side] = true
         clear_controls()
         player_velocity = 0.0
-        object_reached.emit(&"blue_planet")
+        map_edge_reached.emit(closest_side)
 
 
 func _physics_process(delta: float) -> void:
@@ -91,6 +132,10 @@ func get_object_position(object_id: StringName) -> Vector2:
 
 func get_distance_to_object(object_id: StringName) -> float:
     return player_position.distance_to(get_object_position(object_id))
+
+
+func has_discovered_object(object_id: StringName) -> bool:
+    return _reached_objects.has(object_id)
 
 
 func cell_to_position(cell_name: StringName) -> Vector2:

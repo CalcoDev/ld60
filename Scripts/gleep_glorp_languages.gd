@@ -8,7 +8,12 @@ enum Language {
     ARROWS
 }
 
-const CONSONANTS = "qzxvkrtnmpshdfgj"
+const CONSONANTS = [
+    "q", "ž", "x", "v",
+    "ķ", "ŕ", "ţ", "ñ",
+    "ɱ", "þ", "š", "ħ",
+    "ð", "ƒ", "ǧ", "ĵ",
+]
 const ARROWS = "^><"
 
 const SYLLABLES = [
@@ -53,8 +58,8 @@ static func _group(text: String, size: int) -> String:
 static func _consonant(data: PackedByteArray) -> String:
     var result := ""
     for b in data:
-        result += CONSONANTS.substr(b >> 4, 1)
-        result += CONSONANTS.substr(b & 15, 1)
+        result += CONSONANTS[b >> 4]
+        result += CONSONANTS[b & 15]
     return _group(result, 12)
 
 

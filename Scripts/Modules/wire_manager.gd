@@ -12,6 +12,11 @@ extends Node2D
 @export_range(0.0, 1.0, 0.05) var tighten_below_ratio := 0.5
 @export var tighten_speed := 120.0
 
+@onready var plug_sfx: AudioStreamPlayer = $PlugSfx
+@onready var unplug_sfx: AudioStreamPlayer = $UnplugSfx
+@onready var wire_drop_sfx: AudioStreamPlayer = $WireDropSfx
+@onready var wire_stretch_sfx: AudioStreamPlayer = $WireStretchSfx
+
 var _active_wire: ModuleWire
 
 
@@ -39,6 +44,7 @@ func begin_wire(port_area: ModulePortArea) -> void:
             return
         connected_wire.pick_up(port_area)
         port_area.module_port.disconnect_port()
+        unplug_sfx.play()
         _active_wire = connected_wire
         return
     
@@ -49,8 +55,10 @@ func begin_wire(port_area: ModulePortArea) -> void:
     wire.wire_width = wire_width
     wire.tighten_below_ratio = tighten_below_ratio
     wire.tighten_speed = tighten_speed
+    wire.stretch_sfx = wire_stretch_sfx
     add_child(wire)
     wire.begin_drag(port_area)
+    plug_sfx.play()
     _active_wire = wire
 
 
@@ -61,7 +69,11 @@ func _finish_active_wire() -> void:
         _active_wire.source_area.module_port.connect_port(
             _active_wire.target_area.module_port
         )
+        plug_sfx.play()
     else:
+        if _active_wire.get_anchored_area() != null:
+            unplug_sfx.play()
+        wire_drop_sfx.play()
         _active_wire.drop()
     
     _active_wire = null

@@ -19,10 +19,16 @@ const COMMS_SCREEN := preload(
 const CLICKER_SCREEN := preload(
     "res://Scenes/MainScreen/main_screen_clicker_menu.tscn"
 )
+const PAUSE_OVERLAY_Z_INDEX := 10000
+const PAUSE_MAIN_SCREEN_Z_INDEX := 10001
 
 @export_range(0.1, 30.0, 0.1) var boot_duration := 3.0
 @export_range(0.1, 5.0, 0.05) var transition_duration := 0.8
 @export_range(0.0, 5.0, 0.05) var pause_fade_duration := 0.3
+
+@onready var button_sfx: AudioStreamPlayer = $ButtonSfx
+@onready var crt_transition_sfx: AudioStreamPlayer = $CrtTransitionSfx
+@onready var pause_overlay: ColorRect = $"../../../PauseOverlay"
 
 var _last_comms_output := ""
 var _boot_complete := false
@@ -35,6 +41,7 @@ var _transition_overlay: ColorRect
 var _transition_material: ShaderMaterial
 var _paused_modulates: Dictionary = {}
 var _latest_comms: Dictionary = {}
+var _main_screen_z_before_pause := 0
 
 
 func _init() -> void:
@@ -57,6 +64,8 @@ func _ready() -> void:
         "CrtTransition"
     ) as ColorRect
     _transition_material = _transition_overlay.material as ShaderMaterial
+    if crt_transition_sfx.stream != null:
+        transition_duration = crt_transition_sfx.stream.get_length()
 
 
 func _physics_process(delta: float) -> void:
@@ -123,6 +132,7 @@ func show_screen(screen_scene: PackedScene) -> void:
     _transition_overlay.visible = true
     _transition_overlay.move_to_front()
     _set_transition_progress(0.0)
+    crt_transition_sfx.play()
     
     var tween := create_tween()
     tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
@@ -173,6 +183,9 @@ func _replace_screen(screen_scene: PackedScene) -> void:
 
 
 func _connect_screen_signals(screen: Control) -> void:
+    for child: Node in screen.find_children("*", "BaseButton", true, false):
+        (child as BaseButton).pressed.connect(button_sfx.play)
+    
     if screen is MainScreenBootMenu:
         var boot_screen := screen as MainScreenBootMenu
         boot_screen.boot_duration = boot_duration
@@ -214,6 +227,11 @@ func _resume_game() -> void:
 
 func _dim_other_modules() -> void:
     _paused_modulates.clear()
+    _main_screen_z_before_pause = visual.z_index
+    visual.z_index = PAUSE_MAIN_SCREEN_Z_INDEX
+    pause_overlay.z_index = PAUSE_OVERLAY_Z_INDEX
+    pause_overlay.modulate.a = 0.0
+    pause_overlay.visible = true
     var boxes := get_parent().get_parent()
     for child: Node in boxes.get_children():
         if child is ModuleVisual and child != get_parent():
@@ -222,6 +240,12 @@ func _dim_other_modules() -> void:
     var tween := create_tween()
     tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
     tween.set_parallel(true)
+    tween.tween_property(
+        pause_overlay,
+        "modulate:a",
+        1.0,
+        pause_fade_duration
+    )
     for item: ModuleVisual in _paused_modulates:
         tween.tween_property(
             item,
@@ -236,6 +260,12 @@ func _restore_other_modules() -> void:
     tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
     tween.set_parallel(true)
     tween.tween_interval(maxf(transition_duration, pause_fade_duration))
+    tween.tween_property(
+        pause_overlay,
+        "modulate:a",
+        0.0,
+        pause_fade_duration
+    )
     for item: ModuleVisual in _paused_modulates:
         if is_instance_valid(item):
             tween.tween_property(
@@ -248,6 +278,8 @@ func _restore_other_modules() -> void:
 
 
 func _finish_resume() -> void:
+    pause_overlay.visible = false
+    visual.z_index = _main_screen_z_before_pause
     _paused_modulates.clear()
     _resuming = false
     get_tree().paused = false

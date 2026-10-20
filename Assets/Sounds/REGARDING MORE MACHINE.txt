@@ -1,0 +1,6 @@
+bro we stupid its just sine waves. depends on how realistic u want
+but if code easy just make it on long press sustain sine and short short since lmfao 
+https://www.youtube.com/watch?v=BESIG0HRGF4
+
+ive provided sine_beep files tho. use them for easier i guess. depends on how u implement that morse machine tapping mechanic
+layer the sine sounds with the wood clicks aswell

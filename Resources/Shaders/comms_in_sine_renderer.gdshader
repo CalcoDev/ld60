@@ -67,6 +67,6 @@ void fragment() {
         color = mix(color, wave2_color.rgb, line2);
         color = mix(color, wave1_color.rgb, line1);
 
-        COLOR = vec4(color, tex.a);
+        COLOR = vec4(color, tex.a) * COLOR;
     }
 }

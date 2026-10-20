@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dsxcbb8bb4kyg"
+path="res://.godot/imported/Monitor static test.mp3-a16020da80e1e5e486035bbe956aadcb.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sounds/Monitor static test.mp3"
+dest_files=["res://.godot/imported/Monitor static test.mp3-a16020da80e1e5e486035bbe956aadcb.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

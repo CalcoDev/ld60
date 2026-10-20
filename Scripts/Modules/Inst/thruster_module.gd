@@ -5,13 +5,16 @@ const LEVER_TOP_Y := 23.0
 const LEVER_BOTTOM_Y := 88.0
 
 @export var thrust_per_second := 4.0
+@export_range(2.0, 20.0, 1.0) var click_step_pixels := 8.0
 
 @onready var lever_top: TextureRect = $"../LeverTop"
 @onready var lever_arm_pivot: Control = $"../LeverArmPivot"
+@onready var click_sfx: AudioStreamPlayer = $ClickSfx
 
 var current_thrust := 0.0
 var _lever_dragging := false
 var _lever_drag_offset_y := 0.0
+var _click_distance_accumulator := 0.0
 
 
 func _init() -> void:
@@ -36,15 +39,18 @@ func _process(_delta: float) -> void:
         return
     
     var lever_parent := lever_top.get_parent() as Control
+    var old_y := lever_top.position.y
     _set_lever_position(
         lever_parent.get_local_mouse_position().y
         - _lever_drag_offset_y
     )
+    _play_lever_clicks(absf(lever_top.position.y - old_y))
 
 
 func _input(event: InputEvent) -> void:
     if event.is_action_released("Grab"):
         _lever_dragging = false
+        _click_distance_accumulator = 0.0
 
 
 func process_input(_port_name: StringName, data: Dictionary) -> void:
@@ -67,6 +73,7 @@ func _on_lever_top_gui_input(event: InputEvent) -> void:
     
     var lever_parent := lever_top.get_parent() as Control
     _lever_dragging = true
+    _click_distance_accumulator = 0.0
     _lever_drag_offset_y = (
         lever_parent.get_local_mouse_position().y
         - lever_top.position.y
@@ -83,6 +90,7 @@ func _on_module_gui_input(event: InputEvent) -> void:
 
 func reset_thrust() -> void:
     _lever_dragging = false
+    _click_distance_accumulator = 0.0
     _set_lever_position(
         (LEVER_TOP_Y + LEVER_BOTTOM_Y) * 0.5
     )
@@ -110,3 +118,10 @@ func _set_lever_position(value: float) -> void:
     )
     current_thrust = lerpf(1.0, -1.0, travel)
     lever_arm_pivot.scale.y = current_thrust
+
+
+func _play_lever_clicks(distance_moved: float) -> void:
+    _click_distance_accumulator += distance_moved
+    while _click_distance_accumulator >= click_step_pixels:
+        _click_distance_accumulator -= click_step_pixels
+        click_sfx.play()

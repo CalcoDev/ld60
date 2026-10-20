@@ -4,6 +4,7 @@ extends ShipModule
 @export var pressed_texture: Texture2D
 
 @onready var tap_area: Control = $"../TapArea"
+@onready var tap_sfx: AudioStreamPlayer = $TapSfx
 
 var _normal_texture: Texture2D
 var _pressed := false
@@ -38,4 +39,5 @@ func _on_tap_area_gui_input(event: InputEvent) -> void:
     _pressed = true
     visual.texture = pressed_texture
     visual.bring_to_foreground()
+    tap_sfx.play()
     tap_area.accept_event()

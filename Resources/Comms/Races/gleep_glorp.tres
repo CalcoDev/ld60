@@ -7,9 +7,8 @@
 script = ExtResource("1_race")
 race_id = &"gleep_glorp"
 display_name = "Gleep Glorp"
-language = 4
 default_glyph_fonts = Array[Font]([ExtResource("2_font")])
 target_frequency = 142.0
 frequency_variance = 8.0
 target_amplitude = 0.65
-cassette_id = &"gleep_glorp"
+cassette_id = &"blue"
